@@ -3,8 +3,13 @@ Project done for the Machine Learning Operations course 02476 at DTU. Group comp
 
 ## Description
 
-## Framework
+## Framework - Afonso
+Hugging Face
 
 ## Dataset
 
+https://www.kaggle.com/datasets/carlosgdcj/genius-song-lyrics-with-language-information
+
 ## Model
+
+distilbert/distilbert-base-multilingual-cased
