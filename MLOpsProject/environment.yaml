@@ -16,6 +16,7 @@ dependencies:
     - mkdocs==1.5.3
     - mkdocs-material==9.4.6
     - mkdocstrings-python==1.12.2
+    - dvc==2.8.3
   - pytorch
   - torchvision
   - torchaudio
