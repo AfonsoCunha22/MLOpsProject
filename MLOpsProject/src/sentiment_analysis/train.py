@@ -8,6 +8,8 @@ import typer
 from typing import Optional
 from model import SentimentModel
 from data import load_datasets
+from torch.utils.data import Subset
+
 
 app = typer.Typer(help="CLI for training the sentiment model.")
 
@@ -35,14 +37,15 @@ def train(
     # Load datasets
     train_dataset, test_dataset = load_datasets(processed_dir)
 
-    # Create data loaders
+
+    # # Create data loaders
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    # test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     # Initialize model
     model = SentimentModel(model_name=model_name, num_labels=num_labels)
-    model.train()
-    model.cuda()  # Move model to GPU if available
+    device = torch.device("mps")  # 'cpu' or optionally "mps" on Apple Silicon
+    model.to(device) 
 
     # Set up optimizer and loss function
     optimizer = optim.AdamW(model.parameters(), lr=lr)
@@ -52,9 +55,9 @@ def train(
         total_loss = 0.0
         
         for batch in train_loader:
-            input_ids = batch['input_ids'].cuda()
-            attention_mask = batch['attention_mask'].cuda()
-            labels = batch['labels'].cuda()
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
+            labels = batch['labels'].to(device)
 
             # Forward pass
             outputs = model(
