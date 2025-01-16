@@ -128,6 +128,8 @@ def evaluate_model(cfg: DictConfig):
                 correct += (preds == labels).sum().item()
                 predictions.extend(preds.cpu().numpy())
                 true_labels.extend(labels.cpu().numpy())
+                prof.step()
+
 
         accuracy = correct / total
         logger.success(f"Evaluation complete. Accuracy: {accuracy * 100:.2f}%")
