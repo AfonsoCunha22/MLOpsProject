@@ -6,8 +6,9 @@ import torch.nn as nn
 import typer
 import hydra
 from omegaconf import DictConfig
-from data import load_datasets
+from utils import load_datasets
 from typing import Optional
+from torch.profiler import profile, ProfilerActivity, tensorboard_trace_handler
 
 # Initialize Typer app
 app = typer.Typer(help="CLI for training sentiment analysis model.")
@@ -34,25 +35,27 @@ def train_model(cfg: DictConfig):
     optimizer = AdamW(model.parameters(), lr=cfg.hyperparameters.learning_rate)
     loss_fn = nn.CrossEntropyLoss()
 
-    # Training loop
-    model.train()
-    for epoch in range(cfg.hyperparameters.epochs):
-        total_loss = 0
-        for batch in train_dataloader:
-            optimizer.zero_grad()
+    # Training loop with profiling
+    with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True, on_trace_ready=tensorboard_trace_handler("./log/train")) as prof:
+        model.train()
+        for epoch in range(cfg.hyperparameters.epochs):
+            total_loss = 0
+            for batch in train_dataloader:
+                optimizer.zero_grad()
 
-            input_ids = batch['input_ids'].to(device)
-            attention_mask = batch['attention_mask'].to(device)
-            labels = batch['labels'].to(device)
+                input_ids = batch['input_ids'].to(device)
+                attention_mask = batch['attention_mask'].to(device)
+                labels = batch['labels'].to(device)
 
-            outputs = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-            loss = outputs.loss
-            total_loss += loss.item()
+                outputs = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+                loss = outputs.loss
+                total_loss += loss.item()
 
-            loss.backward()
-            optimizer.step()
+                loss.backward()
+                optimizer.step()
+                prof.step()
 
-        print(f"Epoch {epoch + 1}/{cfg.hyperparameters.epochs}, Loss: {total_loss / len(train_dataloader):.4f}")
+            print(f"Epoch {epoch + 1}/{cfg.hyperparameters.epochs}, Loss: {total_loss / len(train_dataloader):.4f}")
 
     # Save the model if save_path is provided
     if cfg.hyperparameters.save_path:
@@ -96,24 +99,26 @@ def evaluate_model(cfg: DictConfig):
     print(f"Evaluating on {device}")
     model.to(device)
 
-    # Evaluation loop
-    model.eval()
-    total, correct = 0, 0
-    predictions, true_labels = [], []
+    # Evaluation loop with profiling
+    with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True, on_trace_ready=tensorboard_trace_handler("./log/evaluate")) as prof:
+        model.eval()
+        total, correct = 0, 0
+        predictions, true_labels = [], []
 
-    with torch.no_grad():
-        for batch in val_dataloader:
-            inputs = {key: val.to(device) for key, val in batch.items() if key != "labels"}
-            labels = batch["labels"].to(device)
-            outputs = model(**inputs)
-            _, preds = torch.max(outputs.logits, dim=1)
-            total += labels.size(0)
-            correct += (preds == labels).sum().item()
-            predictions.extend(preds.cpu().numpy())
-            true_labels.extend(labels.cpu().numpy())
+        with torch.no_grad():
+            for batch in val_dataloader:
+                inputs = {key: val.to(device) for key, val in batch.items() if key != "labels"}
+                labels = batch["labels"].to(device)
+                outputs = model(**inputs)
+                _, preds = torch.max(outputs.logits, dim=1)
+                total += labels.size(0)
+                correct += (preds == labels).sum().item()
+                predictions.extend(preds.cpu().numpy())
+                true_labels.extend(labels.cpu().numpy())
+                prof.step()
 
-    accuracy = correct / total
-    print(f"Accuracy: {accuracy * 100:.2f}%")
+        accuracy = correct / total
+        print(f"Accuracy: {accuracy * 100:.2f}%")
 
 @app.command()
 def evaluate(
