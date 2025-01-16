@@ -6,7 +6,7 @@ import torch.nn as nn
 import typer
 import hydra
 from omegaconf import DictConfig
-from utils import load_datasets
+from data import load_datasets
 from typing import Optional
 from torch.profiler import profile, ProfilerActivity, tensorboard_trace_handler
 from loguru import logger
