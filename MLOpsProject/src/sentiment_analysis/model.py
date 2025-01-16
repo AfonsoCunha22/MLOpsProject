@@ -1,24 +1,21 @@
-# model.py
-
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
+from transformers import AlbertForSequenceClassification, AlbertTokenizer
 import torch
 import torch.nn as nn
 
 class SentimentModel(nn.Module):
     """
-    Simple wrapper around a pre-trained model for sequence classification.
-    We assume the model was originally trained for 5 labels:
-    [ "Very Negative", "Negative", "Neutral", "Positive", "Very Positive" ]
-    
-    If your dataset has only 3 labels, be sure to fine-tune your model so that
-    it learns to map your dataset's labels [ "negative", "neutral", "positive" ]
-    to a subset or appropriate distribution.
+    Sentiment analysis model using ALBERT for 3-label classification: Negative, Neutral, Positive.
     """
-    def __init__(self, model_name="tabularisai/multilingual-sentiment-analysis", num_labels=5):
+    def __init__(self, model_name="albert-base-v2", num_labels=3):
         super().__init__()
         self.num_labels = num_labels
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels)
+        self.tokenizer = AlbertTokenizer.from_pretrained(model_name)
+        
+        # Load ALBERT with a classification head
+        self.model = AlbertForSequenceClassification.from_pretrained(
+            model_name,
+            num_labels=num_labels
+        )
 
     def forward(self, input_ids, attention_mask, labels=None):
         """
@@ -29,7 +26,7 @@ class SentimentModel(nn.Module):
             attention_mask=attention_mask,
             labels=labels
         )
-        return outputs  # outputs has attributes: logits, loss (if labels are passed), etc.
+        return outputs
 
     def predict(self, text):
         """
@@ -40,3 +37,73 @@ class SentimentModel(nn.Module):
         logits = outputs.logits
         probabilities = torch.nn.functional.softmax(logits, dim=-1)
         return probabilities
+
+
+def train_model(model, train_dataloader, optimizer, criterion, device, num_epochs=5):
+    """
+    Function to train the model.
+    """
+    model.train()
+    for epoch in range(num_epochs):
+        total_loss = 0
+        for batch in train_dataloader:
+            optimizer.zero_grad()
+
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
+            labels = batch['labels'].to(device)
+
+            outputs = model(input_ids, attention_mask, labels=labels)
+            loss = outputs.loss
+            total_loss += loss.item()
+
+            loss.backward()
+            optimizer.step()
+
+        avg_loss = total_loss / len(train_dataloader)
+        print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
+
+
+def evaluate_model(model, val_dataloader, device):
+    """
+    Function to evaluate the model.
+    """
+    model.eval()
+    total, correct = 0, 0
+    predictions, true_labels = [], []
+    
+    with torch.no_grad():
+        for batch in val_dataloader:
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
+            labels = batch['labels'].to(device)
+
+            outputs = model(input_ids, attention_mask)
+            logits = outputs.logits
+            preds = torch.argmax(logits, dim=-1)
+
+            predictions.extend(preds.cpu().numpy())
+            true_labels.extend(labels.cpu().numpy())
+            total += labels.size(0)
+            correct += (preds == labels).sum().item()
+
+    accuracy = correct / total
+    print(f"Validation Accuracy: {accuracy:.4f}")
+    return predictions, true_labels
+
+
+def save_model(model, tokenizer, save_path):
+    """
+    Save only the fine-tuned weights and tokenizer.
+    """
+    model.model.save_pretrained(save_path)  # Save model weights
+    tokenizer.save_pretrained(save_path)   # Save tokenizer
+
+
+def load_model(save_path):
+    """
+    Load the fine-tuned model and tokenizer from the saved path.
+    """
+    model = AutoModelForSequenceClassification.from_pretrained(save_path)
+    tokenizer = AutoTokenizer.from_pretrained(save_path)
+    return model, tokenizer

@@ -1,7 +1,7 @@
 import os
 import torch
 import pandas as pd
-from transformers import AutoTokenizer
+from transformers import AlbertTokenizer
 from torch.utils.data import Dataset
 import typer
 
@@ -26,7 +26,7 @@ def preprocess_data(
         max_length (int, optional): Maximum length for tokenization. Defaults to 128.
 
     Example usage:
-        python src/sentiment_analysis/data.py data/raw data/processed "tabularisai/multilingual-sentiment-analysis" --max-length 128
+        python src/sentiment_analysis/data.py data/raw data/processed "albert-base-v2" --max-length 128
     """
     # Ensure the processed directory exists
     os.makedirs(processed_dir, exist_ok=True)
@@ -66,7 +66,7 @@ def preprocess_data(
 
     # Initialize the tokenizer
     try:
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        tokenizer = AlbertTokenizer.from_pretrained(model_name)
     except Exception as e:
         typer.echo(f"Failed to load tokenizer with model name '{model_name}': {e}", err=True)
         raise
