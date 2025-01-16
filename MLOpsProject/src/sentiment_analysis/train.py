@@ -9,6 +9,7 @@ from omegaconf import DictConfig
 from utils import load_datasets
 from typing import Optional
 from torch.profiler import profile, ProfilerActivity, tensorboard_trace_handler
+from loguru import logger
 
 # Initialize Typer app
 app = typer.Typer(help="CLI for training sentiment analysis model.")
@@ -16,31 +17,35 @@ app = typer.Typer(help="CLI for training sentiment analysis model.")
 @hydra.main(config_path="conf", config_name="config.yaml")
 def train_model(cfg: DictConfig):
     # Load datasets
+    logger.info("Loading datasets...")
     train_dataset, test_dataset = load_datasets(cfg.processed_dir)
 
     # Create data loaders
     train_dataloader = DataLoader(train_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
     val_dataloader = DataLoader(test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False)
 
-    print(f"Loaded {len(train_dataset)} training samples and {len(test_dataset)} testing samples.")
+    logger.info(f"Loaded {len(train_dataset)} training samples and {len(test_dataset)} testing samples.")
 
     # Initialize the model and tokenizer
+    logger.info(f"Initializing model and tokenizer with {cfg.hyperparameters.model_name}...")
     tokenizer = AlbertTokenizer.from_pretrained(cfg.hyperparameters.model_name)
     model = AlbertForSequenceClassification.from_pretrained(cfg.hyperparameters.model_name, num_labels=cfg.hyperparameters.num_labels, ignore_mismatched_sizes=True)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    logger.info(f"Using device: {device}")
     model.to(device)
 
     # Set up optimizer and loss function
     optimizer = AdamW(model.parameters(), lr=cfg.hyperparameters.learning_rate)
     loss_fn = nn.CrossEntropyLoss()
+    logger.info("Starting training...")
 
     # Training loop with profiling
     with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True, on_trace_ready=tensorboard_trace_handler("./log/train")) as prof:
         model.train()
         for epoch in range(cfg.hyperparameters.epochs):
             total_loss = 0
-            for batch in train_dataloader:
+            for batch_idx, batch in enumerate(train_dataloader):
                 optimizer.zero_grad()
 
                 input_ids = batch['input_ids'].to(device)
@@ -55,7 +60,11 @@ def train_model(cfg: DictConfig):
                 optimizer.step()
                 prof.step()
 
-            print(f"Epoch {epoch + 1}/{cfg.hyperparameters.epochs}, Loss: {total_loss / len(train_dataloader):.4f}")
+                if batch_idx % 100 == 0:
+                    logger.debug(f"Epoch {epoch + 1}, Batch {batch_idx}: Loss = {loss.item():.4f}")
+
+            avg_loss = total_loss / len(train_dataloader)
+            logger.info(f"Epoch {epoch + 1}/{cfg.hyperparameters.epochs}, Average Loss: {avg_loss:.4f}")
 
     # Save the model if save_path is provided
     if cfg.hyperparameters.save_path:
@@ -63,7 +72,7 @@ def train_model(cfg: DictConfig):
         model_save_path = os.path.join(cfg.hyperparameters.save_path, "sentiment_model.pth")
         torch.save(model.state_dict(), model_save_path)
         tokenizer.save_pretrained(cfg.hyperparameters.save_path)
-        print(f"Model saved to {model_save_path}")
+        logger.success(f"Model saved to {model_save_path}")
 
 @app.command()
 def train(
@@ -73,6 +82,7 @@ def train(
     """
     Train the sentiment model.
     """
+    logger.info("Initializing training configuration...")
     hydra.initialize(config_path="conf")
     cfg = hydra.compose(config_name=config_name)
     cfg.processed_dir = processed_dir
@@ -81,13 +91,15 @@ def train(
 @hydra.main(config_path="conf", config_name="config.yaml")
 def evaluate_model(cfg: DictConfig):
     # Load datasets
+    logger.info("Loading test dataset...")
     _, test_dataset = load_datasets(cfg.processed_dir)
-    print(f"Loaded {len(test_dataset)} testing samples.")
+    logger.info(f"Loaded {len(test_dataset)} testing samples.")
 
     # Create data loader
     val_dataloader = DataLoader(test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False)
 
     # Initialize model and tokenizer
+    logger.info("Initializing model and tokenizer...")
     tokenizer = AlbertTokenizer.from_pretrained(cfg.hyperparameters.model_name)
     model = AlbertForSequenceClassification.from_pretrained(cfg.hyperparameters.model_name, num_labels=cfg.hyperparameters.num_labels)
 
@@ -96,7 +108,7 @@ def evaluate_model(cfg: DictConfig):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.load_state_dict(torch.load(state_dict_path, map_location=device))
 
-    print(f"Evaluating on {device}")
+    logger.info(f"Evaluating on {device}")
     model.to(device)
 
     # Evaluation loop with profiling
@@ -105,6 +117,7 @@ def evaluate_model(cfg: DictConfig):
         total, correct = 0, 0
         predictions, true_labels = [], []
 
+        logger.info("Starting evaluation...")
         with torch.no_grad():
             for batch in val_dataloader:
                 inputs = {key: val.to(device) for key, val in batch.items() if key != "labels"}
@@ -115,10 +128,9 @@ def evaluate_model(cfg: DictConfig):
                 correct += (preds == labels).sum().item()
                 predictions.extend(preds.cpu().numpy())
                 true_labels.extend(labels.cpu().numpy())
-                prof.step()
 
         accuracy = correct / total
-        print(f"Accuracy: {accuracy * 100:.2f}%")
+        logger.success(f"Evaluation complete. Accuracy: {accuracy * 100:.2f}%")
 
 @app.command()
 def evaluate(
@@ -132,6 +144,7 @@ def evaluate(
     Command:
     python src/sentiment_analysis/train.py evaluate ./data/processed ./models/trained_sentiment_model --config-name config.yaml
     """
+    logger.info("Initializing evaluation configuration...")
     hydra.initialize(config_path="conf")
     cfg = hydra.compose(config_name=config_name)
     cfg.processed_dir = processed_dir

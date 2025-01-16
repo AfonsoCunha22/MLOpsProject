@@ -1,6 +1,7 @@
 from transformers import AlbertForSequenceClassification, AlbertTokenizer
 import torch
 import torch.nn as nn
+from loguru import logger
 
 class SentimentModel(nn.Module):
     """
@@ -16,6 +17,7 @@ class SentimentModel(nn.Module):
             model_name,
             num_labels=num_labels
         )
+        logger.info(f"Model {model_name} initialized with {num_labels} labels.")
 
     def forward(self, input_ids, attention_mask, labels=None):
         """
@@ -26,6 +28,7 @@ class SentimentModel(nn.Module):
             attention_mask=attention_mask,
             labels=labels
         )
+        logger.debug("Forward pass completed.")
         return outputs
 
     def predict(self, text):
@@ -36,6 +39,7 @@ class SentimentModel(nn.Module):
         outputs = self.model(**inputs)
         logits = outputs.logits
         probabilities = torch.nn.functional.softmax(logits, dim=-1)
+        logger.info(f"Prediction made for text: {text}")
         return probabilities
 
 
@@ -61,7 +65,7 @@ def train_model(model, train_dataloader, optimizer, criterion, device, num_epoch
             optimizer.step()
 
         avg_loss = total_loss / len(train_dataloader)
-        print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
+        logger.info(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
 
 
 def evaluate_model(model, val_dataloader, device):
@@ -88,7 +92,7 @@ def evaluate_model(model, val_dataloader, device):
             correct += (preds == labels).sum().item()
 
     accuracy = correct / total
-    print(f"Validation Accuracy: {accuracy:.4f}")
+    logger.info(f"Validation Accuracy: {accuracy:.4f}")
     return predictions, true_labels
 
 
@@ -98,12 +102,14 @@ def save_model(model, tokenizer, save_path):
     """
     model.model.save_pretrained(save_path)  # Save model weights
     tokenizer.save_pretrained(save_path)   # Save tokenizer
+    logger.info(f"Model and tokenizer saved to {save_path}")
 
 
 def load_model(save_path):
     """
     Load the fine-tuned model and tokenizer from the saved path.
     """
-    model = AutoModelForSequenceClassification.from_pretrained(save_path)
-    tokenizer = AutoTokenizer.from_pretrained(save_path)
+    model = AlbertForSequenceClassification.from_pretrained(save_path)
+    tokenizer = AlbertTokenizer.from_pretrained(save_path)
+    logger.info(f"Model and tokenizer loaded from {save_path}")
     return model, tokenizer
