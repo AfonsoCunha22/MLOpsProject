@@ -3,7 +3,6 @@ from tests import _PATH_DATA
 import pytest
 import torch
 import os
-from datasets import load_from_disk
 
 from src.sentiment_analysis.data import SentimentDataset
 
