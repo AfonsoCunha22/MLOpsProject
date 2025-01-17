@@ -18,7 +18,10 @@ def test_my_dataset():
     test_labels_path = os.path.join(processed_path, "test_labels.pt")
 
     # Check for the existence of the necessary directories and files
-    #assert os.path.exists(processed_path), "Processed data folder not found"
+    if not os.path.exists(processed_path):
+        assert os.makedirs(processed_path)
+    else:
+        assert os.path.exists(processed_path), "Processed data folder not found"
     assert os.path.exists(train_encodings_path), "Processed train data file not found"
     assert os.path.exists(test_encodings_path), "Processed test data file not found"
     assert os.path.exists(train_labels_path), "Processed train labels file not found"
@@ -28,6 +31,7 @@ def test_my_dataset():
     train_encodings = torch.load(train_encodings_path)
     test_encodings = torch.load(test_encodings_path)
     train_labels = torch.load(train_labels_path)
+
     test_labels = torch.load(test_labels_path)
 
     assert train_labels.dim() == 1, "Train labels should be 1-dimensional"
@@ -38,3 +42,13 @@ def test_my_dataset():
     assert isinstance(train_labels, torch.Tensor), "Train labels must be a torch Tensor"
     assert isinstance(test_labels, torch.Tensor), "Test labels must be a torch Tensor"
 
+"""
+Coverage:
+Name                                 Stmts   Miss  Cover
+--------------------------------------------------------
+src\sentiment_analysis\__init__.py       0      0   100%
+src\sentiment_analysis\data.py          72     56    22%
+--------------------------------------------------------
+TOTAL                                   72     56    22%
+
+"""

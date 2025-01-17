@@ -67,3 +67,15 @@ def test_save_load_model(tmp_path, model):
     assert loaded_model is not None, "Loaded model should not be None"
     assert loaded_tokenizer is not None, "Loaded tokenizer should not be None"
 
+"""
+Coverage:
+
+Name                                 Stmts   Miss  Cover
+--------------------------------------------------------
+src\sentiment_analysis\__init__.py       0      0   100%
+src\sentiment_analysis\model.py         66      0   100%
+--------------------------------------------------------
+TOTAL                                   66      0   100%
+
+
+"""
