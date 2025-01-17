@@ -1,54 +1,40 @@
-name: "Run tests with pip cache"
+name: Unit Tests
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main]
+    branches:
+      - main
 
 jobs:
-  run_tests:
+  test:
+    runs-on: ${{ matrix.operating-system }}
     strategy:
-      fail-fast: false
       matrix:
-        os: [ windows-latest]
-        version: ['3.10', '3.11']
-
-    runs-on: ${{ matrix.os }}
+        operating-system: ["windows-latest"]
+        python-version: ["3.12", "3.11"]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.version }}
-        cache: pip
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Get pip cache dir
-      id: pip-cache
-      run: |
-        echo "::set-output name=dir::$(pip cache dir)"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: setup.py
 
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ${{ steps.pip-cache.outputs.dir }}
-        key: chached_test${{ hashFiles('**/MLOpsProject/requirements.txt') }}
-        restore-keys: |
-          chached_test
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip setuptools wheel
+          pip install -r MLOpsProject/requirements.txt
+          pip list
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r MLOpsProject/requirements.txt
 
-    - uses: iterative/setup-dvc@v1
-    - name: Get data
-      run: dvc pull
-
-    - name: Test with pytest
-      run: |
-        pip install pytest coverage
-        coverage run -m pytest -v
-        coverage report -i
+      - name: Run tests & coverage
+        run: |
+          coverage run -m pytest tests/
+          coverage report -m
