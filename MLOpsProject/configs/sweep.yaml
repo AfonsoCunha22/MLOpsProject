@@ -1,0 +1,12 @@
+program: src/sentiment_analysis/train.py
+method: bayes
+metric:
+  name: avg_loss
+  goal: minimize
+parameters:
+
+  learning_rate:
+    min: 0.000001
+    max: 0.0001
+  epochs:
+    values: [2, 3, 4]
