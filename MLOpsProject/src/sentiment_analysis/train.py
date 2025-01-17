@@ -1,3 +1,5 @@
+# train.py
+
 import os
 import torch
 from torch.utils.data import DataLoader
@@ -10,12 +12,35 @@ from data import load_datasets
 from typing import Optional
 from torch.profiler import profile, ProfilerActivity, tensorboard_trace_handler
 from loguru import logger
+import wandb
+
+logger.add("my_log.log", level="INFO", rotation="100 MB")
 
 # Initialize Typer app
 app = typer.Typer(help="CLI for training sentiment analysis model.")
 
 @hydra.main(config_path="conf", config_name="config.yaml")
 def train_model(cfg: DictConfig):
+    # Initialize wandb
+    wandb.init(
+        project="sentiment-analysis",
+        config={
+            "model_name": cfg.hyperparameters.model_name,
+            "batch_size": cfg.hyperparameters.batch_size,
+            "learning_rate": cfg.hyperparameters.learning_rate,
+            "epochs": cfg.hyperparameters.epochs,
+            "num_labels": cfg.hyperparameters.num_labels
+        }
+    )
+
+    # Access hyperparameters from wandb.config with fallback to cfg
+    config = wandb.config
+    model_name = config.get("model_name", cfg.hyperparameters.model_name)
+    batch_size = config.get("batch_size", cfg.hyperparameters.batch_size)
+    learning_rate = config.get("learning_rate", cfg.hyperparameters.learning_rate)
+    epochs = config.get("epochs", cfg.hyperparameters.epochs)
+    num_labels = config.get("num_labels", cfg.hyperparameters.num_labels)
+
     # Load datasets
     logger.info("Loading datasets...")
     train_dataset, test_dataset = load_datasets(cfg.processed_dir)
@@ -60,11 +85,23 @@ def train_model(cfg: DictConfig):
                 optimizer.step()
                 prof.step()
 
+                # Log batch metrics to wandb
+                wandb.log({
+                    "batch_loss": loss.item(),
+                    "batch": batch_idx + epoch * len(train_dataloader)
+                })
+
                 if batch_idx % 100 == 0:
                     logger.debug(f"Epoch {epoch + 1}, Batch {batch_idx}: Loss = {loss.item():.4f}")
 
             avg_loss = total_loss / len(train_dataloader)
-            logger.info(f"Epoch {epoch + 1}/{cfg.hyperparameters.epochs}, Average Loss: {avg_loss:.4f}")
+            logger.info(f"Epoch {epoch + 1}/{epochs}, Average Loss: {avg_loss:.4f}")
+            
+            # Log epoch metrics to wandb
+            wandb.log({
+                "epoch": epoch + 1,
+                "avg_loss": avg_loss,
+            })
 
     # Save the model if save_path is provided
     if cfg.hyperparameters.save_path:
@@ -73,11 +110,16 @@ def train_model(cfg: DictConfig):
         torch.save(model.state_dict(), model_save_path)
         tokenizer.save_pretrained(cfg.hyperparameters.save_path)
         logger.success(f"Model saved to {model_save_path}")
+        
+        # Log model as artifact
+        artifact = wandb.Artifact('sentiment-model', type='model')
+        artifact.add_file(model_save_path)
+        wandb.log_artifact(artifact)
 
 @app.command()
 def train(
     processed_dir: str = typer.Argument(..., help="Path to directory containing processed data tensors."),
-    config_name: str = typer.Option("config.yaml", help="Name of the configuration file.")
+    config_name: str = typer.Option("config.yaml", help="Name of the configuration file."),
 ):
     """
     Train the sentiment model.
@@ -86,10 +128,22 @@ def train(
     hydra.initialize(config_path="conf")
     cfg = hydra.compose(config_name=config_name)
     cfg.processed_dir = processed_dir
+
     train_model(cfg)
 
 @hydra.main(config_path="conf", config_name="config.yaml")
 def evaluate_model(cfg: DictConfig):
+    # Initialize wandb for evaluation run
+    wandb.init(
+        project="sentiment-analysis",
+        config={
+            "model_name": cfg.hyperparameters.model_name,
+            "batch_size": cfg.hyperparameters.batch_size,
+            "num_labels": cfg.hyperparameters.num_labels
+        },
+        job_type="evaluation"
+    )
+
     # Load datasets
     logger.info("Loading test dataset...")
     _, test_dataset = load_datasets(cfg.processed_dir)
@@ -130,9 +184,14 @@ def evaluate_model(cfg: DictConfig):
                 true_labels.extend(labels.cpu().numpy())
                 prof.step()
 
-
         accuracy = correct / total
         logger.success(f"Evaluation complete. Accuracy: {accuracy * 100:.2f}%")
+        
+        # Log evaluation metrics to wandb
+        wandb.log({
+            "test_accuracy": accuracy,
+            "total_samples": total
+        })
 
 @app.command()
 def evaluate(
