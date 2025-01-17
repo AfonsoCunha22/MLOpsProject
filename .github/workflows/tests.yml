@@ -14,9 +14,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        operating-system: ["windows-latest"]
+        operating-system: [ "windows-latest"]
         python-version: ["3.12", "3.11"]
         pytorch-version: ["2.2.2"]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,12 +36,23 @@ jobs:
             ${{ runner.os }}-py-${{ matrix.python-version }}-torch-${{ matrix.pytorch-version }}-
             ${{ runner.os }}-py-${{ matrix.python-version }}-
 
+      - name: Pre-install system packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libssl-dev zlib1g-dev
+
       - name: Install dependencies
         run: |
           python -m pip install -U pip setuptools wheel
           pip install -r MLOpsProject/requirements.txt
           pip install torch==${{ matrix.pytorch-version }}
+          pip install flake8
           pip list
+
+      - name: Lint with flake8
+        run: |
+          flake8 MLOpsProject/
 
       - name: Run tests & coverage
         run: |
