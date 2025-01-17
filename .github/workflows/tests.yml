@@ -34,14 +34,14 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
-        key: chached_test${{ hashFiles('**/requirements.txt') }}
+        key: chached_test${{ hashFiles('**/MLOpsProject/requirements.txt') }}
         restore-keys: |
           chached_test
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r MLOpsProject/requirements.txt
 
     - uses: iterative/setup-dvc@v1
     - name: Get data
