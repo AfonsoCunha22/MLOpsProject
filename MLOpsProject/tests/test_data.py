@@ -28,7 +28,7 @@ def test_my_dataset():
     assert os.path.exists(test_encodings_path), "Processed test data file not found"
     assert os.path.exists(train_labels_path), "Processed train labels file not found"
     assert os.path.exists(test_labels_path), "Processed test labels file not found"
-    """
+    
     # Load the data
     train_encodings = torch.load(train_encodings_path)
     test_encodings = torch.load(test_encodings_path)
@@ -43,6 +43,7 @@ def test_my_dataset():
     assert 'input_ids' in test_encodings, "Test encodings missing 'input_ids'"
     assert isinstance(train_labels, torch.Tensor), "Train labels must be a torch Tensor"
     assert isinstance(test_labels, torch.Tensor), "Test labels must be a torch Tensor"
+    """
 
 """
 Coverage:
