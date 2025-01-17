@@ -37,3 +37,5 @@ pytest==8.3.4
 
 #Code Coverage
 coverage==7.6.10
+
+uvicorn==0.34.0
