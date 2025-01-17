@@ -3,10 +3,10 @@ name: Unit Tests
 on:
   push:
     branches:
-      - sabina
+      - main
   pull_request:
     branches:
-      - sabina
+      - main
 
 jobs:
   test:
