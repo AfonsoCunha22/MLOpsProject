@@ -1,4 +1,4 @@
 [core]
-    remote = gcpremote
-['remote "gcpremote"']
+    remote = myremote
+['remote "myremote"']
     url = gs://mlopssentimentanalysis
