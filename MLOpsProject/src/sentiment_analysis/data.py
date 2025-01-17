@@ -5,6 +5,7 @@ from transformers import AlbertTokenizer
 from torch.utils.data import Dataset
 import typer
 from loguru import logger
+import wandb
 
 # Initialize Typer app
 app = typer.Typer(help="CLI for preprocessing sentiment analysis data.")
