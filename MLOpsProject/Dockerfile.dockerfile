@@ -30,3 +30,10 @@ RUN pip install . --no-deps --no-cache-dir
 
 # Set the entrypoint to the training script
 ENTRYPOINT ["python", "-u", "src/sentiment_analysis/train.py"]
+
+
+#"""
+#REPOSITORY                        TAG       IMAGE ID       CREATED         SIZE
+#kasapi/sentiment_analysis_train   latest    cea0204ba831   3 hours ago     7.22GB
+#busybox                           latest    af4709625109   3 months ago    4.27MB
+#hello-world                       latest    d2c94e258dcb   20 months ago   13.3kB
