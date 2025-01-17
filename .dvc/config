@@ -1,4 +1,0 @@
-[core]
-    remote = gcpremote
-['remote "gcpremote"']
-    url = gs://sentiment_analysis_lyrics
