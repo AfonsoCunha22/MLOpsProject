@@ -35,3 +35,6 @@ pytest==8.3.4
 
 #Code Coverage
 coverage==7.6.10
+
+# fixing error automatically
+black==24.10.0
