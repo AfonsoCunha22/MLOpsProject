@@ -9,51 +9,32 @@ on:
       - main
 
 jobs:
-  run_tests:
-    strategy:
-      fail-fast: false
-    matrix:
-      operating-system: ["windows-latest"]
-      python-version: ["3.12", "3.11"]
-      pytorch-version: ["2.2.2"]
-      
+  test:
     runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: ["windows-latest"]
+        python-version: ["3.12", "3.11"]
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
-
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pip-cache.outputs.dir }}
-          key: cached_test-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-py-${{ matrix.python-version }}-torch-${{ matrix.pytorch-version }}-
-            ${{ runner.os }}-py-${{ matrix.python-version }}-
-
+          cache: 'pip'
+          cache-dependency-path: setup.py
 
       - name: Install dependencies
         run: |
           python -m pip install -U pip setuptools wheel
           pip install -r MLOpsProject/requirements.txt
+          pip list
 
-      - name: Lint with flake8
+
+      - name: Run tests & coverage
         run: |
-          flake8 MLOpsProject/
-
-      - uses: iterative/setup-dvc@v1
-      - name: Get data
-        run: dvc pull
-
-      - name: Test with pytest
-        run: |
-          pip install pytest coverage
-          coverage run -m pytest -v
-          coverage report -i
+          coverage run -m pytest tests/
+          coverage report -m
