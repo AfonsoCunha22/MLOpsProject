@@ -9,47 +9,51 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ${{ matrix.operating-system }}
+  run_tests:
     strategy:
       fail-fast: false
-      matrix:
-        operating-system: ["windows-latest"]
-        python-version: ["3.12", "3.11"]
-        pytorch-version: ["2.2.2"]
+    matrix:
+      operating-system: ["windows-latest"]
+      python-version: ["3.12", "3.11"]
+      pytorch-version: ["2.2.2"]
+      
+    runs-on: ${{ matrix.operating-system }}
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: pip
 
-      - name: Cache Python dependencies
-        uses: actions/cache@v2
+      - name: Cache dependencies
+        uses: actions/cache@v3
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-py-${{ matrix.python-version }}-torch-${{ matrix.pytorch-version }}-${{ hashFiles('**/requirements.txt') }}
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: cached_test-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-py-${{ matrix.python-version }}-torch-${{ matrix.pytorch-version }}-
             ${{ runner.os }}-py-${{ matrix.python-version }}-
+
 
       - name: Install dependencies
         run: |
           python -m pip install -U pip setuptools wheel
           pip install -r MLOpsProject/requirements.txt
-          pip install torch==${{ matrix.pytorch-version }}
-          pip list
 
-      - name: Run tests & coverage
+      - name: Lint with flake8
         run: |
-          coverage run -m pytest MLOpsProject/tests/
-          coverage report -m
+          flake8 MLOpsProject/
 
-      - name: Upload coverage report (optional)
-        if: success()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: .coverage
+      - uses: iterative/setup-dvc@v1
+      - name: Get data
+        run: dvc pull
+
+      - name: Test with pytest
+        run: |
+          pip install pytest coverage
+          coverage run -m pytest -v
+          coverage report -i
