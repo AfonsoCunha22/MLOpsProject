@@ -23,6 +23,7 @@ torch_tb_profiler==0.4.3
 # for cloud storage
 dvc[gdrive]==3.59.0
 dvc_gs==3.0.1
+google-cloud-aiplatform==1.77.0
 
 # for code logging
 loguru==0.7.2

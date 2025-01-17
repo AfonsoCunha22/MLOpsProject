@@ -19,6 +19,8 @@ logger.add("my_log.log", level="INFO", rotation="100 MB")
 # Initialize Typer app
 app = typer.Typer(help="CLI for training sentiment analysis model.")
 
+os.system('dvc pull')
+
 @hydra.main(config_path="conf", config_name="config.yaml")
 def train_model(cfg: DictConfig):
     # Initialize wandb
