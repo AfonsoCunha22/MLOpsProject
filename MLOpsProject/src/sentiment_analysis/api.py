@@ -1,5 +1,4 @@
 from google.cloud import storage
-import os
 
 
 def download_data(bucket_name, source_blob_name, destination_file_name):
@@ -9,6 +8,7 @@ def download_data(bucket_name, source_blob_name, destination_file_name):
     blob = bucket.blob(source_blob_name)
     blob.download_to_filename(destination_file_name)
     print(f"Blob {source_blob_name} downloaded to {destination_file_name}.")
+
 
 if __name__ == "__main__":
     # Example usage

@@ -3,10 +3,10 @@ name: Unit Tests
 on:
   push:
     branches:
-      - sabina
+      - main
   pull_request:
     branches:
-      - sabina
+      - main
 
 jobs:
   test:
@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -U pip setuptools wheel
-          pip install -r requirements.txt
+          pip install -r MLOpsProject/requirements.txt
           pip list
 
 
