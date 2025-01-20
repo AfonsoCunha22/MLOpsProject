@@ -32,8 +32,8 @@ RUN pip install . --no-deps --no-cache-dir
 ENTRYPOINT ["python", "-u", "src/sentiment_analysis/train.py"]
 
 
-#REPOSITORY                        TAG                       IMAGE ID       CREATED         SIZE
-#kasapi/data                       v1                        b4b21eacc4ee   2 hours ago     11GB
-#train                             latest                    c4021fce8e89   2 hours ago     11GB
-#kasapi/sentiment_analysis_data    latest                    c4021fce8e89   2 hours ago     11GB
-#kasapi/sentiment_analysis_train   latest                    b819fa62e75f   3 hours ago     11GB
+#"""
+#REPOSITORY                        TAG       IMAGE ID       CREATED         SIZE
+#kasapi/sentiment_analysis_train   latest    cea0204ba831   3 hours ago     7.22GB
+#busybox                           latest    af4709625109   3 months ago    4.27MB
+#hello-world                       latest    d2c94e258dcb   20 months ago   13.3kB
