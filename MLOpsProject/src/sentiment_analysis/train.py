@@ -1,5 +1,3 @@
-# train.py
-
 import os
 import torch
 from torch.utils.data import DataLoader
@@ -47,19 +45,13 @@ def train_model(cfg: DictConfig):
     train_dataset, test_dataset = load_datasets(cfg.processed_dir)
 
     # Create data loaders
-    train_dataloader = DataLoader(
-        train_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=True
-    )
+    train_dataloader = DataLoader(train_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
     # val_dataloader = DataLoader(test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False)
 
-    logger.info(
-        f"Loaded {len(train_dataset)} training samples and {len(test_dataset)} testing samples."
-    )
+    logger.info(f"Loaded {len(train_dataset)} training samples and {len(test_dataset)} testing samples.")
 
     # Initialize the model and tokenizer
-    logger.info(
-        f"Initializing model and tokenizer with {cfg.hyperparameters.model_name}..."
-    )
+    logger.info(f"Initializing model and tokenizer with {cfg.hyperparameters.model_name}...")
     tokenizer = AlbertTokenizer.from_pretrained(cfg.hyperparameters.model_name)
     model = AlbertForSequenceClassification.from_pretrained(
         cfg.hyperparameters.model_name,
@@ -92,9 +84,7 @@ def train_model(cfg: DictConfig):
                 attention_mask = batch["attention_mask"].to(device)
                 labels = batch["labels"].to(device)
 
-                outputs = model(
-                    input_ids=input_ids, attention_mask=attention_mask, labels=labels
-                )
+                outputs = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
                 loss = outputs.loss
                 total_loss += loss.item()
 
@@ -111,9 +101,7 @@ def train_model(cfg: DictConfig):
                 )
 
                 if batch_idx % 100 == 0:
-                    logger.debug(
-                        f"Epoch {epoch + 1}, Batch {batch_idx}: Loss = {loss.item():.4f}"
-                    )
+                    logger.debug(f"Epoch {epoch + 1}, Batch {batch_idx}: Loss = {loss.item():.4f}")
 
             avg_loss = total_loss / len(train_dataloader)
             logger.info(f"Epoch {epoch + 1}/{epochs}, Average Loss: {avg_loss:.4f}")
@@ -129,9 +117,7 @@ def train_model(cfg: DictConfig):
     # Save the model if save_path is provided
     if cfg.hyperparameters.save_path:
         os.makedirs(cfg.hyperparameters.save_path, exist_ok=True)
-        model_save_path = os.path.join(
-            cfg.hyperparameters.save_path, "sentiment_model.pth"
-        )
+        model_save_path = os.path.join(cfg.hyperparameters.save_path, "sentiment_model.pth")
         torch.save(model.state_dict(), model_save_path)
         tokenizer.save_pretrained(cfg.hyperparameters.save_path)
         logger.success(f"Model saved to {model_save_path}")
@@ -144,12 +130,8 @@ def train_model(cfg: DictConfig):
 
 @app.command()
 def train(
-    processed_dir: str = typer.Argument(
-        ..., help="Path to directory containing processed data tensors."
-    ),
-    config_name: str = typer.Option(
-        "config.yaml", help="Name of the configuration file."
-    ),
+    processed_dir: str = typer.Argument(..., help="Path to directory containing processed data tensors."),
+    config_name: str = typer.Option("config.yaml", help="Name of the configuration file."),
 ):
     """
     Train the sentiment model.
@@ -181,9 +163,7 @@ def evaluate_model(cfg: DictConfig):
     logger.info(f"Loaded {len(test_dataset)} testing samples.")
 
     # Create data loader
-    val_dataloader = DataLoader(
-        test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False
-    )
+    val_dataloader = DataLoader(test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False)
 
     # Initialize model and tokenizer
     logger.info("Initializing model and tokenizer...")
@@ -213,9 +193,7 @@ def evaluate_model(cfg: DictConfig):
         logger.info("Starting evaluation...")
         with torch.no_grad():
             for batch in val_dataloader:
-                inputs = {
-                    key: val.to(device) for key, val in batch.items() if key != "labels"
-                }
+                inputs = {key: val.to(device) for key, val in batch.items() if key != "labels"}
                 labels = batch["labels"].to(device)
                 outputs = model(**inputs)
                 _, preds = torch.max(outputs.logits, dim=1)
@@ -234,12 +212,8 @@ def evaluate_model(cfg: DictConfig):
 
 @app.command()
 def evaluate(
-    processed_dir: str = typer.Argument(
-        ..., help="Path to directory containing processed data tensors."
-    ),
-    config_name: str = typer.Option(
-        "config.yaml", help="Name of the configuration file."
-    ),
+    processed_dir: str = typer.Argument(..., help="Path to directory containing processed data tensors."),
+    config_name: str = typer.Option("config.yaml", help="Name of the configuration file."),
     model_path: str = typer.Argument(..., help="Path to the saved model."),
 ):
     """

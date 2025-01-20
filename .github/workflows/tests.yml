@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: ["windows-latest"]
+        operating-system: ["windows-latest", "macos-latest"]
         python-version: ["3.12", "3.11"]
 
     steps:
@@ -31,10 +31,19 @@ jobs:
         run: |
           python -m pip install -U pip setuptools wheel
           pip install -r MLOpsProject/requirements.txt
+          pip install -r MLOpsProject/requirements_dev.txt
+          pip install ruff
           pip list
 
+      - name: Run Ruff format
+        run: |
+          ruff format MLOpsProject/
+
+      - name: Run Ruff check
+        run: |
+          ruff check MLOpsProject/
 
       - name: Run tests & coverage
         run: |
-          coverage run -m pytest tests/
+          coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests
           coverage report -m

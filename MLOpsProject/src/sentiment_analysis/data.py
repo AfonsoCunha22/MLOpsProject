@@ -12,16 +12,10 @@ app = typer.Typer(help="CLI for preprocessing sentiment analysis data.")
 
 @app.command()
 def preprocess_data(
-    raw_dir: str = typer.Argument(
-        ..., help="Directory containing a single CSV file (Train.csv)."
-    ),
-    processed_dir: str = typer.Argument(
-        ..., help="Directory to save processed PyTorch tensors."
-    ),
+    raw_dir: str = typer.Argument(..., help="Directory containing a single CSV file (Train.csv)."),
+    processed_dir: str = typer.Argument(..., help="Directory to save processed PyTorch tensors."),
     model_name: str = typer.Argument(..., help="Pre-trained model name for tokenizer."),
-    max_length: int = typer.Option(
-        128, help="Maximum sequence length for tokenization."
-    ),
+    max_length: int = typer.Option(128, help="Maximum sequence length for tokenization."),
 ) -> None:
     """
     Preprocess a single CSV (Train.csv) for sentiment analysis. Splits data into
