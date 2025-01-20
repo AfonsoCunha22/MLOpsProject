@@ -29,9 +29,7 @@ def test_forward_pass(model):
     input_ids = torch.randint(0, 2000, (1, 10))
     attention_mask = torch.ones(1, 10)
     outputs = model.forward(input_ids, attention_mask)
-    assert (
-        "loss" in outputs or "logits" in outputs
-    ), "Forward should return a dictionary with 'loss' or 'logits'"
+    assert "loss" in outputs or "logits" in outputs, "Forward should return a dictionary with 'loss' or 'logits'"
 
 
 # Test prediction
@@ -81,9 +79,7 @@ def test_train_model(model, dataloader):
 def test_evaluate_model(model, dataloader):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     predictions, true_labels = evaluate_model(model, dataloader, device)
-    assert len(predictions) == len(
-        true_labels
-    ), "Should return predictions for each label"
+    assert len(predictions) == len(true_labels), "Should return predictions for each label"
 
 
 # Test save and load functionality

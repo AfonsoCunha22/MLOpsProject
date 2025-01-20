@@ -34,18 +34,9 @@ loguru==0.7.2
 # sentencepiece
 sentencepiece==0.2.0
 
-# for testing code
-pytest==8.3.4
-
-#Code Coverage
-coverage==7.6.10
-
 # tensor ?
 
 # uninstalling tensorflow ???? bc otherwise i cannot run train.py
-
-# for runnning tasks from terminal
-invoke==2.2.0
 
 # fixing error automatically
 black==24.10.0

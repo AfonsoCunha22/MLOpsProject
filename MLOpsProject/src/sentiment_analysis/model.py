@@ -15,18 +15,14 @@ class SentimentModel(nn.Module):
         self.tokenizer = AlbertTokenizer.from_pretrained(model_name)
 
         # Load ALBERT with a classification head
-        self.model = AlbertForSequenceClassification.from_pretrained(
-            model_name, num_labels=num_labels
-        )
+        self.model = AlbertForSequenceClassification.from_pretrained(model_name, num_labels=num_labels)
         logger.info(f"Model {model_name} initialized with {num_labels} labels.")
 
     def forward(self, input_ids, attention_mask, labels=None):
         """
         Forward pass of the model. If labels are provided, returns loss along with outputs.
         """
-        outputs = self.model(
-            input_ids=input_ids, attention_mask=attention_mask, labels=labels
-        )
+        outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
         logger.debug("Forward pass completed.")
         return outputs
 
@@ -34,9 +30,7 @@ class SentimentModel(nn.Module):
         """
         Predict sentiment probabilities for a single piece of text.
         """
-        inputs = self.tokenizer(
-            text, return_tensors="pt", truncation=True, padding=True
-        )
+        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True)
         outputs = self.model(**inputs)
         logits = outputs.logits
         probabilities = torch.nn.functional.softmax(logits, dim=-1)

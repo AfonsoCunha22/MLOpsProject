@@ -6,9 +6,11 @@ import torch
 # Initialize FastAPI app
 app = FastAPI()
 
+
 # Define input schema using Pydantic for validation
 class SentimentRequest(BaseModel):
     text: str
+
 
 # Load the model and tokenizer globally
 model_name = "albert-base-v2"
@@ -20,9 +22,11 @@ try:
 except Exception as e:
     raise RuntimeError(f"Failed to load model or tokenizer: {e}")
 
+
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Sentiment Analysis API!"}
+
 
 @app.post("/predict/")
 def predict_sentiment(request: SentimentRequest):
@@ -30,13 +34,7 @@ def predict_sentiment(request: SentimentRequest):
     Perform sentiment prediction on the input text.
     """
     # Tokenize input text
-    tokens = tokenizer(
-        request.text,
-        truncation=True,
-        padding=True,
-        max_length=128,
-        return_tensors="pt"
-    )
+    tokens = tokenizer(request.text, truncation=True, padding=True, max_length=128, return_tensors="pt")
     # Perform inference
     try:
         with torch.no_grad():
@@ -46,8 +44,4 @@ def predict_sentiment(request: SentimentRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Model inference failed: {e}")
 
-    return {
-        "text": request.text,
-        "predicted_class": predicted_class,
-        "probabilities": probs.tolist()
-    }
+    return {"text": request.text, "predicted_class": predicted_class, "probabilities": probs.tolist()}
