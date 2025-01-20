@@ -9,12 +9,13 @@ from loguru import logger
 # Initialize Typer app
 app = typer.Typer(help="CLI for preprocessing sentiment analysis data.")
 
+
 @app.command()
 def preprocess_data(
     raw_dir: str = typer.Argument(..., help="Directory containing a single CSV file (Train.csv)."),
     processed_dir: str = typer.Argument(..., help="Directory to save processed PyTorch tensors."),
     model_name: str = typer.Argument(..., help="Pre-trained model name for tokenizer."),
-    max_length: int = typer.Option(128, help="Maximum sequence length for tokenization.")
+    max_length: int = typer.Option(128, help="Maximum sequence length for tokenization."),
 ) -> None:
     """
     Preprocess a single CSV (Train.csv) for sentiment analysis. Splits data into
@@ -48,15 +49,15 @@ def preprocess_data(
     logger.info("Data loaded successfully.")
 
     # Handle missing values in 'Body' by replacing with empty string
-    df['Body'] = df['Body'].fillna("")
+    df["Body"] = df["Body"].fillna("")
 
     # Check if 'Sentiment Type' column exists
-    if 'Sentiment Type' not in df.columns:
+    if "Sentiment Type" not in df.columns:
         logger.error("Train.csv must contain a 'Sentiment Type' column.")
         raise ValueError("Missing 'Sentiment Type' column in Train.csv.")
 
     # Encode sentiment labels using pandas factorize
-    df['Sentiment_Label'], unique_labels = pd.factorize(df['Sentiment Type'])
+    df["Sentiment_Label"], unique_labels = pd.factorize(df["Sentiment Type"])
     logger.info("Sentiment labels encoded.")
 
     # Save the unique labels for future reference (e.g., in evaluation or inference)
@@ -83,28 +84,27 @@ def preprocess_data(
 
     # Tokenize the training data
     train_encodings = tokenizer(
-        train_df['Body'].tolist(),
+        train_df["Body"].tolist(),
         truncation=True,
         padding=True,
         max_length=max_length,
-        return_tensors="pt"
+        return_tensors="pt",
     )
     logger.info("Training data tokenized.")
 
     # Tokenize the test data
     test_encodings = tokenizer(
-        test_df['Body'].tolist(),
+        test_df["Body"].tolist(),
         truncation=True,
         padding=True,
         max_length=max_length,
-        return_tensors="pt"
+        return_tensors="pt",
     )
     logger.info("Test data tokenized.")
 
     # Extract labels for training and testing data
-    train_labels = torch.tensor(train_df['Sentiment_Label'].values)
-    test_labels = torch.tensor(test_df['Sentiment_Label'].values)
-
+    train_labels = torch.tensor(train_df["Sentiment_Label"].values)
+    test_labels = torch.tensor(test_df["Sentiment_Label"].values)
 
     # Save tokenized inputs and labels
     torch.save(train_encodings, os.path.join(processed_dir, "train_encodings.pt"))
@@ -114,6 +114,7 @@ def preprocess_data(
     logger.info("Tokenized data and labels saved successfully.")
 
     logger.info("Data preprocessing complete.")
+
 
 class SentimentDataset(Dataset):
     """
@@ -143,7 +144,7 @@ class SentimentDataset(Dataset):
         """
         item = {key: val[idx] for key, val in self.encodings.items()}
         if self.labels is not None:
-            item['labels'] = self.labels[idx]
+            item["labels"] = self.labels[idx]
         return item
 
     def __len__(self):
@@ -153,7 +154,8 @@ class SentimentDataset(Dataset):
         Returns:
             int: Number of items.
         """
-        return len(self.encodings['input_ids'])
+        return len(self.encodings["input_ids"])
+
 
 def load_datasets(processed_dir: str) -> tuple[Dataset, Dataset]:
     """
@@ -176,6 +178,7 @@ def load_datasets(processed_dir: str) -> tuple[Dataset, Dataset]:
     test_dataset = SentimentDataset(test_encodings, test_labels)
 
     return train_dataset, test_dataset
+
 
 if __name__ == "__main__":
     app()
