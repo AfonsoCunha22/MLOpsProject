@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "sentiment_analysis"
 version = "0.0.1"
-description = "A short description of the project."
+description = "The goal of this project is to perform sentiment analysis on social media comments, customer reviews etc. "
 authors = [
   { name = "Group 39", email = "your@email.com" },
 ]
@@ -30,3 +30,7 @@ line-length = 120
 
 [tool.coverage.run]
 omit = ["tests/*"]
+
+[project.scripts]
+train = "src.sentiment_analysis.train:app"
+preprocess_data = "sentiment_analysis.data:app"
