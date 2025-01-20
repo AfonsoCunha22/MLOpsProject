@@ -41,8 +41,8 @@ def test_my_dataset():
 Coverage:
 Name                                 Stmts   Miss  Cover
 --------------------------------------------------------
-src\sentiment_analysis\__init__.py       0      0   100%
-src\sentiment_analysis\data.py          72     56    22%
+src/sentiment_analysis/__init__.py       0      0   100%
+src/sentiment_analysis/data.py          72     56    22%
 --------------------------------------------------------
 TOTAL                                   72     56    22%
 

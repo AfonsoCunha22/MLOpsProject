@@ -96,8 +96,8 @@ Coverage:
 
 Name                                 Stmts   Miss  Cover
 --------------------------------------------------------
-src\sentiment_analysis\__init__.py       0      0   100%
-src\sentiment_analysis\model.py         66      0   100%
+src/sentiment_analysis/__init__.py       0      0   100%
+src/sentiment_analysis/model.py         66      0   100%
 --------------------------------------------------------
 TOTAL                                   66      0   100%
 
