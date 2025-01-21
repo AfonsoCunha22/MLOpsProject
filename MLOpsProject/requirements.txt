@@ -30,8 +30,13 @@ pytest==8.3.4
 #Code Coverage
 coverage==7.6.10
 
-fastapi==0.115.6
+# fastapi==0.115.6
+# uvicorn==0.34.0
+# dvc==2.8.3
 
+# python 3.12.8
+
+# pytorch==2.2.2
 
 wandb==0.19.3
 pre-commit==4.0.1
