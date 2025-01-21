@@ -1,8 +1,9 @@
 import os
 import torch
 import pandas as pd
+import matplotlib.pyplot as plt
 from transformers import AlbertTokenizer
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 import typer
 from loguru import logger
 
@@ -156,6 +157,49 @@ class SentimentDataset(Dataset):
         """
         return len(self.encodings["input_ids"])
 
+
+def dataset_statistics(processed_dir: str = "data/processed") -> None:
+    """Compute dataset statistics."""
+    train_dataset, test_dataset = load_datasets(processed_dir)
+
+    print("Train dataset: Sentiment Analysis")
+    print(f"Number of samples: {len(train_dataset)}")
+    print("\n")
+    print("Test dataset: Sentiment Analysis")
+    print(f"Number of samples: {len(test_dataset)}")
+
+    # Visualize some samples (for example, the first 25 samples)
+    train_dataloader = DataLoader(train_dataset, batch_size=25, shuffle=True)
+    batch = next(iter(train_dataloader))
+    input_ids = batch["input_ids"]
+    labels = batch["labels"]
+
+    # Assuming you have a function to decode input_ids to text
+    # decoded_texts = decode_input_ids(input_ids)
+
+    # For simplicity, we'll just print the input_ids and labels
+    print("Sample input_ids:", input_ids)
+    print("Sample labels:", labels)
+
+    # Compute label distribution
+    train_label_distribution = torch.bincount(train_dataset.labels)
+    test_label_distribution = torch.bincount(test_dataset.labels)
+
+    plt.bar(torch.arange(len(train_label_distribution)), train_label_distribution)
+    plt.title("Train label distribution")
+    plt.xlabel("Label")
+    plt.ylabel("Count")
+    plt.savefig("train_label_distribution.png")
+    plt.close()
+
+    plt.bar(torch.arange(len(test_label_distribution)), test_label_distribution)
+    plt.title("Test label distribution")
+    plt.xlabel("Label")
+    plt.ylabel("Count")
+    plt.savefig("test_label_distribution.png")
+    plt.close()
+
+    logger.info("Dataset statistics computed and visualizations saved.")
 
 def load_datasets(processed_dir: str) -> tuple[Dataset, Dataset]:
     """
