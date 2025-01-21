@@ -1,7 +1,4 @@
 
-
-# fastapi==0.115.6
-# uvicorn==0.34.0
 # dvc==2.8.3
 
 # python 3.12.8
@@ -32,7 +29,7 @@ pytest==8.3.4
 #Code Coverage
 coverage==7.6.10
 
-fastapi==0.115.6
+# fastapi==0.115.6
 # uvicorn==0.34.0
 # dvc==2.8.3
 
@@ -73,3 +70,8 @@ pytest==8.3.4
 #Code Coverage
 coverage==7.6.10
 streamlit==1.41.1
+
+# for API tests
+httpx==0.28.1
+uvicorn==0.34.0
+locust==2.32.6
