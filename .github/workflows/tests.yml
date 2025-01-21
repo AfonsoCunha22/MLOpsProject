@@ -45,5 +45,5 @@ jobs:
 
       - name: Run tests & coverage
         run: |
-          coverage run --rcfile = MLOpsProject/.coveragerc -m pytest MLOpsProject/tests
+          coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests
           coverage report -m
