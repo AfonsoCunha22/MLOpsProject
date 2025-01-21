@@ -43,8 +43,11 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-    - name: Pull data
-      run: dvc pull --no-run-cache
+    - name: Pull data from DVC remote
+      run: |
+        dvc pull --no-run-cache
+      env:
+        DVC_REMOTE: ${{ secrets.DVC_REMOTE }}
 
     - name: Cache DVC remote data
       uses: actions/cache@v3
@@ -54,23 +57,22 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-dvc-
 
-    - name: Check if data has changed
-      run: |
-        git diff --name-only origin/main | grep -q 'data/' || exit 0
-
     - name: Check data statistics & generate report
       run: |
-        python MLOpsProject/src/sentiment_analysis/data.py > data_statistics.md
+        python MLOpsProject/src/sentiment_analysis/data.py dataset-statistics > data_statistics.md
         echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
         echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
 
     - name: Cleanup DVC cache
-      run: dvc gc --workspace --cloud
+      run: |
+        dvc gc --workspace --cloud
+      env:
+        DVC_REMOTE: ${{ secrets.DVC_REMOTE }}
 
-    - name: Setup cml
+    - name: Setup CML
       uses: iterative/setup-cml@v2
 
-    - name: Comment on PR
+    - name: Post comment on PR with statistics
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
