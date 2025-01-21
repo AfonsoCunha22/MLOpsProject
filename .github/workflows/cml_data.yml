@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'data/**'
+      - 'ddata/processed/**'
       - '**/*.dvc'
       - '.dvc/**'
       - 'models/**'
@@ -13,14 +13,14 @@ on:
     branches:
       - main
     paths:
-      - 'data/**'
+      - 'data/processed/**'
       - '**/*.dvc'
       - '.dvc/**'
       - 'models/**'
 
 jobs:
   dataset_statistics:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
 
     steps:
     - name: Checkout code
