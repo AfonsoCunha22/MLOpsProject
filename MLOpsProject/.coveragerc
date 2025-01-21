@@ -1,3 +1,7 @@
-[run] source = MLOpsProject # or whatever your main package folder is omit = */_remote_module_non_scriptable.py
+[run]
+source = MLOpsProject
+omit =
+    */_remote_module_non_scriptable.py
 
-[report] ignore_errors = True
+[report]
+ignore_errors = True
