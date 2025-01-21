@@ -225,5 +225,11 @@ def load_datasets(processed_dir: str) -> tuple[Dataset, Dataset]:
 
 
 if __name__ == "__main__":
-    dataset_statistics("data/processed")
-    #app()
+    import sys
+
+    # Check if the script is run directly or as part of a workflow
+    if len(sys.argv) > 1:
+        app()  # Run the Typer CLI when arguments are passed
+    else:
+        # Run dataset_statistics if no arguments are provided
+        dataset_statistics("data/processed")
