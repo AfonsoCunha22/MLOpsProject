@@ -1,15 +1,21 @@
+from tests import _PATH_DATA
+import torch
+import os
+
+
 # @pytest.mark.skipif(not os.path.exists(_PATH_DATA), reason="Data files not found")
+
+
 def test_my_dataset():
     """Test data integrity and correctness."""
 
     # Paths to the data files
-    # processed_path = os.path.join(_PATH_DATA, "processed")
-    # train_encodings_path = os.path.join(processed_path, "train_encodings.pt")
-    # test_encodings_path = os.path.join(processed_path, "test_encodings.pt")
-    # train_labels_path = os.path.join(processed_path, "train_labels.pt")
-    # test_labels_path = os.path.join(processed_path, "test_labels.pt")
+    processed_path = os.path.join(_PATH_DATA, "processed")
+    train_encodings_path = os.path.join(processed_path, "train_encodings.pt")
+    test_encodings_path = os.path.join(processed_path, "test_encodings.pt")
+    train_labels_path = os.path.join(processed_path, "train_labels.pt")
+    test_labels_path = os.path.join(processed_path, "test_labels.pt")
 
-    """
     # Check for the existence of the necessary directories and files
     if not os.path.exists(processed_path):
         assert os.makedirs(processed_path)
@@ -30,11 +36,10 @@ def test_my_dataset():
     assert train_labels.dim() == 1, "Train labels should be 1-dimensional"
     assert test_labels.dim() == 1, "Test labels should be 1-dimensional"
 
-    assert 'input_ids' in train_encodings, "Train encodings missing 'input_ids'"
-    assert 'input_ids' in test_encodings, "Test encodings missing 'input_ids'"
+    assert "input_ids" in train_encodings, "Train encodings missing 'input_ids'"
+    assert "input_ids" in test_encodings, "Test encodings missing 'input_ids'"
     assert isinstance(train_labels, torch.Tensor), "Train labels must be a torch Tensor"
     assert isinstance(test_labels, torch.Tensor), "Test labels must be a torch Tensor"
-    """
 
 
 """
