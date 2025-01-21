@@ -5,7 +5,7 @@ def train_model():
     aiplatform.init(
         project="mlopssentimentanalysis",
         location="europe-west1",
-        staging_bucket="gs://your-staging-bucket",
+        staging_bucket="gs://you",
     )
 
     job = aiplatform.CustomJob.from_local_script(
