@@ -225,4 +225,5 @@ def load_datasets(processed_dir: str) -> tuple[Dataset, Dataset]:
 
 
 if __name__ == "__main__":
-    app()
+    dataset_statistics("data/processed")
+    #app()

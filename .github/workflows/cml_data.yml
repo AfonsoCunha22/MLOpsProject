@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'ddata/processed/**'
+      - 'data/**'
       - '**/*.dvc'
       - '.dvc/**'
       - 'models/**'
@@ -13,14 +13,14 @@ on:
     branches:
       - main
     paths:
-      - 'data/processed/**'
+      - 'data/**'
       - '**/*.dvc'
       - '.dvc/**'
       - 'models/**'
 
 jobs:
   dataset_statistics:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -35,8 +35,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
-        pip install -r requirements_dev.txt
+        pip install -r MLOpsProject/requirements.txt
+        pip install -r MLOpsProject/requirements_dev.txt
         pip list
 
     - name: Pull data
@@ -44,7 +44,7 @@ jobs:
 
     - name: Check data statistics & generate report
       run: |
-        python src/sentiment_analysis/data.py > data_statistics.md
+        python MLOpsProject/src/sentiment_analysis/data.py > data_statistics.md
         echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
         echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
 
