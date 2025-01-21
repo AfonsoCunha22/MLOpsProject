@@ -20,7 +20,7 @@ on:
 
 jobs:
   dataset_statistics:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
