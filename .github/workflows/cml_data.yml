@@ -37,7 +37,6 @@ jobs:
       run: |
         pip install -r MLOpsProject/requirements.txt
         pip install -r MLOpsProject/requirements_dev.txt
-        pip list
 
     - name: Authenticate with GCP
       uses: google-github-actions/auth@v2
@@ -47,11 +46,26 @@ jobs:
     - name: Pull data
       run: dvc pull --no-run-cache
 
+    - name: Cache DVC remote data
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/dvc
+        key: ${{ runner.os }}-dvc-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-dvc-
+
+    - name: Check if data has changed
+      run: |
+        git diff --name-only origin/main | grep -q 'data/' || exit 0
+
     - name: Check data statistics & generate report
       run: |
         python MLOpsProject/src/sentiment_analysis/data.py > data_statistics.md
         echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
         echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
+
+    - name: Cleanup DVC cache
+      run: dvc gc --workspace --cloud
 
     - name: Setup cml
       uses: iterative/setup-cml@v2
