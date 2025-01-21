@@ -39,6 +39,11 @@ jobs:
         pip install -r MLOpsProject/requirements_dev.txt
         pip list
 
+    - name: Authenticate with GCP
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
     - name: Pull data
       run: dvc pull --no-run-cache
 
