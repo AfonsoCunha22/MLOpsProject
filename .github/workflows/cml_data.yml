@@ -20,7 +20,7 @@ on:
 
 jobs:
   dataset_statistics:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -46,22 +46,18 @@ jobs:
     - name: Configure DVC remote
       run: |
         dvc remote add -d myremote ${{ secrets.DVC_REMOTE_FOLDER }}
-        dvc remote modify myremote --local gdrive_use_service_account True
-        dvc remote modify myremote --local gdrive_service_account_json "${{ secrets.GCP_SA_KEY }}"
-      env:
-        DVC_REMOTE: ${{ secrets.DVC_REMOTE_FOLDER }}  # This will use the secret value
+        dvc remote modify myremote gcs_use_service_account True
+        dvc remote modify myremote gcs_service_account_file "${{ secrets.GCP_SA_KEY }}"
 
     - name: Pull data from DVC remote
       run: |
         dvc pull --no-run-cache -v
-      env:
-        DVC_REMOTE: ${{ secrets.DVC_REMOTE_FOLDER }}
 
     - name: Cache DVC remote data
       uses: actions/cache@v3
       with:
         path: ~/.cache/dvc
-        key: ${{ runner.os }}-dvc-${{ github.sha }}
+        key: ${{ runner.os }}-dvc-${{ github.ref }}
         restore-keys: |
           ${{ runner.os }}-dvc-
 
@@ -74,8 +70,6 @@ jobs:
     - name: Cleanup DVC cache
       run: |
         dvc gc --workspace --cloud
-      env:
-        DVC_REMOTE: ${{ secrets.DVC_REMOTE }}
 
     - name: Setup CML
       uses: iterative/setup-cml@v2
