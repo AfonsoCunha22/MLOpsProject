@@ -66,9 +66,8 @@ jobs:
         echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
         echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
 
-    - name: Cleanup DVC cache
-      run: |
-        dvc gc --workspace --cloud
+    - name: Garbage collect DVC cache
+      run: dvc gc --workspace --cloud --force
 
     - name: Setup CML
       uses: iterative/setup-cml@v2
