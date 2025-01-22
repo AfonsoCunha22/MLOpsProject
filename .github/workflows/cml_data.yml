@@ -55,6 +55,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-dvc-
 
+    - name: Verify DVC files are pulled
+      run: |
+        ls -la data/processed
+
+
     - name: Check data statistics & generate report
       run: |
         python MLOpsProject/src/sentiment_analysis/data.py dataset-statistics > data_statistics.md
