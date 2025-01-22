@@ -1,5 +1,9 @@
 name: DVC and Model Registry Workflow
 
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   push:
     branches:
