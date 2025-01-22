@@ -57,7 +57,7 @@ jobs:
 
     - name: Verify DVC files are pulled
       run: |
-        ls -la data/processed
+        ls -la MLOpsProject/data/processed
 
 
     - name: Check data statistics & generate report
