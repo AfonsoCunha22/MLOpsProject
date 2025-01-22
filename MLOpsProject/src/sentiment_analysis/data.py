@@ -158,7 +158,7 @@ class SentimentDataset(Dataset):
         return len(self.encodings["input_ids"])
 
 
-def dataset_statistics(processed_dir: str = "data/processed") -> None:
+def dataset_statistics(processed_dir: str = "MLOpsProject\data\processed") -> None:
     """Compute dataset statistics."""
     train_dataset, test_dataset = load_datasets(processed_dir)
 
