@@ -158,7 +158,7 @@ class SentimentDataset(Dataset):
         return len(self.encodings["input_ids"])
 
 
-def dataset_statistics(processed_dir: str = "MLOpsProject\data\processed") -> None:
+def dataset_statistics(processed_dir: str = "MLOpsProject/data/processed") -> None:
     """Compute dataset statistics."""
     train_dataset, test_dataset = load_datasets(processed_dir)
 
@@ -226,13 +226,16 @@ def load_datasets(processed_dir: str) -> tuple[Dataset, Dataset]:
 
 if __name__ == "__main__":
     import sys
-
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    print(project_root)
+    processed_dir = os.path.join(project_root, "data", "processed")
+    print(processed_dir)
     # Check if the script is invoked with CLI arguments
     if len(sys.argv) > 1 and sys.argv[1] != "dataset-statistics":
         app()  # Run Typer CLI if arguments are passed
     else:
         # Run dataset_statistics if 'dataset-statistics' is passed or no args are provided
         if len(sys.argv) > 1 and sys.argv[1] == "dataset-statistics":
-            dataset_statistics("data/processed")
+            dataset_statistics(processed_dir)
         else:
             print("Usage: python data.py [preprocess-data | dataset-statistics]")
