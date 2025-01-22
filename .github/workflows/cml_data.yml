@@ -43,11 +43,19 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
+    - name: Configure DVC remote
+      run: |
+        dvc remote add -d myremote ${{ secrets.DVC_REMOTE_FOLDER }}
+        dvc remote modify myremote --local gdrive_use_service_account True
+        dvc remote modify myremote --local gdrive_service_account_json "${{ secrets.GCP_SA_KEY }}"
+      env:
+        DVC_REMOTE: ${{ secrets.DVC_REMOTE_FOLDER }}  # This will use the secret value
+
     - name: Pull data from DVC remote
       run: |
-        dvc pull --no-run-cache
+        dvc pull --no-run-cache -v
       env:
-        DVC_REMOTE: ${{ secrets.DVC_REMOTE }}
+        DVC_REMOTE: ${{ secrets.DVC_REMOTE_FOLDER }}
 
     - name: Cache DVC remote data
       uses: actions/cache@v3
