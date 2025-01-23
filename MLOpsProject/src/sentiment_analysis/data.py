@@ -201,6 +201,7 @@ def dataset_statistics(processed_dir: str = "MLOpsProject/data/processed") -> No
 
     logger.info("Dataset statistics computed and visualizations saved.")
 
+
 def load_datasets(processed_dir: str) -> tuple[Dataset, Dataset]:
     """
     Load the processed datasets and create PyTorch Dataset objects.
@@ -226,6 +227,7 @@ def load_datasets(processed_dir: str) -> tuple[Dataset, Dataset]:
 
 if __name__ == "__main__":
     import sys
+
     project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     print(project_root)
     processed_dir = os.path.join(project_root, "data", "processed")
