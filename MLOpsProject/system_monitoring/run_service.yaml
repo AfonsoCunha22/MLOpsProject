@@ -1,0 +1,29 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    run.googleapis.com/launch-stage: ALPHA
+    run.googleapis.com/cpu-throttling: 'false'
+  name: my-cloud-run-service
+spec:
+  template:
+    metadata:
+      annotations:
+        run.googleapis.com/execution-environment: gen2
++       run.googleapis.com/container-dependencies: '{"collector":["app"]}'
+    spec:
+      containers:
+      - image: "europe-north1-docker.pkg.dev/mlopssentimentanalysis/run-gmp/sample-app"
+        name: app
+        startupProbe:
+          httpGet:
+            path: /startup
+            port: 8000
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 8000
+        ports:
+        - containerPort: 8000
++     - image: "us-docker.pkg.dev/cloud-ops-agents-artifacts/cloud-run-gmp-sidecar/cloud-run-gmp-sidecar:1.2.0"
++       name: collector
