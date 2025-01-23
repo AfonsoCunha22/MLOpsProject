@@ -1,3 +1,11 @@
+"""
+To run this script, use the following command:
+python -m onnx_deployment.onnx_test
+
+This script tests inference with an ONNX model by running it on dummy input data.
+Make sure you have first exported your model to ONNX format using create_onnx.py.
+"""
+
 import onnxruntime as ort
 import torch
 

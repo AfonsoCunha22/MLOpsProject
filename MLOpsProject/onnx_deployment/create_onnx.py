@@ -1,4 +1,4 @@
-from sentiment_analysis.model import SentimentModel, export_to_onnx
+from src.sentiment_analysis.model import SentimentModel, export_to_onnx
 
 # Initialize sentiment analysis model
 model_instance = SentimentModel()
