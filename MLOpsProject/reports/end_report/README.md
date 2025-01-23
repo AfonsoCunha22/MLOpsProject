@@ -273,7 +273,7 @@ c
 ### Question 12
 
 > **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would**
-> **run a experiment.**
+> **run an experiment.**
 >
 > Recommended answer length: 50-100 words.
 >
@@ -297,7 +297,7 @@ c
 >
 > Answer:
 
---- question 13 fill here ---
+--- We made sure our experiments can be repeated by using configuration files with Hydra. These files stored all important details like model settings, hyperparameters, and data paths. Every time we ran an experiment, the exact settings were saved so we could easily do it again later. We also used DVC to keep track of different versions of our data and model files. This way, we can go back to any version we need. To repeat an experiment, we just load the right configuration and data version, making everything clear and easy to reproduce. ---
 
 ### Question 14
 
@@ -329,7 +329,18 @@ c
 >
 > Answer:
 
---- question 15 fill here ---
+--- For our project, we created multiple Docker images to manage different parts of the workflow effectively:
+
+1. FastAPI Dockerfile: This image was used for inference and deployment of the FastAPI application. It included dependencies such as FastAPI and PyTorch. To run it locally, we used:
+docker run -p 8000:8000 fastapi-api:latest.
+
+2. Data Dockerfile: This image was designed for managing data preprocessing tasks. It ensured consistency in how data was processed across different environments.
+
+3. Train Dockerfile: This image was used for training the machine learning model. It contained all necessary libraries and tools for running the training scripts in an isolated environment.
+
+Each Dockerfile was built and tested to ensure smooth functionality, and the images were deployed to Google Cloud Run for scalability and serverless operation. Using Docker allowed us to ensure consistency and reproducibility across all stages of the project.
+
+Here’s a link to one of our Dockerfiles: ***docker file link***. ---
 
 ### Question 16
 
@@ -435,7 +446,7 @@ c
 >
 > Answer:
 
---- question 23 fill here ---
+--- We created an API for our sentiment analysis model using FastAPI. The API has a /predict/ endpoint that takes text input and returns the sentiment (Negative, Neutral, or Positive) along with probabilities. It also logs the predictions, including the text, predicted class, and timestamp, for future use. We added a /drift/ endpoint to check for data drift using Evidently. This compares the logged predictions with the training data and creates a drift report in HTML format. To monitor performance, we used Prometheus to track things like the number of requests, errors, and how long requests take. This setup makes our API easy to use and keeps the model reliable over time. ---
 
 ### Question 24
 
@@ -451,7 +462,11 @@ c
 >
 > Answer:
 
---- question 24 fill here ---
+--- For deployment, we wrapped our model into a FastAPI application and tested it locally using uvicorn to ensure all endpoints, including /predict/ and /drift/, worked as expected. After testing, we containerized the application with Docker and deployed it to Google Cloud Run, a serverless platform that simplified the deployment process by managing infrastructure for us.
+
+The deployment steps involved building the Docker image, pushing it to Google Container Registry (GCR), and using gcloud commands to deploy the container to Cloud Run. Once deployed, Cloud Run provided us with a unique URL to invoke the endpoints.
+
+To test the endpoints, we used PowerShell commands like Invoke-RestMethod for both /predict/ and /drift/ endpoints. For example, we sent HTTP POST requests to the /predict/ endpoint to get sentiment predictions and GET requests to /drift/ to generate and check data drift reports. Cloud Run provided reliable scalability and a smooth deployment experience for our application. ---
 
 ### Question 25
 
@@ -512,7 +527,7 @@ c
 >
 > Answer:
 
---- question 28 fill here ---
+--- We focused on meeting the project requirements and did not implement any additional features beyond what was specified. Our efforts were concentrated on ensuring high-quality execution of the required tasks ---
 
 ### Question 29
 
