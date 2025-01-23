@@ -143,7 +143,15 @@ Group 39
 >
 > Answer:
 
---- question 3 fill here ---
+Fo the priject we used several libraries and frameworks that we hadnt used throughout the course. These are:
+To achieve the project's objectives, we use the following tools and frameworks:
+
+- *Hugging Face*: For building the baseline and utilizing pre-trained sentiment analysis models.
+- *DVC (Data Version Control)*: For managing dataset versioning and ensuring data consistency across team members.
+- *Weights & Biases (W&B)*: To track experiments, monitor performance metrics, and visualize model training.
+- *Hydra*: For configuration management to ensure reproducibility of experiments.
+- *Docker*: To containerize the entire pipeline, facilitating portability and deployment across different environments.
+
 
 ## Coding environment
 
@@ -163,7 +171,7 @@ Group 39
 >
 > Answer:
 
---- question 4 fill here ---
+We used requirements.txt and requirements_dev.txt for managing our dependencies. Any time when we were using a package, we checked the version that we use and include it there. The list of dependencies was auto-generated using ... . To get a complete copy of our development environment, one would have to run the following commands: after creating a new environment using conda with python 13.12.8 they would have to run a 'pip install -r requirements_dev.txt requirements.txt' command in the terminal. 
 
 ### Question 5
 
@@ -179,7 +187,11 @@ Group 39
 >
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter template we have filled out the configs, data, DOCKERFILES?, docs, models, notebooks, REPORT?, src, tests and wandb folders.
+
+We have removed the ... folder* because we did not use any ... in our project.
+
+We have added a .dvc folder that contains XXX. We also added onnx_deployment folder, for creating, testing and create an api for onnx model
 
 ### Question 6
 
