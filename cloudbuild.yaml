@@ -1,0 +1,19 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build container image'
+  args: [
+    'build',
+    '.',
+    '-t',
+    'europe-west1-docker.pkg.dev/mlopssentimentanalysis/mlops-container-registry/datagmz/fastapi_v2:v1',
+    '-f',
+    'Dockerfile'  # Assuming the Dockerfile is in the same directory as cloudbuild.yaml
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Push container image'
+  args: [
+    'push',
+    'europe-west1-docker.pkg.dev/mlopssentimentanalysis/mlops-container-registry/datagmz/fastapi_v2:v1'
+  ]
+options:
+  logging: CLOUD_LOGGING_ONLY
