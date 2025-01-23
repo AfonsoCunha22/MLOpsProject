@@ -18,9 +18,15 @@ review_size_summary = Summary("review_size_bytes", "Size of the reviews classifi
 app = FastAPI()
 app.mount("/metrics", make_asgi_app())
 
+"""To run the FastAPI app from the terminal, use the following command:
+uvicorn sentiment_analysis.main:app --reload
+"""
+
+
 # Define input schema using Pydantic for validation
 class SentimentRequest(BaseModel):
     text: str
+
 
 # Load the model and tokenizer globally
 model_name = "albert-base-v2"
@@ -39,9 +45,11 @@ LOG_FILE = "prediction_logs.csv"
 if not os.path.exists(LOG_FILE):
     pd.DataFrame(columns=["timestamp", "text", "predicted_class", "probabilities"]).to_csv(LOG_FILE, index=False)
 
+
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Sentiment Analysis API!"}
+
 
 @app.post("/predict/")
 def predict_sentiment(request: SentimentRequest, background_tasks: BackgroundTasks):
@@ -79,18 +87,17 @@ def predict_sentiment(request: SentimentRequest, background_tasks: BackgroundTas
 
     return {"text": request.text, "predicted_class": predicted_class, "probabilities": probs.tolist()}
 
+
 def log_prediction(text, predicted_class, probabilities):
     """
     Log the input, prediction class, probabilities, and timestamp into a CSV file.
     """
     timestamp = datetime.now().isoformat()
-    new_log = pd.DataFrame([{
-        "timestamp": timestamp,
-        "text": text,
-        "predicted_class": predicted_class,
-        "probabilities": probabilities
-    }])
+    new_log = pd.DataFrame(
+        [{"timestamp": timestamp, "text": text, "predicted_class": predicted_class, "probabilities": probabilities}]
+    )
     new_log.to_csv(LOG_FILE, mode="a", header=False, index=False)
+
 
 @app.get("/drift/")
 def check_drift():
@@ -100,9 +107,16 @@ def check_drift():
     from evidently.report import Report
     from evidently.metric_preset import DataDriftPreset
 
-    # Load reference (training) data
+    # Load reference (training) data from .pt files
     try:
-        training_data = pd.read_csv("training_data.csv")  # Replace with your actual training data path
+        train_encodings = torch.load("data/processed/train_encodings.pt")
+        train_labels = torch.load("data/processed/train_labels.pt")
+        training_data = pd.DataFrame(
+            {
+                "text": tokenizer.batch_decode(train_encodings["input_ids"], skip_special_tokens=True),
+                "target": train_labels.tolist(),
+            }
+        )
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="Training data not found.")
 
@@ -120,6 +134,6 @@ def check_drift():
     # Generate a drift report
     report = Report(metrics=[DataDriftPreset()])
     report.run(reference_data=training_data, current_data=current_data)
-    report.save_html("drift_report.html")
+    report.save_html("reports/drift/drift_report.html")
 
     return {"message": "Drift report generated. Check the 'drift_report.html' file."}
