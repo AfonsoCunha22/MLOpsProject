@@ -10,7 +10,7 @@ to the <code>figures</code> subfolder (please only use <code>.png</code>, <code>
 <p>In addition to this markdown file, we also provide the <code>report.py</code> script that provides two utility functions:</p>
 <p>Running:</p>
 <p><code>bash
-python report.py html</code></p>
+python reports/end_report/report.py html</code></p>
 <p>Will generate a <code>.html</code> page of your report. After the deadline for answering this template, we will auto-scrape
 everything in this <code>reports</code> folder and then use this utility to generate a <code>.html</code> page that will be your serve
 as your final hand-in.</p>
@@ -53,23 +53,23 @@ will check the repositories and the code to verify your answers.</p>
 </ul>
 <h3>Week 2</h3>
 <ul>
-<li>[ ] Write unit tests related to the data part of your code (M16)</li>
-<li>[ ] Write unit tests related to model construction and or model training (M16)</li>
-<li>[ ] Calculate the code coverage (M16)</li>
-<li>[ ] Get some continuous integration running on the GitHub repository (M17)</li>
-<li>[ ] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)</li>
-<li>[ ] Add a linting step to your continuous integration (M17)</li>
-<li>[ ] Add pre-commit hooks to your version control setup (M18)</li>
-<li>[ ] Add a continues workflow that triggers when data changes (M19)</li>
-<li>[ ] Add a continues workflow that triggers when changes to the model registry is made (M19)</li>
-<li>[ ] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)</li>
+<li>[X] Write unit tests related to the data part of your code (M16)</li>
+<li>[X] Write unit tests related to model construction and or model training (M16)</li>
+<li>[X] Calculate the code coverage (M16)</li>
+<li>[X] Get some continuous integration running on the GitHub repository (M17)</li>
+<li>[X] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)</li>
+<li>[X] Add a linting step to your continuous integration (M17)</li>
+<li>[X] Add pre-commit hooks to your version control setup (M18)</li>
+<li>[X] Add a continues workflow that triggers when data changes (M19)</li>
+<li>[X] Add a continues workflow that triggers when changes to the model registry is made (M19)</li>
+<li>[X] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)</li>
 <li>[ ] Create a trigger workflow for automatically building your docker images (M21)</li>
 <li>[ ] Get your model training in GCP using either the Engine or Vertex AI (M21)</li>
-<li>[ ] Create a FastAPI application that can do inference using your model (M22)</li>
-<li>[ ] Deploy your model in GCP using either Functions or Run as the backend (M23)</li>
-<li>[ ] Write API tests for your application and setup continues integration for these (M24)</li>
-<li>[ ] Load test your application (M24)</li>
-<li>[ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)</li>
+<li>[X] Create a FastAPI application that can do inference using your model (M22)</li>
+<li>[X] Deploy your model in GCP using either Functions or Run as the backend (M23)</li>
+<li>[X] Write API tests for your application and setup continues integration for these (M24)</li>
+<li>[X] Load test your application (M24)</li>
+<li>[X] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)</li>
 <li>[ ] Create a frontend for your API (M26)</li>
 </ul>
 <h3>Week 3</h3>
@@ -96,7 +96,7 @@ will check the repositories and the code to verify your answers.</p>
 <h3>Question 1</h3>
 <blockquote>
 <p><strong>Enter the group number you signed up on <learn.inside.dtu.dk></strong></p>
-<p>Answer:Group 39</p>
+<p>Answer:</p>
 </blockquote>
 <p>Group 39</p>
 <h3>Question 2</h3>
@@ -104,7 +104,7 @@ will check the repositories and the code to verify your answers.</p>
 <p><strong>Enter the study number for each member in the group</strong></p>
 <p>Example:</p>
 <p><em>sXXXXXX, sXXXXXX, sXXXXXX</em></p>
-<p>Answer: </p>
+<p>Answer:</p>
 </blockquote>
 <p><em>s233564, s233177, s233564, s233162</em></p>
 <h3>Question 3</h3>
@@ -117,7 +117,15 @@ will check the repositories and the code to verify your answers.</p>
 <em>package to do ... and ... in our project</em>.</p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 3 fill here ---</p>
+<p>Fo the priject we used several libraries and frameworks that we hadnt used throughout the course. These are:
+To achieve the project's objectives, we use the following tools and frameworks:</p>
+<ul>
+<li><em>Hugging Face</em>: For building the baseline and utilizing pre-trained sentiment analysis models.</li>
+<li><em>DVC (Data Version Control)</em>: For managing dataset versioning and ensuring data consistency across team members.</li>
+<li><em>Weights &amp; Biases (W&amp;B)</em>: To track experiments, monitor performance metrics, and visualize model training.</li>
+<li><em>Hydra</em>: For configuration management to ensure reproducibility of experiments.</li>
+<li><em>Docker</em>: To containerize the entire pipeline, facilitating portability and deployment across different environments.</li>
+</ul>
 <h2>Coding environment</h2>
 <blockquote>
 <p>In the following section we are interested in learning more about you local development environment. This includes
@@ -133,7 +141,7 @@ how you managed dependencies, the structure of your code and how you managed cod
 <em>complete copy of our development environment, one would have to run the following commands</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 4 fill here ---</p>
+<p>We used requirements.txt and requirements_dev.txt for managing our dependencies. Any time when we were using a package, we checked the version that we use and include it there. The list of dependencies was auto-generated using ... . To get a complete copy of our development environment, one would have to run the following commands: after creating a new environment using conda with python 13.12.8 they would have to run a 'pip install -r requirements_dev.txt requirements.txt' command in the terminal.</p>
 <h3>Question 5</h3>
 <blockquote>
 <p><strong>We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your</strong>
@@ -145,7 +153,9 @@ how you managed dependencies, the structure of your code and how you managed cod
 <em>experiments.</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 5 fill here ---</p>
+<p>From the cookiecutter template we have filled out the configs, data, DOCKERFILES?, docs, models, notebooks, REPORT?, src, tests and wandb folders.</p>
+<p>We have removed the ... folder* because we did not use any ... in our project.</p>
+<p>We have added a .dvc folder that contains XXX. We also added onnx_deployment folder, for creating, testing and create an api for onnx model</p>
 <h3>Question 6</h3>
 <blockquote>
 <p><strong>Did you implement any rules for code quality and format? What about typing and documentation? Additionally,</strong>
@@ -178,7 +188,7 @@ corporate and increase the quality of your code.</p>
 <strong>to), would you still trust it to be error free? Explain you reasoning.</strong></p>
 <p>Recommended answer length: 100-200 words.</p>
 <p>Example:
-<em>The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our </em><em>
+<em>The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our **
 </em>code and even if we were then...*</p>
 <p>Answer:</p>
 </blockquote>
