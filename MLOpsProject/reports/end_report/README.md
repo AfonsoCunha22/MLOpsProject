@@ -18,7 +18,7 @@ In addition to this markdown file, we also provide the `report.py` script that p
 Running:
 
 ```bash
-python reports/end_report/report.py html
+python report.py html
 ```
 
 Will generate a `.html` page of your report. After the deadline for answering this template, we will auto-scrape
@@ -118,7 +118,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
-Group 39
+```Group 39```
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -128,8 +128,7 @@ Group 39
 > *sXXXXXX, sXXXXXX, sXXXXXX*
 >
 > Answer:
-
-*s233564, s233177, s233564, s233162*
+```*s233564, s233177, s233185, s233162*```
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -142,15 +141,7 @@ Group 39
 > *package to do ... and ... in our project*.
 >
 > Answer:
-
-Fo the priject we used several libraries and frameworks that we hadnt used throughout the course. These are:
-To achieve the project's objectives, we use the following tools and frameworks:
-
-- *Hugging Face*: For building the baseline and utilizing pre-trained sentiment analysis models.
-- *DVC (Data Version Control)*: For managing dataset versioning and ensuring data consistency across team members.
-- *Weights & Biases (W&B)*: To track experiments, monitor performance metrics, and visualize model training.
-- *Hydra*: For configuration management to ensure reproducibility of experiments.
-- *Docker*: To containerize the entire pipeline, facilitating portability and deployment across different environments.
+```We decided to use the Hugging Face Transformers package, which wasn't covered in our course, to fulfill the project's requirements. This framework let us use pre-trained models for sentiment analysis, which sped up our development process significantly. By using Hugging Face, we quickly built a strong baseline and could then focus on fine-tuning and optimizing our models. This allowed us to concentrate on other course objectives without spending too much time on building models from scratch. The tools and resources provided by Hugging Face were crucial in helping us complete the project successfully, enhancing our model's accuracy and effectiveness.```
 
 
 ## Coding environment
@@ -170,8 +161,7 @@ To achieve the project's objectives, we use the following tools and frameworks:
 > *complete copy of our development environment, one would have to run the following commands*
 >
 > Answer:
-
-We used requirements.txt and requirements_dev.txt for managing our dependencies. Any time when we were using a package, we checked the version that we use and include it there. The list of dependencies was auto-generated using ... . To get a complete copy of our development environment, one would have to run the following commands: after creating a new environment using conda with python 13.12.8 they would have to run a 'pip install -r requirements_dev.txt requirements.txt' command in the terminal.
+```We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file. To get a complete copy of our development environment, a new team member would need to follow these steps: Create a new virtual environment using conda create -n myenv python=3.12.8. Then Activate the newly created environment: conda activate myenv. And as a last step install the required dependencies by running pip install -r requirements.txt and pip install -r requirements_dev.txt```
 
 ### Question 5
 
@@ -186,18 +176,21 @@ We used requirements.txt and requirements_dev.txt for managing our dependencies.
 > *experiments.*
 >
 > Answer:
-
-
-We used Snicki's MLOps cookiecutter template to structure our project. This template provided a clear and organized structure with folders such as src, configs, data, docs, models, and tests, which we filled based on our project requirements. We also included important files like pyproject.toml to handle dependencies and configurations efficiently. The template's standardized layout made it easy to organize code, ensure maintainability, and collaborate effectively. Additionally, we added a .dvc folder for data version control and an onnx_deployment folder to create, test, and deploy APIs for ONNX models. This approach kept our project well-structured and tailored to our needs.
+```From the cookiecutter template, we filled out the configs, data, docs, models, notebooks, reports, src, tests, and wandb folders. We added a .dvc folder for data version control and an onnx_deployment folder for creating, testing, and deploying APIs for ONNX models. Additionally, we included a front_end folder and a subfolder in reports to work on the final report. The wandb folder was added for files related to Weights & Biases. We also used the .github folder for GitHub workflows and actions, and a credentials folder for storing sensitive information. Some other files were placed outside of the overall structure due to a wrongly set root of the project when we started. We did not use the dockerfiles folder due to some issues we encountered, so we decided to keep them where they worked. We also did not use the notebooks folder, although in retrospect, we realize that organizing our code there could have made it clearer. Overall, our structure could be much improved, but we only realized the importance of it closer to the end of the project.```
 
 ### Question 6
 
 > **Did you implement any rules for code quality and format? What about typing and documentation? Additionally,**
 > **explain with your own words why these concepts matters in larger projects.**
 >
+> Recommended answer length: 100-200 words.
+>
+> Example:
+> *We used ... for linting and ... for formatting. We also used ... for typing and ... for documentation. These*
+> *concepts are important in larger projects because ... . For example, typing ...*
+>
 > Answer:
-
-We ensured our code is clear, easy to read, and well-organized. We used meaningful names for files, functions, and variables to make the purpose of each part obvious. Good comments are included to explain important parts of the code without overloading it. We also handled errors carefully to keep the application stable and avoid unexpected crashes. This approach makes the code easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helps ensure that future updates or new team members can quickly adapt to the project.
+```We made sure our code was clear, easy to read, and well-organized. We tried to use meaningful names for files, functions, and variables to make the purpose of each part obvious. We included good comments to explain important parts of the code without overloading it. Additionally, we added terminal commands in the comments needed to run the code, so we could quickly execute it when needed. We handled errors carefully to keep the application stable and avoid unexpected crashes. We also used Ruff for linting to maintain code quality and consistency. This approach made it easier for us to cooperate and ensured the code was easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helped ensure that future updates or new team members could quickly adapt to the project.```
 
 ## Version control
 
@@ -215,8 +208,7 @@ We ensured our code is clear, easy to read, and well-organized. We used meaningf
 > *application but also ... .*
 >
 > Answer:
-
---- question 7 fill here ---
+```We have implemented a comprehensive set of tests using Pytest to ensure the reliability of our project. These tests cover various components, including data preprocessing, model functionality, and API endpoints. Specifically, we test data integrity, model initialization, forward pass, prediction, training, evaluation, and model saving/loading. Additionally, we use Ruff for linting and formatting, and pre-commit hooks to maintain code quality. Our GitHub Actions workflow runs these tests on multiple operating systems and Python versions, ensuring cross-platform compatibility and robustness.```
 
 ### Question 8
 
@@ -230,20 +222,22 @@ We ensured our code is clear, easy to read, and well-organized. We used meaningf
 > *code and even if we were then...*
 >
 > Answer:
+```The total code coverage of our code is 61%, which includes all our source code. Our pytests cover various parts of the project, including the API, data processing, and model functions. Running coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests shows that all tests passed, with some files having 100% coverage and others less. While coverage gives a lot of insights about the code, it is not a guarantee that the code would be bug-free. This is because it is just a measure of how many lines of code are run when your tests are executed. However, it helps in identifying untested parts of the codebase and ensures that the most critical paths are covered, but it does not eliminate the possibility of bugs entirely.```
 
---- question 8 fill here ---
 
 ### Question 9
 
 > **Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and**
 > **pull request can help improve version control.**
 >
-
+> Recommended answer length: 100-200 words.
+>
+> Example:
+> *We made use of both branches and PRs in our project. In our group, each member had an branch that they worked on in*
+> *addition to the main branch. To merge code we ...*
+>
 > Answer:
-
-We made use of both branches and pull requests (PRs) in our project to manage version control effectively. Each team member worked on a separate branch for their tasks, keeping the main branch stable and clean. When a team member completed a feature or fixed a bug, they opened a pull request to merge their branch into the main branch. This allowed the team to review the changes, provide feedback, and ensure that the code was correct and aligned with project standards before merging.
-
-Using branches and PRs improved collaboration and reduced the risk of conflicts. It also helped us maintain a stable main branch while allowing parallel development. This workflow ensured that every change was tracked, reviewed, and documented, making it easier to manage the project and maintain code quality.
+```We used different branches in our project, trying to keep it in a way that everybody would work on a separate branch to avoid conflicts. However, we did not use pull requests throughout the project. In retrospect, we see that using pull requests would have been valuable and could have saved us a lot of time, especially when we had to track who made changes that influenced a file. The reason we decided not to use pull requests was that we thought we would not interfere with each other's code as much, especially since we often worked on one computer. Additionally, our pull requests were often small, and we felt that having to approve each other's pull requests would prolong the work.```
 
 ### Question 10
 

@@ -10,7 +10,7 @@ to the <code>figures</code> subfolder (please only use <code>.png</code>, <code>
 <p>In addition to this markdown file, we also provide the <code>report.py</code> script that provides two utility functions:</p>
 <p>Running:</p>
 <p><code>bash
-python reports/end_report/report.py html</code></p>
+python report.py html</code></p>
 <p>Will generate a <code>.html</code> page of your report. After the deadline for answering this template, we will auto-scrape
 everything in this <code>reports</code> folder and then use this utility to generate a <code>.html</code> page that will be your serve
 as your final hand-in.</p>
@@ -98,15 +98,15 @@ will check the repositories and the code to verify your answers.</p>
 <p><strong>Enter the group number you signed up on <learn.inside.dtu.dk></strong></p>
 <p>Answer:</p>
 </blockquote>
-<p>Group 39</p>
+<p><code>Group 39</code></p>
 <h3>Question 2</h3>
 <blockquote>
 <p><strong>Enter the study number for each member in the group</strong></p>
 <p>Example:</p>
 <p><em>sXXXXXX, sXXXXXX, sXXXXXX</em></p>
-<p>Answer:</p>
+<p>Answer:
+<code>*s233564, s233177, s233185, s233162*</code></p>
 </blockquote>
-<p><em>s233564, s233177, s233564, s233162</em></p>
 <h3>Question 3</h3>
 <blockquote>
 <p><strong>A requirement to the project is that you include a third-party package not covered in the course. What framework</strong>
@@ -115,17 +115,9 @@ will check the repositories and the code to verify your answers.</p>
 <p>Example:
 <em>We used the third-party framework ... in our project. We used functionality ... and functionality ... from the</em>
 <em>package to do ... and ... in our project</em>.</p>
-<p>Answer:</p>
+<p>Answer:
+<code>We decided to use the Hugging Face Transformers package, which wasn't covered in our course, to fulfill the project's requirements. This framework let us use pre-trained models for sentiment analysis, which sped up our development process significantly. By using Hugging Face, we quickly built a strong baseline and could then focus on fine-tuning and optimizing our models. This allowed us to concentrate on other course objectives without spending too much time on building models from scratch. The tools and resources provided by Hugging Face were crucial in helping us complete the project successfully, enhancing our model's accuracy and effectiveness.</code></p>
 </blockquote>
-<p>Fo the priject we used several libraries and frameworks that we hadnt used throughout the course. These are:
-To achieve the project's objectives, we use the following tools and frameworks:</p>
-<ul>
-<li><em>Hugging Face</em>: For building the baseline and utilizing pre-trained sentiment analysis models.</li>
-<li><em>DVC (Data Version Control)</em>: For managing dataset versioning and ensuring data consistency across team members.</li>
-<li><em>Weights &amp; Biases (W&amp;B)</em>: To track experiments, monitor performance metrics, and visualize model training.</li>
-<li><em>Hydra</em>: For configuration management to ensure reproducibility of experiments.</li>
-<li><em>Docker</em>: To containerize the entire pipeline, facilitating portability and deployment across different environments.</li>
-</ul>
 <h2>Coding environment</h2>
 <blockquote>
 <p>In the following section we are interested in learning more about you local development environment. This includes
@@ -139,9 +131,9 @@ how you managed dependencies, the structure of your code and how you managed cod
 <p>Example:
 <em>We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a</em>
 <em>complete copy of our development environment, one would have to run the following commands</em></p>
-<p>Answer:</p>
+<p>Answer:
+<code>We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file. To get a complete copy of our development environment, a new team member would need to follow these steps: Create a new virtual environment using conda create -n myenv python=3.12.8. Then Activate the newly created environment: conda activate myenv. And as a last step install the required dependencies by running pip install -r requirements.txt and pip install -r requirements_dev.txt</code> </p>
 </blockquote>
-<p>We used requirements.txt and requirements_dev.txt for managing our dependencies. Any time when we were using a package, we checked the version that we use and include it there. The list of dependencies was auto-generated using ... . To get a complete copy of our development environment, one would have to run the following commands: after creating a new environment using conda with python 13.12.8 they would have to run a 'pip install -r requirements_dev.txt requirements.txt' command in the terminal.</p>
 <h3>Question 5</h3>
 <blockquote>
 <p><strong>We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your</strong>
@@ -151,11 +143,9 @@ how you managed dependencies, the structure of your code and how you managed cod
 <em>From the cookiecutter template we have filled out the ... , ... and ... folder. We have removed the ... folder</em>
 <em>because we did not use any ... in our project. We have added an ... folder that contains ... for running our</em>
 <em>experiments.</em></p>
-<p>Answer:</p>
+<p>Answer:
+<code>From the cookiecutter template, we filled out the configs, data, docs, models, notebooks, reports, src, tests, and wandb folders. We added a .dvc folder for data version control and an onnx_deployment folder for creating, testing, and deploying APIs for ONNX models. Additionally, we included a front_end folder and a subfolder in reports to work on the final report. The wandb folder was added for files related to Weights &amp; Biases. We also used the .github folder for GitHub workflows and actions, and a credentials folder for storing sensitive information. Some other files were placed outside of the overall structure due to a wrongly set root of the project when we started. We did not use the dockerfiles folder due to some issues we encountered, so we decided to keep them where they worked. We also did not use the notebooks folder, although in retrospect, we realize that organizing our code there could have made it clearer. Overall, our structure could be much improved, but we only realized the importance of it closer to the end of the project.</code></p>
 </blockquote>
-<p>From the cookiecutter template we have filled out the configs, data, DOCKERFILES?, docs, models, notebooks, REPORT?, src, tests and wandb folders.</p>
-<p>We have removed the ... folder* because we did not use any ... in our project.</p>
-<p>We have added a .dvc folder that contains XXX. We also added onnx_deployment folder, for creating, testing and create an api for onnx model</p>
 <h3>Question 6</h3>
 <blockquote>
 <p><strong>Did you implement any rules for code quality and format? What about typing and documentation? Additionally,</strong>
@@ -164,9 +154,9 @@ how you managed dependencies, the structure of your code and how you managed cod
 <p>Example:
 <em>We used ... for linting and ... for formatting. We also used ... for typing and ... for documentation. These</em>
 <em>concepts are important in larger projects because ... . For example, typing ...</em></p>
-<p>Answer:</p>
+<p>Answer:
+<code>We made sure our code was clear, easy to read, and well-organized. We tried to use meaningful names for files, functions, and variables to make the purpose of each part obvious. We included good comments to explain important parts of the code without overloading it. Additionally, we added terminal commands in the comments needed to run the code, so we could quickly execute it when needed. We handled errors carefully to keep the application stable and avoid unexpected crashes. We also used Ruff for linting to maintain code quality and consistency. This approach made it easier for us to cooperate and ensured the code was easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helped ensure that future updates or new team members could quickly adapt to the project.</code></p>
 </blockquote>
-<p>--- question 6 fill here ---</p>
 <h2>Version control</h2>
 <blockquote>
 <p>In the following section we are interested in how version control was used in your project during development to
@@ -179,9 +169,9 @@ corporate and increase the quality of your code.</p>
 <p>Example:
 <em>In total we have implemented X tests. Primarily we are testing ... and ... as these the most critical parts of our</em>
 <em>application but also ... .</em></p>
-<p>Answer:</p>
+<p>Answer:
+<code>We have implemented a comprehensive set of tests using Pytest to ensure the reliability of our project. These tests cover various components, including data preprocessing, model functionality, and API endpoints. Specifically, we test data integrity, model initialization, forward pass, prediction, training, evaluation, and model saving/loading. Additionally, we use Ruff for linting and formatting, and pre-commit hooks to maintain code quality. Our GitHub Actions workflow runs these tests on multiple operating systems and Python versions, ensuring cross-platform compatibility and robustness.</code></p>
 </blockquote>
-<p>--- question 7 fill here ---</p>
 <h3>Question 8</h3>
 <blockquote>
 <p><strong>What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close</strong>
@@ -190,9 +180,9 @@ corporate and increase the quality of your code.</p>
 <p>Example:
 <em>The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our **
 </em>code and even if we were then...*</p>
-<p>Answer:</p>
+<p>Answer:
+<code>The total code coverage of our code is 61%, which includes all our source code. Our pytests cover various parts of the project, including the API, data processing, and model functions. Running coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests shows that all tests passed, with some files having 100% coverage and others less. While coverage gives a lot of insights about the code, it is not a guarantee that the code would be bug-free. This is because it is just a measure of how many lines of code are run when your tests are executed. However, it helps in identifying untested parts of the codebase and ensures that the most critical paths are covered, but it does not eliminate the possibility of bugs entirely.</code></p>
 </blockquote>
-<p>--- question 8 fill here ---</p>
 <h3>Question 9</h3>
 <blockquote>
 <p><strong>Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and</strong>
@@ -201,9 +191,9 @@ corporate and increase the quality of your code.</p>
 <p>Example:
 <em>We made use of both branches and PRs in our project. In our group, each member had an branch that they worked on in</em>
 <em>addition to the main branch. To merge code we ...</em></p>
-<p>Answer:</p>
+<p>Answer:
+<code>We used different branches in our project, trying to keep it in a way that everybody would work on a separate branch to avoid conflicts. However, we did not use pull requests throughout the project. In retrospect, we see that using pull requests would have been valuable and could have saved us a lot of time, especially when we had to track who made changes that influenced a file. The reason we decided not to use pull requests was that we thought we would not interfere with each other's code as much, especially since we often worked on one computer. Additionally, our pull requests were often small, and we felt that having to approve each other's pull requests would prolong the work.</code></p>
 </blockquote>
-<p>--- question 9 fill here ---</p>
 <h3>Question 10</h3>
 <blockquote>
 <p><strong>Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version</strong>
