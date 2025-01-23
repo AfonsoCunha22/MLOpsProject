@@ -187,26 +187,17 @@ We used requirements.txt and requirements_dev.txt for managing our dependencies.
 >
 > Answer:
 
-From the cookiecutter template we have filled out the configs, data, DOCKERFILES?, docs, models, notebooks, REPORT?, src, tests and wandb folders.
 
-We have removed the ... folder* because we did not use any ... in our project.
-
-We have added a .dvc folder that contains XXX. We also added onnx_deployment folder, for creating, testing and create an api for onnx model
+We used Snicki's MLOps cookiecutter template to structure our project. This template provided a clear and organized structure with folders such as src, configs, data, docs, models, and tests, which we filled based on our project requirements. We also included important files like pyproject.toml to handle dependencies and configurations efficiently. The template's standardized layout made it easy to organize code, ensure maintainability, and collaborate effectively. Additionally, we added a .dvc folder for data version control and an onnx_deployment folder to create, test, and deploy APIs for ONNX models. This approach kept our project well-structured and tailored to our needs.
 
 ### Question 6
 
 > **Did you implement any rules for code quality and format? What about typing and documentation? Additionally,**
 > **explain with your own words why these concepts matters in larger projects.**
 >
-> Recommended answer length: 100-200 words.
->
-> Example:
-> *We used ... for linting and ... for formatting. We also used ... for typing and ... for documentation. These*
-> *concepts are important in larger projects because ... . For example, typing ...*
->
 > Answer:
 
---- question 6 fill here ---
+We ensured our code is clear, easy to read, and well-organized. We used meaningful names for files, functions, and variables to make the purpose of each part obvious. Good comments are included to explain important parts of the code without overloading it. We also handled errors carefully to keep the application stable and avoid unexpected crashes. This approach makes the code easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helps ensure that future updates or new team members can quickly adapt to the project.
 
 ## Version control
 
@@ -247,15 +238,12 @@ We have added a .dvc folder that contains XXX. We also added onnx_deployment fol
 > **Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and**
 > **pull request can help improve version control.**
 >
-> Recommended answer length: 100-200 words.
->
-> Example:
-> *We made use of both branches and PRs in our project. In our group, each member had an branch that they worked on in*
-> *addition to the main branch. To merge code we ...*
->
+
 > Answer:
 
---- question 9 fill here ---
+We made use of both branches and pull requests (PRs) in our project to manage version control effectively. Each team member worked on a separate branch for their tasks, keeping the main branch stable and clean. When a team member completed a feature or fixed a bug, they opened a pull request to merge their branch into the main branch. This allowed the team to review the changes, provide feedback, and ensure that the code was correct and aligned with project standards before merging.
+
+Using branches and PRs improved collaboration and reduced the risk of conflicts. It also helped us maintain a stable main branch while allowing parallel development. This workflow ensured that every change was tracked, reviewed, and documented, making it easier to manage the project and maintain code quality.
 
 ### Question 10
 
