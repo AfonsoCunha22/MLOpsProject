@@ -66,9 +66,9 @@ jobs:
 
     - name: Check data statistics & generate report
       run: |
-        python MLOpsProject/src/sentiment_analysis/data.py dataset-statistics > data_statistics.md
-        echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
-        echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
+        python MLOpsProject/src/sentiment_analysis/data.py dataset-statistics > MLOpsProject/reports/data_statistics.md
+        echo '![](MLOpsProject/reports/figures/train_label_distribution.png "Train label distribution")' >> MLOpsProject/reports/data_statistics.md
+        echo '![](MLOpsProject/reports/figures/test_label_distribution.png "Test label distribution")' >> MLOpsProject/reports/data_statistics.md
 
     - name: Garbage collect DVC cache
       run: dvc gc --workspace --cloud --force
