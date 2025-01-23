@@ -18,7 +18,7 @@ In addition to this markdown file, we also provide the `report.py` script that p
 Running:
 
 ```bash
-python report.py html
+python reports/end_report/report.py html
 ```
 
 Will generate a `.html` page of your report. After the deadline for answering this template, we will auto-scrape
