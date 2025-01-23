@@ -127,7 +127,7 @@ Group 39
 >
 > *sXXXXXX, sXXXXXX, sXXXXXX*
 >
-> Answer: 
+> Answer:
 
 *s233564, s233177, s233564, s233162*
 
@@ -171,7 +171,7 @@ To achieve the project's objectives, we use the following tools and frameworks:
 >
 > Answer:
 
-We used requirements.txt and requirements_dev.txt for managing our dependencies. Any time when we were using a package, we checked the version that we use and include it there. The list of dependencies was auto-generated using ... . To get a complete copy of our development environment, one would have to run the following commands: after creating a new environment using conda with python 13.12.8 they would have to run a 'pip install -r requirements_dev.txt requirements.txt' command in the terminal. 
+We used requirements.txt and requirements_dev.txt for managing our dependencies. Any time when we were using a package, we checked the version that we use and include it there. The list of dependencies was auto-generated using ... . To get a complete copy of our development environment, one would have to run the following commands: after creating a new environment using conda with python 13.12.8 they would have to run a 'pip install -r requirements_dev.txt requirements.txt' command in the terminal.
 
 ### Question 5
 

@@ -1,5 +1,11 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+
+# To enable pre-commit:
+# 1. Install pre-commit: pip install pre-commit
+# 2. Set up the git hook scripts: pre-commit install
+# 3. (Optional) Run against all files: pre-commit run --all-files
+
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
