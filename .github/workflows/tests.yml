@@ -35,12 +35,14 @@ jobs:
           pip install ruff
           pip list
 
-      - name: Set up Google Cloud credentials
-        env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      - name: Authenticate with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Pull data from DVC remote
         run: |
-          echo "$GCP_SA_KEY" > $HOME/gcp-key.json
-          export GOOGLE_APPLICATION_CREDENTIALS="$HOME/gcp-key.json"
+          dvc pull --no-run-cache -v
 
       - name: Run Ruff format
         run: |
@@ -52,6 +54,5 @@ jobs:
 
       - name: Run tests & coverage
         run: |
-          dvc pull
           coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests
           coverage report -m
