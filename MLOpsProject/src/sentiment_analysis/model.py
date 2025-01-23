@@ -108,3 +108,34 @@ def load_model(save_path):
     tokenizer = AlbertTokenizer.from_pretrained(save_path)
     logger.info(f"Model and tokenizer loaded from {save_path}")
     return model, tokenizer
+
+
+def export_to_onnx(model, save_path):
+    """
+    Export the model to ONNX format using torch.onnx.export.
+
+    Args:
+        model (SentimentModel): The model to export
+        save_path (str): Path where to save the ONNX model
+    """
+    model.eval()
+
+    # Create dummy inputs
+    dummy_input_ids = torch.randint(0, model.tokenizer.vocab_size, (1, 128))
+    dummy_attention_mask = torch.ones(1, 128)
+
+    # Export using torch.onnx.export
+    torch.onnx.export(
+        model,
+        (dummy_input_ids, dummy_attention_mask),
+        f"{save_path}/model.onnx",
+        input_names=["input_ids", "attention_mask"],
+        output_names=["output"],
+        dynamic_axes={
+            "input_ids": {0: "batch_size", 1: "sequence"},
+            "attention_mask": {0: "batch_size", 1: "sequence"},
+            "output": {0: "batch_size"},
+        },
+        opset_version=17,
+    )
+    logger.info(f"Model exported to ONNX format at {save_path}/model.onnx")

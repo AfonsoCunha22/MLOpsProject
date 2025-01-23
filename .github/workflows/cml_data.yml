@@ -1,5 +1,9 @@
 name: DVC and Model Registry Workflow
 
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   push:
     branches:
@@ -45,17 +49,20 @@ jobs:
 
     - name: Pull data from DVC remote
       run: |
-        dvc pull --no-run-cache
-      env:
-        DVC_REMOTE: ${{ secrets.DVC_REMOTE }}
+        dvc pull --no-run-cache -v
 
     - name: Cache DVC remote data
       uses: actions/cache@v3
       with:
         path: ~/.cache/dvc
-        key: ${{ runner.os }}-dvc-${{ github.sha }}
+        key: ${{ runner.os }}-dvc-${{ github.ref }}
         restore-keys: |
           ${{ runner.os }}-dvc-
+
+    - name: Verify DVC files are pulled
+      run: |
+        ls -la MLOpsProject/data/processed
+
 
     - name: Check data statistics & generate report
       run: |
@@ -63,11 +70,8 @@ jobs:
         echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
         echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
 
-    - name: Cleanup DVC cache
-      run: |
-        dvc gc --workspace --cloud
-      env:
-        DVC_REMOTE: ${{ secrets.DVC_REMOTE }}
+    - name: Garbage collect DVC cache
+      run: dvc gc --workspace --cloud --force
 
     - name: Setup CML
       uses: iterative/setup-cml@v2
