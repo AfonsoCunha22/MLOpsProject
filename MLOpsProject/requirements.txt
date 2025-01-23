@@ -88,3 +88,4 @@ netron==8.1.3
 evidently
 scikit-learn
 google-cloud-storage
+prometheus-client
