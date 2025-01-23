@@ -171,7 +171,7 @@ To achieve the project's objectives, we use the following tools and frameworks:
 >
 > Answer:
 
-We used requirements.txt and requirements_dev.txt for managing our dependencies. Any time when we were using a package, we checked the version that we use and include it there. The list of dependencies was auto-generated using ... . To get a complete copy of our development environment, one would have to run the following commands: after creating a new environment using conda with python 13.12.8 they would have to run a 'pip install -r requirements_dev.txt requirements.txt' command in the terminal.
+---We used requirements.txt and requirements_dev.txt for managing our dependencies. Any time when we were using a package, we checked the version that we use and include it there. The list of dependencies was auto-generated using ... . To get a complete copy of our development environment, one would have to run the following commands: after creating a new environment using conda with python 13.12.8 they would have to run a 'pip install -r requirements_dev.txt requirements.txt' command in the terminal.---
 
 ### Question 5
 
@@ -188,7 +188,7 @@ We used requirements.txt and requirements_dev.txt for managing our dependencies.
 > Answer:
 
 
-We used Snicki's MLOps cookiecutter template to structure our project. This template provided a clear and organized structure with folders such as src, configs, data, docs, models, and tests, which we filled based on our project requirements. We also included important files like pyproject.toml to handle dependencies and configurations efficiently. The template's standardized layout made it easy to organize code, ensure maintainability, and collaborate effectively. Additionally, we added a .dvc folder for data version control and an onnx_deployment folder to create, test, and deploy APIs for ONNX models. This approach kept our project well-structured and tailored to our needs.
+---We used Snicki's MLOps cookiecutter template to structure our project. This template provided a clear and organized structure with folders such as src, configs, data, docs, models, and tests, which we filled based on our project requirements. We also included important files like pyproject.toml to handle dependencies and configurations efficiently. The template's standardized layout made it easy to organize code, ensure maintainability, and collaborate effectively. Additionally, we added a .dvc folder for data version control and an onnx_deployment folder to create, test, and deploy APIs for ONNX models. This approach kept our project well-structured and tailored to our needs.---
 
 ### Question 6
 
@@ -197,7 +197,7 @@ We used Snicki's MLOps cookiecutter template to structure our project. This temp
 >
 > Answer:
 
-We ensured our code is clear, easy to read, and well-organized. We used meaningful names for files, functions, and variables to make the purpose of each part obvious. Good comments are included to explain important parts of the code without overloading it. We also handled errors carefully to keep the application stable and avoid unexpected crashes. This approach makes the code easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helps ensure that future updates or new team members can quickly adapt to the project.
+---We ensured our code is clear, easy to read, and well-organized. We used meaningful names for files, functions, and variables to make the purpose of each part obvious. Good comments are included to explain important parts of the code without overloading it. We also handled errors carefully to keep the application stable and avoid unexpected crashes. This approach makes the code easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helps ensure that future updates or new team members can quickly adapt to the project.---
 
 ## Version control
 
@@ -241,24 +241,18 @@ We ensured our code is clear, easy to read, and well-organized. We used meaningf
 
 > Answer:
 
-We made use of both branches and pull requests (PRs) in our project to manage version control effectively. Each team member worked on a separate branch for their tasks, keeping the main branch stable and clean. When a team member completed a feature or fixed a bug, they opened a pull request to merge their branch into the main branch. This allowed the team to review the changes, provide feedback, and ensure that the code was correct and aligned with project standards before merging.
+---We made use of both branches and pull requests (PRs) in our project to manage version control effectively. Each team member worked on a separate branch for their tasks, keeping the main branch stable and clean. When a team member completed a feature or fixed a bug, they opened a pull request to merge their branch into the main branch. This allowed the team to review the changes, provide feedback, and ensure that the code was correct and aligned with project standards before merging.
 
-Using branches and PRs improved collaboration and reduced the risk of conflicts. It also helped us maintain a stable main branch while allowing parallel development. This workflow ensured that every change was tracked, reviewed, and documented, making it easier to manage the project and maintain code quality.
+Using branches and PRs improved collaboration and reduced the risk of conflicts. It also helped us maintain a stable main branch while allowing parallel development. This workflow ensured that every change was tracked, reviewed, and documented, making it easier to manage the project and maintain code quality.---
 
 ### Question 10
 
 > **Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version**
 > **control of your data. If no, explain a case where it would be beneficial to have version control of your data.**
 >
-> Recommended answer length: 100-200 words.
->
-> Example:
-> *We did make use of DVC in the following way: ... . In the end it helped us in ... for controlling ... part of our*
-> *pipeline*
->
 > Answer:
 
---- question 10 fill here ---
+---We used DVC to manage data versioning in our project. It helped us track changes to datasets and ensured consistency between data and models. By storing data in remote storage and tracking it in the repository, we saved space and maintained a clear history. DVC made collaboration easier and ensured our pipeline was reproducible and reliable.---
 
 ### Question 11
 
@@ -504,15 +498,11 @@ Using branches and PRs improved collaboration and reduced the risk of conflicts.
 > **How many credits did you end up using during the project and what service was most expensive? In general what do**
 > **you think about working in the cloud?**
 >
-> Recommended answer length: 100-200 words.
->
-> Example:
-> *Group member 1 used ..., Group member 2 used ..., in total ... credits was spend during development. The service*
-> *costing the most was ... due to ... . Working in the cloud was ...*
+
 >
 > Answer:
 
---- question 27 fill here ---
+---We used a total of $3.21 on Compute Engine, which was the most expensive service. Minor costs were incurred for Networking ($0.15) and Cloud Storage ($0.05), but these were offset by promotions or discounts. Working in the cloud allowed us to scale our project efficiently and focus on development without worrying about infrastructure. It was a cost-effective way to manage resources and deploy applications.---
 
 ### Question 28
 
@@ -552,14 +542,10 @@ Using branches and PRs improved collaboration and reduced the risk of conflicts.
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
 >
-> Recommended answer length: 200-400 words.
->
-> Example:
-> *The biggest challenges in the project was using ... tool to do ... . The reason for this was ...*
->
+
 > Answer:
 
---- question 30 fill here ---
+---The biggest challenge in our project was setting up dependencies and resolving library conflicts, which delayed progress initially. We carefully updated the requirements.txt file, used virtual environments to isolate dependencies, and documented the setup process for efficiency. Learning new tools like DVC and Evidently for data versioning and drift detection was also time-consuming. We overcame these challenges by referring to documentation, collaborating as a team, and troubleshooting together. While the setup phase was time-intensive, it streamlined the rest of the project and ensured smoother progress.---
 
 ### Question 31
 
