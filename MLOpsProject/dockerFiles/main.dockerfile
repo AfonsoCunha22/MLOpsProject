@@ -14,10 +14,11 @@ RUN apt-get update && apt-get install -y \
 
 # Copy the current directory contents into the container at /app
 COPY requirements.txt requirements.txt
-COPY main.py /app/main.py
+COPY src/sentiment_analysis/main.py /app/main.py
+
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run main.py when the container launches
-CMD ["python", "../src/sentiment_analysis/main.py"]
+CMD ["python", "src/sentiment_analysis/main.py"]
