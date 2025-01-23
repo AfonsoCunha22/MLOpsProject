@@ -1,6 +1,7 @@
 from tests import _PATH_DATA
 import torch
 import os
+import subprocess
 
 
 # @pytest.mark.skipif(not os.path.exists(_PATH_DATA), reason="Data files not found")
@@ -15,6 +16,9 @@ def test_my_dataset():
     test_encodings_path = os.path.join(processed_path, "test_encodings.pt")
     train_labels_path = os.path.join(processed_path, "train_labels.pt")
     test_labels_path = os.path.join(processed_path, "test_labels.pt")
+
+    # Pull data from DVC
+    subprocess.run(["dvc", "pull"], check=True)
 
     # Check for the existence of the necessary directories and files
     if not os.path.exists(processed_path):
