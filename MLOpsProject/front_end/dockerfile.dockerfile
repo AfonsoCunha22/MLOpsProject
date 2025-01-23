@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-COPY front_end/requirements_backend.txt requirements_backend.txt
-COPY front_end/app.py app.py
+COPY requirements_backend.txt requirements_backend.txt
+COPY app.py app.py
 RUN pip3 install -r requirements_backend.txt
 
 ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
