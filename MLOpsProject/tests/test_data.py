@@ -17,10 +17,7 @@ def test_my_dataset():
     test_labels_path = os.path.join(processed_path, "test_labels.pt")
 
     # Check for the existence of the necessary directories and files
-    if not os.path.exists(processed_path):
-        assert os.makedirs(processed_path)
-    else:
-        assert os.path.exists(processed_path), "Processed data folder not found"
+    assert os.path.exists(processed_path), "Processed data folder not found"
     assert os.path.exists(train_encodings_path), "Processed train data file not found"
     assert os.path.exists(test_encodings_path), "Processed test data file not found"
     assert os.path.exists(train_labels_path), "Processed train labels file not found"

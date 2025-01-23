@@ -1,4 +1,9 @@
-from sentiment_analysis.model import SentimentModel, export_to_onnx
+"""
+To run this script, use the following command:
+python -m onnx_deployment.create_onnx
+"""
+
+from src.sentiment_analysis.model import SentimentModel, export_to_onnx
 
 # Initialize sentiment analysis model
 model_instance = SentimentModel()
