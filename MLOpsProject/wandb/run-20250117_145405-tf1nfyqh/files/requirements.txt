@@ -246,8 +246,8 @@ tifffile==2024.9.20
 tokenizers==0.21.0
 tomlkit==0.13.2
 torch==2.4.1
-torchvision==0.19.1
-torchviz==0.0.3
+#torchvision==0.19.1
+#torchviz==0.0.3
 torch-tb-profiler==0.4.3
 tqdm==4.67.1
 transformers==4.48.0
