@@ -84,8 +84,18 @@ onnxscript==0.1.0.dev20250121
 netron==8.1.3
 
 
+gdown==5.2.0
+
+# for data drifting 
+evidently
+scikit-learn
+google-cloud-storage
+
+
 # for data drifting
 evidently
 scikit-learn
 google-cloud-storage
+
+torchvision==0.20.1
 prometheus-client
