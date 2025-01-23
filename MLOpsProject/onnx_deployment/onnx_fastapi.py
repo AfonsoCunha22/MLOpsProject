@@ -1,6 +1,6 @@
 '''
 To run this FastAPI server, use the following command in terminal:
-uvicorn onnx_fastapi:app --reload
+uvicorn onnx_deployment.onnx_fastapi:app --host 0.0.0.0 --port 8000 --reload
 '''
 
 import numpy as np
