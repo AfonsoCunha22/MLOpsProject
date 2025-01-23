@@ -10,11 +10,13 @@ from torch.profiler import profile, ProfilerActivity, tensorboard_trace_handler
 from loguru import logger
 import wandb
 
+# Configure logger
 logger.add("my_log.log", level="INFO", rotation="100 MB")
 
 # Initialize Typer app
 app = typer.Typer(help="CLI for training sentiment analysis model.")
 
+# Pull data using DVC
 os.system("dvc pull")
 
 
@@ -34,11 +36,7 @@ def train_model(cfg: DictConfig):
 
     # Access hyperparameters from wandb.config with fallback to cfg
     config = wandb.config
-    # model_name = config.get("model_name", cfg.hyperparameters.model_name)
-    # batch_size = config.get("batch_size", cfg.hyperparameters.batch_size)
-    # learning_rate = config.get("learning_rate", cfg.hyperparameters.learning_rate)
     epochs = config.get("epochs", cfg.hyperparameters.epochs)
-    # num_labels = config.get("num_labels", cfg.hyperparameters.num_labels)
 
     # Load datasets
     logger.info("Loading datasets...")
@@ -46,7 +44,6 @@ def train_model(cfg: DictConfig):
 
     # Create data loaders
     train_dataloader = DataLoader(train_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
-    # val_dataloader = DataLoader(test_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=False)
 
     logger.info(f"Loaded {len(train_dataset)} training samples and {len(test_dataset)} testing samples.")
 
@@ -59,13 +56,13 @@ def train_model(cfg: DictConfig):
         ignore_mismatched_sizes=True,
     )
 
+    # Set device to GPU if available, otherwise CPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     logger.info(f"Using device: {device}")
     model.to(device)
 
-    # Set up optimizer and loss function
+    # Set up optimizer
     optimizer = AdamW(model.parameters(), lr=cfg.hyperparameters.learning_rate)
-    # loss_fn = nn.CrossEntropyLoss()
     logger.info("Starting training...")
 
     # Training loop with profiling

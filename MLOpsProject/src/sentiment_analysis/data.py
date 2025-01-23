@@ -28,7 +28,7 @@ def preprocess_data(
         model_name (str): Name of the pre-trained model for tokenization.
         max_length (int, optional): Maximum length for tokenization. Defaults to 128.
 
-    Example usage:
+    Example usage from terminal:
         python src/sentiment_analysis/data.py data/raw data/processed "albert-base-v2" --max-length 128
     """
     logger.info("Starting data preprocessing...")
