@@ -135,16 +135,16 @@ how you managed dependencies, the structure of your code and how you managed cod
 </blockquote>
 <p>We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file.
 To get a complete copy of our development environment, a new team member would need to follow these steps:
-Create a new virtual environment using: </p>
+Create a new virtual environment using:</p>
 <p><code>bash
 conda create -n myenv python=3.12.8`</code></p>
-<p>Then Activate the newly created environment: </p>
+<p>Then Activate the newly created environment:</p>
 <p><code>bash
 conda activate myenv</code></p>
 <p>And as a last step install the required dependencies by running</p>
 <p><code>bash
 pip install -r requirements.txt</code></p>
-<p>and </p>
+<p>and</p>
 <p><code>bash
 pip install -r requirements_dev.txt</code></p>
 <h3>Question 5</h3>
@@ -156,9 +156,9 @@ pip install -r requirements_dev.txt</code></p>
 <em>From the cookiecutter template we have filled out the ... , ... and ... folder. We have removed the ... folder</em>
 <em>because we did not use any ... in our project. We have added an ... folder that contains ... for running our</em>
 <em>experiments.</em></p>
-<p>Answer:
-<code>From the cookiecutter template, we filled out the configs, data, docs, models, notebooks, reports, src, tests, and wandb folders. We added a .dvc folder for data version control and an onnx_deployment folder for creating, testing, and deploying APIs for ONNX models. Additionally, we included a front_end folder and a subfolder in reports to work on the final report. The wandb folder was added for files related to Weights &amp; Biases. We also used the .github folder for GitHub workflows and actions, and a credentials folder for storing sensitive information. Some other files were placed outside of the overall structure due to a wrongly set root of the project when we started. We did not use the dockerfiles folder due to some issues we encountered, so we decided to keep them where they worked. We also did not use the notebooks folder, although in retrospect, we realize that organizing our code there could have made it clearer. Overall, our structure could be much improved, but we only realized the importance of it closer to the end of the project.</code></p>
+<p>Answer:</p>
 </blockquote>
+<p>From the cookiecutter template, we filled out the configs, data, docs, models, notebooks, reports, src, tests, and wandb folders. We added a .dvc folder for data version control and an onnx_deployment folder for creating, testing, and deploying APIs for ONNX models. Additionally, we included a front_end folder and a subfolder in reports to work on the final report. The wandb folder was added for files related to Weights &amp; Biases. We also used the .github folder for GitHub workflows and actions, and a credentials folder for storing sensitive information. Some other files were placed outside of the overall structure due to a wrongly set root of the project when we started. We did not use the dockerfiles folder due to some issues we encountered, so we decided to keep them where they worked. We also did not use the notebooks folder, although in retrospect, we realize that organizing our code there could have made it clearer. Overall, our structure could be much improved, but we only realized the importance of it closer to the end of the project.</p>
 <h3>Question 6</h3>
 <blockquote>
 <p><strong>Did you implement any rules for code quality and format? What about typing and documentation? Additionally,</strong>
@@ -167,9 +167,9 @@ pip install -r requirements_dev.txt</code></p>
 <p>Example:
 <em>We used ... for linting and ... for formatting. We also used ... for typing and ... for documentation. These</em>
 <em>concepts are important in larger projects because ... . For example, typing ...</em></p>
-<p>Answer:
-<code>We made sure our code was clear, easy to read, and well-organized. We tried to use meaningful names for files, functions, and variables to make the purpose of each part obvious. We included good comments to explain important parts of the code without overloading it. Additionally, we added terminal commands in the comments needed to run the code, so we could quickly execute it when needed. We handled errors carefully to keep the application stable and avoid unexpected crashes. We also used Ruff for linting to maintain code quality and consistency. This approach made it easier for us to cooperate and ensured the code was easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helped ensure that future updates or new team members could quickly adapt to the project.</code></p>
+<p>Answer:</p>
 </blockquote>
+<p>We made sure our code was clear, easy to read, and well-organized. We tried to use meaningful names for files, functions, and variables to make the purpose of each part obvious. We included good comments to explain important parts of the code without overloading it. Additionally, we added terminal commands in the comments needed to run the code, so we could quickly execute it when needed. We handled errors carefully to keep the application stable and avoid unexpected crashes. We also used Ruff for linting to maintain code quality and consistency. This approach made it easier for us to cooperate and ensured the code was easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helped ensure that future updates or new team members could quickly adapt to the project.</p>
 <h2>Version control</h2>
 <blockquote>
 <p>In the following section we are interested in how version control was used in your project during development to
@@ -182,10 +182,9 @@ corporate and increase the quality of your code.</p>
 <p>Example:
 <em>In total we have implemented X tests. Primarily we are testing ... and ... as these the most critical parts of our</em>
 <em>application but also ... .</em></p>
-<p>Answer:
-<code>We have implemented a comprehensive set of tests using Pytest to ensure the reliability of our project. These tests cover various components, including data preprocessing, model functionality, and API endpoints. Specifically, we test data integrity, model initialization, forward pass, prediction, training, evaluation, and model saving/loading. Additionally, we use Ruff for linting and formatting, and pre-commit hooks to maintain code quality. Our GitHub Actions workflow runs these tests on multiple operating systems and Python versions, ensuring cross-platform compatibility and robustness.</code>
-c</p>
+<p>Answer:</p>
 </blockquote>
+<p>We have implemented a comprehensive set of tests using Pytest to ensure the reliability of our project. These tests cover various components, including data preprocessing, model functionality, and API endpoints. Specifically, we test data integrity, model initialization, forward pass, prediction, training, evaluation, and model saving/loading. Additionally, we use Ruff for linting and formatting, and pre-commit hooks to maintain code quality. Our GitHub Actions workflow runs these tests on multiple operating systems and Python versions, ensuring cross-platform compatibility and robustness.</p>
 <h3>Question 8</h3>
 <blockquote>
 <p><strong>What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close</strong>
@@ -194,9 +193,9 @@ c</p>
 <p>Example:
 <em>The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our **
 </em>code and even if we were then...*</p>
-<p>Answer:
-<code>The total code coverage of our code is 61%, which includes all our source code. Our pytests cover various parts of the project, including the API, data processing, and model functions. Running coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests shows that all tests passed, with some files having 100% coverage and others less. While coverage gives a lot of insights about the code, it is not a guarantee that the code would be bug-free. This is because it is just a measure of how many lines of code are run when your tests are executed. However, it helps in identifying untested parts of the codebase and ensures that the most critical paths are covered, but it does not eliminate the possibility of bugs entirely.</code></p>
+<p>Answer:</p>
 </blockquote>
+<p>The total code coverage of our code is 61%, which includes all our source code. Our pytests cover various parts of the project, including the API, data processing, and model functions. Running <code>coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests</code> shows that all tests passed, with some files having 100% coverage and others less. While coverage gives a lot of insights about the code, it is not a guarantee that the code would be bug-free. This is because it is just a measure of how many lines of code are run when your tests are executed. However, it helps in identifying untested parts of the codebase and ensures that the most critical paths are covered, but it does not eliminate the possibility of bugs entirely.</p>
 <h3>Question 9</h3>
 <blockquote>
 <p><strong>Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and</strong>
@@ -206,7 +205,7 @@ c</p>
 <em>We made use of both branches and PRs in our project. In our group, each member had an branch that they worked on in</em>
 <em>addition to the main branch. To merge code we ...</em></p>
 <p>Answer:
-<code>We used different branches in our project, trying to keep it in a way that everybody would work on a separate branch to avoid conflicts. However, we did not use pull requests throughout the project. In retrospect, we see that using pull requests would have been valuable and could have saved us a lot of time, especially when we had to track who made changes that influenced a file. The reason we decided not to use pull requests was that we thought we would not interfere with each other's code as much, especially since we often worked on one computer. Additionally, our pull requests were often small, and we felt that having to approve each other's pull requests would prolong the work.</code></p>
+We used different branches in our project, trying to keep it in a way that everybody would work on a separate branch to avoid conflicts. However, we did not use pull requests throughout the project. In retrospect, we see that using pull requests would have been valuable and could have saved us a lot of time, especially when we had to track who made changes that influenced a file. The reason we decided not to use pull requests was that we thought we would not interfere with each other's code as much, especially since we often worked on one computer. Additionally, our pull requests were often small, and we felt that having to approve each other's pull requests would prolong the work.</p>
 </blockquote>
 <h3>Question 10</h3>
 <blockquote>
@@ -214,7 +213,7 @@ c</p>
 <strong>control of your data. If no, explain a case where it would be beneficial to have version control of your data.</strong></p>
 <p>Answer:</p>
 </blockquote>
-<p><code>We used DVC to manage data versioning in our project. It helped us track changes to datasets and ensured consistency between data and models. By storing data in remote storage and tracking it in the repository, we saved space and maintained a clear history. DVC made collaboration easier and ensured our pipeline was reproducible and reliable.</code></p>
+<p>We used DVC to manage data versioning in our project. It helped us track changes to datasets and ensured consistency between data and models. By storing data in remote storage and tracking it in the repository, we saved space and maintained a clear history. DVC made collaboration easier and ensured our pipeline was reproducible and reliable.</p>
 <h3>Question 11</h3>
 <blockquote>
 <p><strong>Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,</strong>
@@ -253,7 +252,7 @@ especially the reproducibility of your experiments.</p>
 <em>one would have to do ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- We made sure our experiments can be repeated by using configuration files with Hydra. These files stored all important details like model settings, hyperparameters, and data paths. Every time we ran an experiment, the exact settings were saved so we could easily do it again later. We also used DVC to keep track of different versions of our data and model files. This way, we can go back to any version we need. To repeat an experiment, we just load the right configuration and data version, making everything clear and easy to reproduce. ---</p>
+<p>We made sure our experiments can be repeated by using configuration files with Hydra. These files stored all important details like model settings, hyperparameters, and data paths. Every time we ran an experiment, the exact settings were saved so we could easily do it again later. We also used DVC to keep track of different versions of our data and model files. This way, we can go back to any version we need. To repeat an experiment, we just load the right configuration and data version, making everything clear and easy to reproduce.</p>
 <h3>Question 14</h3>
 <blockquote>
 <p><strong>Upload 1 to 3 screenshots that show the experiments that you have done in W&amp;B (or another experiment tracking</strong>
@@ -266,7 +265,18 @@ especially the reproducibility of your experiments.</p>
 <em>As seen in the second image we are also tracking ... and ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 14 fill here ---</p>
+<p>In our experiments, we tracked several key performance metrics using Weights &amp; Biases (W&amp;B) to monitor the progress and effectiveness of our sentiment analysis model. The primary metrics we focused on were batch loss, average loss, and test accuracy.</p>
+<p>Batch loss measures the error between the predicted outputs and the actual labels for each batch during the training phase. It is crucial to track this metric as it indicates whether the model is learning effectively on a micro level. Logging batch loss helps in identifying any immediate issues during training, such as sudden spikes in loss that might indicate problems with specific batches.</p>
+<div align="center">
+    <img src="batch_loss.png" alt="Batch Loss" width="50%" />
+</div>
+
+<p>Average loss, calculated at the end of each epoch, provides a macro view of the model's performance over the entire training dataset. This metric is essential for understanding the overall trend of the model's learning process. A decreasing average loss over epochs suggests that the model is improving its performance on the training data.</p>
+<div align="center">
+    <img src="avg_loss.png" alt="Average Loss" width="50%" />
+</div>
+
+<p>Test accuracy is another critical metric we tracked, which represents the ratio of correctly predicted samples to the total number of samples in the test dataset. This metric provides a straightforward measure of the model's performance on unseen data. High test accuracy indicates that the model is generalizing well and making correct predictions for a significant portion of the test data.</p>
 <h3>Question 15</h3>
 <blockquote>
 <p><strong>Docker is an important tool for creating containerized applications. Explain how you used docker in your</strong>
@@ -465,4 +475,28 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.</em>
 Answer:</p>
 </blockquote>
-<p>--- question 31 fill here ---</p>
+<p><strong>Individual Contributions:</strong></p>
+<ul>
+<li>
+<p><strong>Student s233177 (Afonso):</strong> Co-implemented the model, created training code, set up DVC, setting up configuration files and Hydra, implementing profiling for code optimization, and managing continuous workflows triggered by data changes and model registry updates.</p>
+</li>
+<li>
+<p><strong>Student s233185 (Sabina):</strong> Responsible for data preprocessing, co-implementing the model with s233177, logged important events, configured Weights and Biases for training progress tracking, attempted hyperparameter sweeps, maintained continuous integration on GitHub, and resolved build failures.</p>
+</li>
+<li>
+<p><strong>Students s233162 (Sany) and s233564 (Lydia):</strong> Jointly handled the construction and building of Docker files, created a data storage solution in GCP Bucket linked with DVC, deployed the model in GCP, wrote API tests, conducted load testing, and created an ONNX model (not included in the repo due to size constraints).</p>
+</li>
+<li>
+<p><strong>Student s233162 (Sany):</strong> Developed unit tests for data, model, and training, calculated code coverage, and created a frontend for the API.</p>
+</li>
+<li>
+<p><strong>Student s233564 (Lydia):</strong> Developed a FastAPI for model inference, implemented checks for model robustness against data drift, and deployed a drift detection API in the cloud.</p>
+</li>
+<li>
+<p><strong>Students s233177 (Afonso) and s233162 (Sany):</strong> Instrumented the API with system metrics, created an alert system in GCP, and attempted to set up cloud monitoring for the instrumented application, though it was not finalized due to container errors.</p>
+</li>
+</ul>
+<p><strong>Collaborative Efforts:</strong></p>
+<p>All members contributed to selecting the model and dataset, ensuring the <code>requirements.txt</code> file was up to date, adhering to best coding practices, and implementing command-line interfaces where relevant.</p>
+<p><strong>Use of Generative AI Tools:</strong></p>
+<p>We utilized ChatGPT to debug our code and resolve various issues. Additionally, GitHub Copilot and Cursor AI were used to assist in writing some portions of our code.</p>
