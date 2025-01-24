@@ -44,47 +44,57 @@ This project was completed as part of the Machine Learning Operations (MLOps) co
 
 The directory structure of the project looks like this:
 ```txt
-├── .github/                  # Github actions and dependabot
-│   ├── dependabot.yaml
-│   └── workflows/
-│       └── tests.yaml
-├── configs/                  # Configuration files
-├── data/                     # Data directory
-│   ├── processed
-│   └── raw
-├── dockerfiles/              # Dockerfiles
-│   ├── api.Dockerfile
-│   └── train.Dockerfile
-├── docs/                     # Documentation
-│   ├── mkdocs.yml
-│   └── source/
-│       └── index.md
-├── models/                   # Trained models
-├── notebooks/                # Jupyter notebooks
-├── reports/                  # Reports
-│   └── figures/
-├── src/                      # Source code
-│   ├── project_name/
-│   │   ├── __init__.py
-│   │   ├── api.py
-│   │   ├── data.py
-│   │   ├── evaluate.py
-│   │   ├── models.py
-│   │   ├── train.py
-│   │   └── visualize.py
-└── tests/                    # Tests
-│   ├── __init__.py
-│   ├── test_api.py
-│   ├── test_data.py
-│   └── test_model.py
-├── .gitignore
-├── .pre-commit-config.yaml
-├── LICENSE
-├── pyproject.toml            # Python project file
-├── README.md                 # Project README
-├── requirements.txt          # Project requirements
-├── requirements_dev.txt      # Development requirements
-└── tasks.py                  # Project tasks
+├───.dvc
+├───.github
+│   └───workflows
+├───.ruff_cache
+│   ├───0.9.2
+│   └───content
+├───credentials
+└───MLOpsProject
+    ├───.github
+    ├───.ruff_cache
+    │   ├───0.9.2
+    │   └───content
+    ├───configs
+    ├───data
+    │   ├───processed
+    │   └───raw
+    ├───dockerFiles
+    ├───docs
+    │   └───source
+    ├───front_end
+    ├───log
+    │   ├───evaluate
+    │   └───train
+    ├───logs
+    ├───models
+    │   └───trained_sentiment_model
+    ├───monitoring_exercise_files
+    ├───notebooks
+    ├───onnx_deployment
+    ├───reports
+    │   ├───end_report
+    │   │   └───figures
+    │   └───figures
+    ├───results
+    │   ├───checkpoint-200
+    │   └───checkpoint-400
+    ├───src
+    │   └───sentiment_analysis
+    │       ├───conf
+    │       └───__pycache__
+    ├───system_monitoring
+    ├───tests
+    └───wandb
+        ├───run-20250117_145405-tf1nfyqh
+        │   ├───files
+        │   ├───logs
+        │   └───tmp
+        │       └───code
+        ├───run-20250124_124830-apktwyvb
+        │   └───files
+        └───sweep-n4ns7kix
 ```
 
 
