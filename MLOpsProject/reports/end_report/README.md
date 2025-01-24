@@ -480,7 +480,7 @@ Our Bucket contained the processed data that was hashed and pushed, using md5. A
 >
 > Answer:
 
---- question 20 fill here ---
+During the project we came up with different challenges including the uploading of the GCP registry. We tried to make it work but we could only push one image that is displayed in [this figure](figures/registry.png)
 
 ### Question 21
 
