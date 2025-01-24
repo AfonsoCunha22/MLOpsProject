@@ -15,5 +15,5 @@ Sample input_ids: tensor([[   2, 1768,  511,  ...,    0,    0,    0],
         [   2,    3,    0,  ...,    0,    0,    0]])
 Sample labels: tensor([2, 0, 1, 2, 0, 0, 0, 2, 0, 0, 1, 0, 2, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0])
-![](./train_label_distribution.png "Train label distribution")
-![](./test_label_distribution.png "Test label distribution")
+![](reports/figures/train_label_distribution.png "Train label distribution")
+![](reports/figures/test_label_distribution.png "Test label distribution")
