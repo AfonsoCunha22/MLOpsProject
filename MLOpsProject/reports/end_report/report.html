@@ -191,7 +191,7 @@ corporate and increase the quality of your code.</p>
 <strong>to), would you still trust it to be error free? Explain you reasoning.</strong></p>
 <p>Recommended answer length: 100-200 words.</p>
 <p>Example:
-<em>The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our **
+<em>The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our </em><em>
 </em>code and even if we were then...*</p>
 <p>Answer:</p>
 </blockquote>
@@ -385,14 +385,27 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <strong>stored. You can take inspiration from <a href="figures/registry.png">this figure</a>.</strong></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 20 fill here ---</p>
+<p>During the project we came up with different challenges including the uploading of the GCP registry. We tried to make it work but we could only push one image that is displayed in <a href="figures/registry.png">this figure</a></p>
+<div align="center">
+    <img src="figures/registry.png" alt="Artifact Registry" width="50%" />
+</div>
+
 <h3>Question 21</h3>
 <blockquote>
 <p><strong>Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in</strong>
 <strong>your project. You can take inspiration from <a href="figures/build.png">this figure</a>.</strong></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 21 fill here ---</p>
+<p>Once we had our images in the artifact registry we could go ahead and build them. For this section, we faced a big challenge as we could not figure out how to make the docker files work. We had the following error and we could not figure out in time for the deadline how to make it work:</p>
+<div align="center">
+    <img src="figures/error.png" alt="Errors" width="50%" />
+</div>
+
+<p>Therefore, the result was this compilation history:</p>
+<div align="center">
+    <img src="figures/build.png" alt="Errors" width="50%" />
+</div>
+
 <h3>Question 22</h3>
 <blockquote>
 <p><strong>Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did</strong>
@@ -499,9 +512,13 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <p>Example:</p>
 <p><em>The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.</em>
 <em>Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...</em></p>
-<p>Answer:</p>
+<p>Answer:
+Overall Diagram: <a href="figures/project_overview.png">this figure</a></p>
 </blockquote>
-<p>--- question 29 fill here ---</p>
+<p>Our main area of working is our local setup, where we utilize tools like HYDRA for configuration management and Docker for containerization. This ensures reproducible development environments and facilitates easy transition to production.
+ Furthermore, whenever code is committed to GitHub, it triggers a series of automated checks. Pre-commit hooks perform initial code quality checks before the code is even committed. Subsequently, GitHub Actions orchestrate a set of workflows that include data verification.</p>
+<p>Afterwards, the Docker image is pushed to a container registry, on the GCP. This allows for efficient and consistent deployment across different environments. We used the cloud storage to focus mainly on data versioning and control so that we can be certain of data integrity, aiding in our development.</p>
+<p>Finally, the system leverages Streamlit to create an interactive web application that allows users to interact with the deployed model. This application is then deployed to a suitable environment, ideally making the model accessible for real-world use.</p>
 <h3>Question 30</h3>
 <blockquote>
 <p><strong>Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these</strong>
