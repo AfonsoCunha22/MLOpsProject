@@ -15,6 +15,8 @@ To achieve the project's objectives, we use the following tools and frameworks:
 - **Weights & Biases (W&B)**: To track experiments, monitor performance metrics, and visualize model training.
 - **Hydra**: For configuration management to ensure reproducibility of experiments.
 - **Docker**: To containerize the entire pipeline, facilitating portability and deployment across different environments.
+- **Streamlit**: For the frontend development
+- **Google Cloud**: It provides multiple services that were used, such as the storage, cloud, monitoring, api, etc.
 
 
 ## **Dataset**
