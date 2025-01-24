@@ -481,6 +481,9 @@ Our Bucket contained the processed data that was hashed and pushed, using md5. A
 > Answer:
 
 During the project we came up with different challenges including the uploading of the GCP registry. We tried to make it work but we could only push one image that is displayed in [this figure](figures/registry.png)
+<div align="center">
+    <img src="figures/registry.png" alt="Artifact Registry" width="50%" />
+</div>
 
 ### Question 21
 
@@ -489,7 +492,20 @@ During the project we came up with different challenges including the uploading 
 >
 > Answer:
 
---- question 21 fill here ---
+Once we had our images in the artifact registry we could go ahead and build them. For this section, we faced a big challenge as we could not figure out how to make the docker files work. We had the following error and we could not figure out in time for the deadline how to make it work:
+
+<div align="center">
+    <img src="figures/error.png" alt="Errors" width="50%" />
+</div>
+
+Therefore, the result was this compilation history:
+
+<div align="center">
+    <img src="figures/build.png" alt="Errors" width="50%" />
+</div>
+
+
+
 
 ### Question 22
 
