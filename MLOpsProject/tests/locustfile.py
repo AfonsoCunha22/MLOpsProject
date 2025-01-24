@@ -18,7 +18,7 @@ in this case below:
 
 export MYENDPOINT=http://127.0.0.1:8000
 
-locust -f tests/performance/locustfile.py \
+locust -f tests/locustfile.py \
     --headless \
     --users 10 \
     --spawn-rate 2 \

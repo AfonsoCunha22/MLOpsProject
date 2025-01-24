@@ -70,27 +70,27 @@ will check the repositories and the code to verify your answers.</p>
 <li>[X] Write API tests for your application and setup continues integration for these (M24)</li>
 <li>[X] Load test your application (M24)</li>
 <li>[X] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)</li>
-<li>[ ] Create a frontend for your API (M26)</li>
+<li>[X] Create a frontend for your API (M26)</li>
 </ul>
 <h3>Week 3</h3>
 <ul>
-<li>[ ] Check how robust your model is towards data drifting (M27)</li>
-<li>[ ] Deploy to the cloud a drift detection API (M27)</li>
-<li>[ ] Instrument your API with a couple of system metrics (M28)</li>
-<li>[ ] Setup cloud monitoring of your instrumented application (M28)</li>
-<li>[ ] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)</li>
+<li>[X] Check how robust your model is towards data drifting (M27)</li>
+<li>[X] Deploy to the cloud a drift detection API (M27)</li>
+<li>[X] Instrument your API with a couple of system metrics (M28)</li>
+<li>[X] Setup cloud monitoring of your instrumented application (M28)</li>
+<li>[X] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)</li>
 <li>[ ] If applicable, optimize the performance of your data loading using distributed data loading (M29)</li>
 <li>[ ] If applicable, optimize the performance of your training pipeline by using distributed training (M30)</li>
 <li>[ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed (M31)</li>
 </ul>
 <h3>Extra</h3>
 <ul>
-<li>[ ] Write some documentation for your application (M32)</li>
-<li>[ ] Publish the documentation to GitHub Pages (M32)</li>
-<li>[ ] Revisit your initial project description. Did the project turn out as you wanted?</li>
-<li>[ ] Create an architectural diagram over your MLOps pipeline</li>
-<li>[ ] Make sure all group members have an understanding about all parts of the project</li>
-<li>[ ] Uploaded all your code to GitHub</li>
+<li>[X] Write some documentation for your application (M32)</li>
+<li>[X] Publish the documentation to GitHub Pages (M32)</li>
+<li>[X] Revisit your initial project description. Did the project turn out as you wanted?</li>
+<li>[X] Create an architectural diagram over your MLOps pipeline</li>
+<li>[X] Make sure all group members have an understanding about all parts of the project</li>
+<li>[X] Uploaded all your code to GitHub</li>
 </ul>
 <h2>Group information</h2>
 <h3>Question 1</h3>
@@ -226,7 +226,13 @@ We used different branches in our project, trying to keep it in a way that every
 <em>here: <weblink></em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 11 fill here ---</p>
+<p>We have implemented a robust continuous integration (CI) setup to ensure code quality, reliability, and consistency throughout the development lifecycle. Our CI pipeline is designed to automatically trigger workflows under specific conditions, such as changes to the data, model, or codebase.</p>
+<p>In our project we focused in mainly three components:
+- <strong>Unit Testing</strong>: We have set up unit tests to validate the functionality of our code. These tests are automatically run whenever changes are pushed, ensuring that no new commits break existing functionality.
+- <strong>Linting and Pre-commit Hooks</strong>: Pre-commit hooks have been integrated into our repository to enforce code formatting and linting standards before commits are made.
+- <strong>Workflow Automation</strong>: A dedicated workflow is triggered whenever changes to the data or model are detected. This workflow is responsible for running the updated data pipeline, ensuring all dependencies are tested thoroughly and checks statistics of the used data in order to ensure it's integrity.</p>
+<p>Our workflows are configured using GitHub Actions, and we have implemented caching mechanisms to reduce build times and optimize performance. We currently test on a multiple operating system and , however a single Python version, nevertheless the setup is extensible to support additional configurations in the future.</p>
+<p>Here it's an example to the data integrity workflow run: <a href="https://github.com/AfonsoCunha22/MLOpsProject/actions/runs/12912022248/job/36005827665">Workflow Triggered</a></p>
 <h2>Running code and tracking experiments</h2>
 <blockquote>
 <p>In the following section we are interested in learning more about the experimental setup for running your code and
@@ -241,7 +247,8 @@ especially the reproducibility of your experiments.</p>
 <em>We used a simple argparser, that worked in the following way: Python  my_script.py --lr 1e-3 --batch_size 25</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 12 fill here ---</p>
+<p>We configured our experiments using a <em>config.yaml</em> file located under <em>src/sentiment_analysis/conf/config.yaml</em>. This file centralizes all experiment settings, such as model parameters, training configurations, and data paths. To manage these configurations effectively, we utilized Hydra, which allows dynamic overrides and seamless experimentation. To achieve this, we integrated Hydra and Typer to get the most of easy configurability.</p>
+<p>This approach enables flexible experimentation while maintaining consistency across multiple configuration setups. Different configurations were tested by creating, switching between multiple YAML files and playing with configuration values.</p>
 <h3>Question 13</h3>
 <blockquote>
 <p><strong>Reproducibility of experiments are important. Related to the last question, how did you secure that no information</strong>
@@ -268,12 +275,12 @@ especially the reproducibility of your experiments.</p>
 <p>In our experiments, we tracked several key performance metrics using Weights &amp; Biases (W&amp;B) to monitor the progress and effectiveness of our sentiment analysis model. The primary metrics we focused on were batch loss, average loss, and test accuracy.</p>
 <p>Batch loss measures the error between the predicted outputs and the actual labels for each batch during the training phase. It is crucial to track this metric as it indicates whether the model is learning effectively on a micro level. Logging batch loss helps in identifying any immediate issues during training, such as sudden spikes in loss that might indicate problems with specific batches.</p>
 <div align="center">
-    <img src="batch_loss.png" alt="Batch Loss" width="50%" />
+    <img src="figures/batch_loss.png" alt="Batch Loss" width="50%" />
 </div>
 
 <p>Average loss, calculated at the end of each epoch, provides a macro view of the model's performance over the entire training dataset. This metric is essential for understanding the overall trend of the model's learning process. A decreasing average loss over epochs suggests that the model is improving its performance on the training data.</p>
 <div align="center">
-    <img src="avg_loss.png" alt="Average Loss" width="50%" />
+    <img src="figures/avg_loss.png" alt="Average Loss" width="50%" />
 </div>
 
 <p>Test accuracy is another critical metric we tracked, which represents the ratio of correctly predicted samples to the total number of samples in the test dataset. This metric provides a straightforward measure of the model's performance on unseen data. High test accuracy indicates that the model is generalizing well and making correct predictions for a significant portion of the test data.</p>
@@ -287,7 +294,7 @@ especially the reproducibility of your experiments.</p>
 <em>training docker image: <code>docker run trainer:latest lr=1e-3 batch_size=64</code>. Link to docker file: <weblink></em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- For our project, we created multiple Docker images to manage different parts of the workflow effectively:</p>
+<p>For our project, we created multiple Docker images to manage different parts of the workflow effectively:</p>
 <ol>
 <li>
 <p>FastAPI Dockerfile: This image was used for inference and deployment of the FastAPI application. It included dependencies such as FastAPI and PyTorch. To run it locally, we used:
@@ -301,7 +308,7 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 </li>
 </ol>
 <p>Each Dockerfile was built and tested to ensure smooth functionality, and the images were deployed to Google Cloud Run for scalability and serverless operation. Using Docker allowed us to ensure consistency and reproducibility across all stages of the project.</p>
-<p>Here’s a link to one of our Dockerfiles: <strong><em>docker file link</em></strong>. ---</p>
+<p>Here’s a link to one of our Dockerfiles: <strong><em>docker file link</em></strong>.</p>
 <h3>Question 16</h3>
 <blockquote>
 <p><strong>When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you</strong>
@@ -312,7 +319,8 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>run of our main code at some point that showed ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 16 fill here ---</p>
+<p>When we encountered bugs in our experiments, our team used a variety of debugging techniques, depending on the complexity of the problem and our personal preferences. Some team members preferred to use print statements for quick and dirty insights, while others relied on integrated development environments (IDEs) with built-in debugging tools such as breakpoints and step-by-step execution to examine code behavior more thoroughly.</p>
+<p>In addition, dealing with versions of different libraries specified in our requirements.txt often led to compatibility issues. Profiling and debugging were critical to identifying how different library versions affected the performance and functionality of our application. By methodically profiling our code, we were able to determine which library updates were causing performance degradation or unexpected behavior, allowing us to either roll back to more stable versions or adapt our code to accommodate new library updates.</p>
 <h2>Working in the cloud</h2>
 <blockquote>
 <p>In the following section we would like to know more about your experience when developing in the cloud.</p>
@@ -325,7 +333,33 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 17 fill here ---</p>
+<p>For our project, we used a number of Google Cloud Platform (GCP) services strategically integrated into various tasks and workflows. Here's how we used these services:</p>
+<ul>
+<li>
+<p><strong>Google Cloud Source Repositories</strong>: We used this to create a Git repository that was fully integrated with other GCP services, ensuring all team members had access and version control was streamlined (M5).</p>
+</li>
+<li>
+<p><strong>Google Cloud Build</strong>: This service was essential for automatically building our Docker containers whenever there were changes to our repository, which helped with continuous integration and deployment (M21).</p>
+</li>
+<li>
+<p><strong>Google Cloud Storage (GCS)</strong>: We used GCS for data storage, which was linked to our data version control setups. It was critical for securely and efficiently storing large data sets, models, and training artifacts (M21).</p>
+</li>
+<li>
+<p><strong>Vertex AI</strong>: For training models directly in the cloud, with tried to implement Vertex AI which provided managed services for machine learning workflows that streamlined our model development and deployment processes (M21).</p>
+</li>
+<li>
+<p><strong>Google Cloud capabilities</strong>: Used as the backend for our FastAPI application, enabling lightweight, serverless computing that responds to requests on-demand (M23).</p>
+</li>
+<li>
+<p><strong>Google Cloud Run</strong>: An alternative to Cloud Functions for deploying containerized applications, providing flexibility and scalability for our API (M23).</p>
+</li>
+<li>
+<p><strong>Google Cloud Monitoring and Logging</strong>: Integrated into our application to track system metrics and log events, enabling effective monitoring and alerting systems to ensure performance and reliability (M28).</p>
+</li>
+<li>
+<p><strong>Google Cloud Pub/Sub</strong>: Used to handle event-driven interactions within our services, facilitating asynchronous messaging patterns critical to decoupling services that respond to data changes (M19).</p>
+</li>
+</ul>
 <h3>Question 18</h3>
 <blockquote>
 <p><strong>The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs</strong>
@@ -336,14 +370,15 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>using a custom container: ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 18 fill here ---</p>
+<p>For our latest project, we leveraged the Google Cloud Platform compute engine and deployed the "instancesentiment" VM instance, an n1-standard-1. This machine type, equipped with an Intel Haswell CPU, provided a balanced mix of compute and memory, ideal for our machine learning model experiments focused on sentiment analysis. It ran a PyTorch environment designed for CPU-based tasks from the pytorch-latest-cpu-v20241224 image, with a 100 GB SCSI persistent disk for adequate data storage.</p>
+<p>The instance was connected to the default network in the europe-west1-b region, using an ephemeral external IP for temporary test access. We ensured high security by disabling HTTP and HTTPS traffic and disabling IP forwarding, which restricted the instance to direct communication only. This configuration was essential for efficiently evaluating different preprocessing techniques and model architectures without the need for high performance GPUs.</p>
 <h3>Question 19</h3>
 <blockquote>
 <p><strong>Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.</strong>
 <strong>You can take inspiration from <a href="figures/bucket.png">this figure</a>.</strong></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 19 fill here ---</p>
+<p>Our Bucket contained the processed data that was hashed and pushed, using md5. As can be seen here <a href="figures/bucket_files.png">Overall bucket</a> and <a href="figures/hashed_files.png">Processed Hashed Files</a>.</p>
 <h3>Question 20</h3>
 <blockquote>
 <p><strong>Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have</strong>
@@ -368,7 +403,9 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>was because ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 22 fill here ---</p>
+<p>We attempted to train our model in the cloud using Vertex AI. We created a script to set up the training job which can be found as train_vertex_ai.py, define the required instances, and configure the training pipeline. This included specifying the container image and dependencies, along with setting up the input data and output paths in GCP.</p>
+<p>While we successfully created the GCP Engine instances and initiated the process, the training ultimately failed due to connection and configuration issues. These challenges included difficulties in establishing consistent access to the data stored in our GCP Bucket and misconfigurations in the permissions and network settings. Despite troubleshooting and revisiting the setup, we couldn’t resolve these issues within the project timeline.</p>
+<p>Although the training didn’t succeed on Vertex AI, we tried to learn and understand it's use and purpose and considered that, if revisited, we would focus on improving cloud permissions and networking settings to ensure a seamless training process.</p>
 <h2>Deployment</h2>
 <h3>Question 23</h3>
 <blockquote>
@@ -380,7 +417,7 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>to the API to make it more ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- We created an API for our sentiment analysis model using FastAPI. The API has a /predict/ endpoint that takes text input and returns the sentiment (Negative, Neutral, or Positive) along with probabilities. It also logs the predictions, including the text, predicted class, and timestamp, for future use. We added a /drift/ endpoint to check for data drift using Evidently. This compares the logged predictions with the training data and creates a drift report in HTML format. To monitor performance, we used Prometheus to track things like the number of requests, errors, and how long requests take. This setup makes our API easy to use and keeps the model reliable over time. ---</p>
+<p>We created an API for our sentiment analysis model using FastAPI. The API has a /predict/ endpoint that takes text input and returns the sentiment (Negative, Neutral, or Positive) along with probabilities. It also logs the predictions, including the text, predicted class, and timestamp, for future use. We added a /drift/ endpoint to check for data drift using Evidently. This compares the logged predictions with the training data and creates a drift report in HTML format. To monitor performance, we used Prometheus to track things like the number of requests, errors, and how long requests take. This setup makes our API easy to use and keeps the model reliable over time.</p>
 <h3>Question 24</h3>
 <blockquote>
 <p><strong>Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and</strong>
@@ -392,9 +429,9 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em><code>curl -X POST -F "file=@file.json"&lt;weburl&gt;</code></em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- For deployment, we wrapped our model into a FastAPI application and tested it locally using uvicorn to ensure all endpoints, including /predict/ and /drift/, worked as expected. After testing, we containerized the application with Docker and deployed it to Google Cloud Run, a serverless platform that simplified the deployment process by managing infrastructure for us.</p>
+<p>For deployment, we wrapped our model into a FastAPI application and tested it locally using uvicorn to ensure all endpoints, including /predict/ and /drift/, worked as expected. After testing, we containerized the application with Docker and deployed it to Google Cloud Run, a serverless platform that simplified the deployment process by managing infrastructure for us.</p>
 <p>The deployment steps involved building the Docker image, pushing it to Google Container Registry (GCR), and using gcloud commands to deploy the container to Cloud Run. Once deployed, Cloud Run provided us with a unique URL to invoke the endpoints.</p>
-<p>To test the endpoints, we used PowerShell commands like Invoke-RestMethod for both /predict/ and /drift/ endpoints. For example, we sent HTTP POST requests to the /predict/ endpoint to get sentiment predictions and GET requests to /drift/ to generate and check data drift reports. Cloud Run provided reliable scalability and a smooth deployment experience for our application. ---</p>
+<p>To test the endpoints, we used PowerShell commands like Invoke-RestMethod for both /predict/ and /drift/ endpoints. For example, we sent HTTP POST requests to the /predict/ endpoint to get sentiment predictions and GET requests to /drift/ to generate and check data drift reports. Cloud Run provided reliable scalability and a smooth deployment experience for our application.</p>
 <h3>Question 25</h3>
 <blockquote>
 <p><strong>Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for</strong>
@@ -405,7 +442,18 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>before the service crashed.</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 25 fill here ---</p>
+<p>We performed both unit testing and load testing of the API.</p>
+<p>For unit testing, we used FastAPI's <code>TestClient</code> to ensure that the API endpoints function correctly and return the expected responses. For example, a test for the root endpoint checks that a GET request returns a status code of 200 and the correct welcome message.</p>
+<p>For load testing, we used the <code>locust</code> framework. This involved simulating multiple users interacting with the API to determine its performance under load. The load test was configured to simulate 10 users, spawning at a rate of 2 users per second, and running for 1 minute against the local FastAPI endpoint.</p>
+<div align="center">
+    <img src="figures/api_charts.png" alt="Batch Loss" width="50%" />
+</div>
+
+<div align="center">
+    <img src="figures/api_table.png" alt="Batch Loss" width="50%" />
+</div>
+
+<p>The results of the load testing showed that the API had an average response time of 49.55 milliseconds, a 99th percentile response time of 180 milliseconds, and could handle approximately 4.8 requests per second.</p>
 <h3>Question 26</h3>
 <blockquote>
 <p><strong>Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how</strong>
@@ -416,7 +464,8 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>measure ... and ... that would inform us about this ... behaviour of our application.</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 26 fill here ---</p>
+<p>Yes, we managed to implement monitoring for our deployed model. For this, we utilized a combination of tools. We used Prometheus Client to expose metrics directly from our application, enabling us to track key performance indicators such as latency, request counts, and error rates. Additionally, we created custom reports to monitor specific metrics relevant to our application, such as prediction accuracy and input data drift.</p>
+<p>However, the most intuitive and user-friendly solution was leveraging Google Cloud Monitoring and Alerts. This setup allowed us to create dashboards for visualizing real-time performance metrics and configure alerts for critical thresholds, such as increased latency or a drop in model accuracy. The integration with Google Cloud made it seamless to monitor the deployed model and quickly act on anomalies.</p>
 <h2>Overall discussion of project</h2>
 <blockquote>
 <p>In the following section we would like you to think about the general structure of your project.</p>
@@ -428,7 +477,7 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 </p>
 <p>Answer:</p>
 </blockquote>
-<p>---We used a total of $3.21 on Compute Engine, which was the most expensive service. Minor costs were incurred for Networking ($0.15) and Cloud Storage ($0.05), but these were offset by promotions or discounts. Working in the cloud allowed us to scale our project efficiently and focus on development without worrying about infrastructure. It was a cost-effective way to manage resources and deploy applications.---</p>
+<p>We used a total of $3.21 on Compute Engine, which was the most expensive service. Minor costs were incurred for Networking ($0.15) and Cloud Storage ($0.05), but these were offset by promotions or discounts. Working in the cloud allowed us to scale our project efficiently and focus on development without worrying about infrastructure. It was a cost-effective way to manage resources and deploy applications.</p>
 <h3>Question 28</h3>
 <blockquote>
 <p><strong>Did you implement anything extra in your project that is not covered by other questions? Maybe you implemented</strong>
@@ -440,7 +489,7 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 <em>implemented using ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- We focused on meeting the project requirements and did not implement any additional features beyond what was specified. Our efforts were concentrated on ensuring high-quality execution of the required tasks ---</p>
+<p>We focused on meeting the project requirements and did not implement any additional features beyond what was specified. Our efforts were concentrated on ensuring high-quality execution of the required tasks</p>
 <h3>Question 29</h3>
 <blockquote>
 <p><strong>Include a figure that describes the overall architecture of your system and what services that you make use of.</strong>
@@ -460,7 +509,7 @@ docker run -p 8000:8000 fastapi-api:latest.</p>
 </p>
 <p>Answer:</p>
 </blockquote>
-<p>---The biggest challenge in our project was setting up dependencies and resolving library conflicts, which delayed progress initially. We carefully updated the requirements.txt file, used virtual environments to isolate dependencies, and documented the setup process for efficiency. Learning new tools like DVC and Evidently for data versioning and drift detection was also time-consuming. We overcame these challenges by referring to documentation, collaborating as a team, and troubleshooting together. While the setup phase was time-intensive, it streamlined the rest of the project and ensured smoother progress.---</p>
+<p>The biggest challenge in our project was setting up dependencies and resolving library conflicts, which delayed progress initially. We carefully updated the requirements.txt file, used virtual environments to isolate dependencies, and documented the setup process for efficiency. Learning new tools like DVC and Evidently for data versioning and drift detection was also time-consuming. We overcame these challenges by referring to documentation, collaborating as a team, and troubleshooting together. While the setup phase was time-intensive, it streamlined the rest of the project and ensured smoother progress.</p>
 <h3>Question 31</h3>
 <blockquote>
 <p><strong>State the individual contributions of each team member. This is required information from DTU, because we need to</strong>

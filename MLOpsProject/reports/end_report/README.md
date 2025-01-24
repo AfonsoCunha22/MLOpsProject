@@ -359,13 +359,13 @@ In our experiments, we tracked several key performance metrics using Weights & B
 Batch loss measures the error between the predicted outputs and the actual labels for each batch during the training phase. It is crucial to track this metric as it indicates whether the model is learning effectively on a micro level. Logging batch loss helps in identifying any immediate issues during training, such as sudden spikes in loss that might indicate problems with specific batches.
 
 <div align="center">
-    <img src="batch_loss.png" alt="Batch Loss" width="50%" />
+    <img src="figures/batch_loss.png" alt="Batch Loss" width="50%" />
 </div>
 
 Average loss, calculated at the end of each epoch, provides a macro view of the model's performance over the entire training dataset. This metric is essential for understanding the overall trend of the model's learning process. A decreasing average loss over epochs suggests that the model is improving its performance on the training data.
 
 <div align="center">
-    <img src="avg_loss.png" alt="Average Loss" width="50%" />
+    <img src="figures/avg_loss.png" alt="Average Loss" width="50%" />
 </div>
 
 Test accuracy is another critical metric we tracked, which represents the ratio of correctly predicted samples to the total number of samples in the test dataset. This metric provides a straightforward measure of the model's performance on unseen data. High test accuracy indicates that the model is generalizing well and making correct predictions for a significant portion of the test data.
@@ -560,7 +560,22 @@ To test the endpoints, we used PowerShell commands like Invoke-RestMethod for bo
 >
 > Answer:
 
---- question 25 fill here ---
+We performed both unit testing and load testing of the API.
+
+For unit testing, we used FastAPI's `TestClient` to ensure that the API endpoints function correctly and return the expected responses. For example, a test for the root endpoint checks that a GET request returns a status code of 200 and the correct welcome message.
+
+For load testing, we used the `locust` framework. This involved simulating multiple users interacting with the API to determine its performance under load. The load test was configured to simulate 10 users, spawning at a rate of 2 users per second, and running for 1 minute against the local FastAPI endpoint.
+
+<div align="center">
+    <img src="figures/api_charts.png" alt="Batch Loss" width="50%" />
+</div>
+
+<div align="center">
+    <img src="figures/api_table.png" alt="Batch Loss" width="50%" />
+</div>
+
+The results of the load testing showed that the API had an average response time of 49.55 milliseconds, a 99th percentile response time of 180 milliseconds, and could handle approximately 4.8 requests per second.
+
 
 ### Question 26
 
