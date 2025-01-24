@@ -1,0 +1,9 @@
+hyperparameters:
+  model_name: "albert-base-v2"
+  num_labels: 3
+  batch_size: 8
+  epochs: 2
+  learning_rate: 1e-3
+  save_path: "./models/trained_sentiment_model"
+processed_dir: "./data/processed"
+model_path: "./models/trained_sentiment_model"

@@ -89,27 +89,27 @@ will check the repositories and the code to verify your answers.
 * [X] Write API tests for your application and setup continues integration for these (M24)
 * [X] Load test your application (M24)
 * [X] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)
-* [ ] Create a frontend for your API (M26)
+* [X] Create a frontend for your API (M26)
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting (M27)
-* [ ] Deploy to the cloud a drift detection API (M27)
-* [ ] Instrument your API with a couple of system metrics (M28)
-* [ ] Setup cloud monitoring of your instrumented application (M28)
-* [ ] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)
+* [X] Check how robust your model is towards data drifting (M27)
+* [X] Deploy to the cloud a drift detection API (M27)
+* [X] Instrument your API with a couple of system metrics (M28)
+* [X] Setup cloud monitoring of your instrumented application (M28)
+* [X] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)
 * [ ] If applicable, optimize the performance of your data loading using distributed data loading (M29)
 * [ ] If applicable, optimize the performance of your training pipeline by using distributed training (M30)
 * [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed (M31)
 
 ### Extra
 
-* [ ] Write some documentation for your application (M32)
-* [ ] Publish the documentation to GitHub Pages (M32)
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Create an architectural diagram over your MLOps pipeline
-* [ ] Make sure all group members have an understanding about all parts of the project
-* [ ] Uploaded all your code to GitHub
+* [X] Write some documentation for your application (M32)
+* [X] Publish the documentation to GitHub Pages (M32)
+* [X] Revisit your initial project description. Did the project turn out as you wanted?
+* [X] Create an architectural diagram over ySour MLOps pipeline
+* [X] Make sure all group members have an understanding about all parts of the project
+* [X] Uploaded all your code to GitHub
 
 ## Group information
 
@@ -292,7 +292,16 @@ We used DVC to manage data versioning in our project. It helped us track changes
 >
 > Answer:
 
---- question 11 fill here ---
+We have implemented a robust continuous integration (CI) setup to ensure code quality, reliability, and consistency throughout the development lifecycle. Our CI pipeline is designed to automatically trigger workflows under specific conditions, such as changes to the data, model, or codebase.
+
+In our project we focused in mainly three components:
+- **Unit Testing**: We have set up unit tests to validate the functionality of our code. These tests are automatically run whenever changes are pushed, ensuring that no new commits break existing functionality.
+- **Linting and Pre-commit Hooks**: Pre-commit hooks have been integrated into our repository to enforce code formatting and linting standards before commits are made.
+- **Workflow Automation**: A dedicated workflow is triggered whenever changes to the data or model are detected. This workflow is responsible for running the updated data pipeline, ensuring all dependencies are tested thoroughly and checks statistics of the used data in order to ensure it's integrity.
+
+Our workflows are configured using GitHub Actions, and we have implemented caching mechanisms to reduce build times and optimize performance. We currently test on a multiple operating system and , however a single Python version, nevertheless the setup is extensible to support additional configurations in the future.
+
+Here it's an example to the data integrity workflow run: [Workflow Triggered](https://github.com/AfonsoCunha22/MLOpsProject/actions/runs/12912022248/job/36005827665)
 
 ## Running code and tracking experiments
 
@@ -311,7 +320,9 @@ We used DVC to manage data versioning in our project. It helped us track changes
 >
 > Answer:
 
---- question 12 fill here ---
+We configured our experiments using a *config.yaml* file located under *src/sentiment_analysis/conf/config.yaml*. This file centralizes all experiment settings, such as model parameters, training configurations, and data paths. To manage these configurations effectively, we utilized Hydra, which allows dynamic overrides and seamless experimentation. To achieve this, we integrated Hydra and Typer to get the most of easy configurability.
+
+This approach enables flexible experimentation while maintaining consistency across multiple configuration setups. Different configurations were tested by creating, switching between multiple YAML files and playing with configuration values.
 
 ### Question 13
 
@@ -326,7 +337,7 @@ We used DVC to manage data versioning in our project. It helped us track changes
 >
 > Answer:
 
---- We made sure our experiments can be repeated by using configuration files with Hydra. These files stored all important details like model settings, hyperparameters, and data paths. Every time we ran an experiment, the exact settings were saved so we could easily do it again later. We also used DVC to keep track of different versions of our data and model files. This way, we can go back to any version we need. To repeat an experiment, we just load the right configuration and data version, making everything clear and easy to reproduce. ---
+We made sure our experiments can be repeated by using configuration files with Hydra. These files stored all important details like model settings, hyperparameters, and data paths. Every time we ran an experiment, the exact settings were saved so we could easily do it again later. We also used DVC to keep track of different versions of our data and model files. This way, we can go back to any version we need. To repeat an experiment, we just load the right configuration and data version, making everything clear and easy to reproduce.
 
 ### Question 14
 
@@ -358,7 +369,7 @@ We used DVC to manage data versioning in our project. It helped us track changes
 >
 > Answer:
 
---- For our project, we created multiple Docker images to manage different parts of the workflow effectively:
+For our project, we created multiple Docker images to manage different parts of the workflow effectively:
 
 1. FastAPI Dockerfile: This image was used for inference and deployment of the FastAPI application. It included dependencies such as FastAPI and PyTorch. To run it locally, we used:
 docker run -p 8000:8000 fastapi-api:latest.
@@ -369,7 +380,7 @@ docker run -p 8000:8000 fastapi-api:latest.
 
 Each Dockerfile was built and tested to ensure smooth functionality, and the images were deployed to Google Cloud Run for scalability and serverless operation. Using Docker allowed us to ensure consistency and reproducibility across all stages of the project.
 
-Here’s a link to one of our Dockerfiles: ***docker file link***. ---
+Here’s a link to one of our Dockerfiles: ***docker file link***.
 
 ### Question 16
 
@@ -384,7 +395,9 @@ Here’s a link to one of our Dockerfiles: ***docker file link***. ---
 >
 > Answer:
 
---- question 16 fill here ---
+When we encountered bugs in our experiments, our team used a variety of debugging techniques, depending on the complexity of the problem and our personal preferences. Some team members preferred to use print statements for quick and dirty insights, while others relied on integrated development environments (IDEs) with built-in debugging tools such as breakpoints and step-by-step execution to examine code behavior more thoroughly.
+
+In addition, dealing with versions of different libraries specified in our requirements.txt often led to compatibility issues. Profiling and debugging were critical to identifying how different library versions affected the performance and functionality of our application. By methodically profiling our code, we were able to determine which library updates were causing performance degradation or unexpected behavior, allowing us to either roll back to more stable versions or adapt our code to accommodate new library updates.
 
 ## Working in the cloud
 
@@ -401,7 +414,23 @@ Here’s a link to one of our Dockerfiles: ***docker file link***. ---
 >
 > Answer:
 
---- question 17 fill here ---
+For our project, we used a number of Google Cloud Platform (GCP) services strategically integrated into various tasks and workflows. Here's how we used these services:
+
+- **Google Cloud Source Repositories**: We used this to create a Git repository that was fully integrated with other GCP services, ensuring all team members had access and version control was streamlined (M5).
+
+- **Google Cloud Build**: This service was essential for automatically building our Docker containers whenever there were changes to our repository, which helped with continuous integration and deployment (M21).
+
+- **Google Cloud Storage (GCS)**: We used GCS for data storage, which was linked to our data version control setups. It was critical for securely and efficiently storing large data sets, models, and training artifacts (M21).
+
+- **Vertex AI**: For training models directly in the cloud, with tried to implement Vertex AI which provided managed services for machine learning workflows that streamlined our model development and deployment processes (M21).
+
+- **Google Cloud capabilities**: Used as the backend for our FastAPI application, enabling lightweight, serverless computing that responds to requests on-demand (M23).
+
+- **Google Cloud Run**: An alternative to Cloud Functions for deploying containerized applications, providing flexibility and scalability for our API (M23).
+
+- **Google Cloud Monitoring and Logging**: Integrated into our application to track system metrics and log events, enabling effective monitoring and alerting systems to ensure performance and reliability (M28).
+
+- **Google Cloud Pub/Sub**: Used to handle event-driven interactions within our services, facilitating asynchronous messaging patterns critical to decoupling services that respond to data changes (M19).
 
 ### Question 18
 
@@ -416,7 +445,9 @@ Here’s a link to one of our Dockerfiles: ***docker file link***. ---
 >
 > Answer:
 
---- question 18 fill here ---
+For our latest project, we leveraged the Google Cloud Platform compute engine and deployed the "instancesentiment" VM instance, an n1-standard-1. This machine type, equipped with an Intel Haswell CPU, provided a balanced mix of compute and memory, ideal for our machine learning model experiments focused on sentiment analysis. It ran a PyTorch environment designed for CPU-based tasks from the pytorch-latest-cpu-v20241224 image, with a 100 GB SCSI persistent disk for adequate data storage.
+
+The instance was connected to the default network in the europe-west1-b region, using an ephemeral external IP for temporary test access. We ensured high security by disabling HTTP and HTTPS traffic and disabling IP forwarding, which restricted the instance to direct communication only. This configuration was essential for efficiently evaluating different preprocessing techniques and model architectures without the need for high performance GPUs.
 
 ### Question 19
 
@@ -425,7 +456,8 @@ Here’s a link to one of our Dockerfiles: ***docker file link***. ---
 >
 > Answer:
 
---- question 19 fill here ---
+Our Bucket contained the processed data that was hashed and pushed, using md5. As can be seen here [Overall bucket](figures/bucket_files.png) and [Processed Hashed Files](figures/hashed_files.png).
+
 
 ### Question 20
 
@@ -458,7 +490,11 @@ Here’s a link to one of our Dockerfiles: ***docker file link***. ---
 >
 > Answer:
 
---- question 22 fill here ---
+We attempted to train our model in the cloud using Vertex AI. We created a script to set up the training job which can be found as train_vertex_ai.py, define the required instances, and configure the training pipeline. This included specifying the container image and dependencies, along with setting up the input data and output paths in GCP.
+
+While we successfully created the GCP Engine instances and initiated the process, the training ultimately failed due to connection and configuration issues. These challenges included difficulties in establishing consistent access to the data stored in our GCP Bucket and misconfigurations in the permissions and network settings. Despite troubleshooting and revisiting the setup, we couldn’t resolve these issues within the project timeline.
+
+Although the training didn’t succeed on Vertex AI, we tried to learn and understand it's use and purpose and considered that, if revisited, we would focus on improving cloud permissions and networking settings to ensure a seamless training process.
 
 ## Deployment
 
@@ -475,7 +511,7 @@ Here’s a link to one of our Dockerfiles: ***docker file link***. ---
 >
 > Answer:
 
---- We created an API for our sentiment analysis model using FastAPI. The API has a /predict/ endpoint that takes text input and returns the sentiment (Negative, Neutral, or Positive) along with probabilities. It also logs the predictions, including the text, predicted class, and timestamp, for future use. We added a /drift/ endpoint to check for data drift using Evidently. This compares the logged predictions with the training data and creates a drift report in HTML format. To monitor performance, we used Prometheus to track things like the number of requests, errors, and how long requests take. This setup makes our API easy to use and keeps the model reliable over time. ---
+We created an API for our sentiment analysis model using FastAPI. The API has a /predict/ endpoint that takes text input and returns the sentiment (Negative, Neutral, or Positive) along with probabilities. It also logs the predictions, including the text, predicted class, and timestamp, for future use. We added a /drift/ endpoint to check for data drift using Evidently. This compares the logged predictions with the training data and creates a drift report in HTML format. To monitor performance, we used Prometheus to track things like the number of requests, errors, and how long requests take. This setup makes our API easy to use and keeps the model reliable over time.
 
 ### Question 24
 
@@ -491,11 +527,11 @@ Here’s a link to one of our Dockerfiles: ***docker file link***. ---
 >
 > Answer:
 
---- For deployment, we wrapped our model into a FastAPI application and tested it locally using uvicorn to ensure all endpoints, including /predict/ and /drift/, worked as expected. After testing, we containerized the application with Docker and deployed it to Google Cloud Run, a serverless platform that simplified the deployment process by managing infrastructure for us.
+For deployment, we wrapped our model into a FastAPI application and tested it locally using uvicorn to ensure all endpoints, including /predict/ and /drift/, worked as expected. After testing, we containerized the application with Docker and deployed it to Google Cloud Run, a serverless platform that simplified the deployment process by managing infrastructure for us.
 
 The deployment steps involved building the Docker image, pushing it to Google Container Registry (GCR), and using gcloud commands to deploy the container to Cloud Run. Once deployed, Cloud Run provided us with a unique URL to invoke the endpoints.
 
-To test the endpoints, we used PowerShell commands like Invoke-RestMethod for both /predict/ and /drift/ endpoints. For example, we sent HTTP POST requests to the /predict/ endpoint to get sentiment predictions and GET requests to /drift/ to generate and check data drift reports. Cloud Run provided reliable scalability and a smooth deployment experience for our application. ---
+To test the endpoints, we used PowerShell commands like Invoke-RestMethod for both /predict/ and /drift/ endpoints. For example, we sent HTTP POST requests to the /predict/ endpoint to get sentiment predictions and GET requests to /drift/ to generate and check data drift reports. Cloud Run provided reliable scalability and a smooth deployment experience for our application.
 
 ### Question 25
 
@@ -525,7 +561,9 @@ To test the endpoints, we used PowerShell commands like Invoke-RestMethod for bo
 >
 > Answer:
 
---- question 26 fill here ---
+Yes, we managed to implement monitoring for our deployed model. For this, we utilized a combination of tools. We used Prometheus Client to expose metrics directly from our application, enabling us to track key performance indicators such as latency, request counts, and error rates. Additionally, we created custom reports to monitor specific metrics relevant to our application, such as prediction accuracy and input data drift.
+
+However, the most intuitive and user-friendly solution was leveraging Google Cloud Monitoring and Alerts. This setup allowed us to create dashboards for visualizing real-time performance metrics and configure alerts for critical thresholds, such as increased latency or a drop in model accuracy. The integration with Google Cloud made it seamless to monitor the deployed model and quickly act on anomalies.
 
 ## Overall discussion of project
 
@@ -540,7 +578,7 @@ To test the endpoints, we used PowerShell commands like Invoke-RestMethod for bo
 >
 > Answer:
 
----We used a total of $3.21 on Compute Engine, which was the most expensive service. Minor costs were incurred for Networking ($0.15) and Cloud Storage ($0.05), but these were offset by promotions or discounts. Working in the cloud allowed us to scale our project efficiently and focus on development without worrying about infrastructure. It was a cost-effective way to manage resources and deploy applications.---
+We used a total of $3.21 on Compute Engine, which was the most expensive service. Minor costs were incurred for Networking ($0.15) and Cloud Storage ($0.05), but these were offset by promotions or discounts. Working in the cloud allowed us to scale our project efficiently and focus on development without worrying about infrastructure. It was a cost-effective way to manage resources and deploy applications.
 
 ### Question 28
 
@@ -556,7 +594,7 @@ To test the endpoints, we used PowerShell commands like Invoke-RestMethod for bo
 >
 > Answer:
 
---- We focused on meeting the project requirements and did not implement any additional features beyond what was specified. Our efforts were concentrated on ensuring high-quality execution of the required tasks ---
+We focused on meeting the project requirements and did not implement any additional features beyond what was specified. Our efforts were concentrated on ensuring high-quality execution of the required tasks
 
 ### Question 29
 
@@ -583,7 +621,7 @@ To test the endpoints, we used PowerShell commands like Invoke-RestMethod for bo
 
 > Answer:
 
----The biggest challenge in our project was setting up dependencies and resolving library conflicts, which delayed progress initially. We carefully updated the requirements.txt file, used virtual environments to isolate dependencies, and documented the setup process for efficiency. Learning new tools like DVC and Evidently for data versioning and drift detection was also time-consuming. We overcame these challenges by referring to documentation, collaborating as a team, and troubleshooting together. While the setup phase was time-intensive, it streamlined the rest of the project and ensured smoother progress.---
+The biggest challenge in our project was setting up dependencies and resolving library conflicts, which delayed progress initially. We carefully updated the requirements.txt file, used virtual environments to isolate dependencies, and documented the setup process for efficiency. Learning new tools like DVC and Evidently for data versioning and drift detection was also time-consuming. We overcame these challenges by referring to documentation, collaborating as a team, and troubleshooting together. While the setup phase was time-intensive, it streamlined the rest of the project and ensured smoother progress.
 
 ### Question 31
 
