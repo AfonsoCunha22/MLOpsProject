@@ -96,17 +96,17 @@ will check the repositories and the code to verify your answers.</p>
 <h3>Question 1</h3>
 <blockquote>
 <p><strong>Enter the group number you signed up on <learn.inside.dtu.dk></strong></p>
-<p>Answer:</p>
+<p>Answer:
+Group 39</p>
 </blockquote>
-<p><code>Group 39</code></p>
 <h3>Question 2</h3>
 <blockquote>
 <p><strong>Enter the study number for each member in the group</strong></p>
 <p>Example:</p>
 <p><em>sXXXXXX, sXXXXXX, sXXXXXX</em></p>
-<p>Answer:
-<code>*s233564, s233177, s233185, s233162*</code></p>
+<p>Answer:</p>
 </blockquote>
+<p><em>s233564, s233177, s233185, s233162</em></p>
 <h3>Question 3</h3>
 <blockquote>
 <p><strong>A requirement to the project is that you include a third-party package not covered in the course. What framework</strong>
@@ -115,9 +115,9 @@ will check the repositories and the code to verify your answers.</p>
 <p>Example:
 <em>We used the third-party framework ... in our project. We used functionality ... and functionality ... from the</em>
 <em>package to do ... and ... in our project</em>.</p>
-<p>Answer:
-<code>We decided to use the Hugging Face Transformers package, which wasn't covered in our course, to fulfill the project's requirements. This framework let us use pre-trained models for sentiment analysis, which sped up our development process significantly. By using Hugging Face, we quickly built a strong baseline and could then focus on fine-tuning and optimizing our models. This allowed us to concentrate on other course objectives without spending too much time on building models from scratch. The tools and resources provided by Hugging Face were crucial in helping us complete the project successfully, enhancing our model's accuracy and effectiveness.</code></p>
+<p>Answer:</p>
 </blockquote>
+<p>We decided to use the Hugging Face Transformers package, which wasn't covered in our course, to fulfill the project's requirements. This framework let us use pre-trained models for sentiment analysis, which sped up our development process significantly. By using Hugging Face, we quickly built a strong baseline and could then focus on fine-tuning and optimizing our models. This allowed us to concentrate on other course objectives without spending too much time on building models from scratch. The tools and resources provided by Hugging Face were crucial in helping us complete the project successfully, enhancing our model's accuracy and effectiveness.</p>
 <h2>Coding environment</h2>
 <blockquote>
 <p>In the following section we are interested in learning more about you local development environment. This includes
@@ -131,9 +131,22 @@ how you managed dependencies, the structure of your code and how you managed cod
 <p>Example:
 <em>We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a</em>
 <em>complete copy of our development environment, one would have to run the following commands</em></p>
-<p>Answer:
-<code>We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file. To get a complete copy of our development environment, a new team member would need to follow these steps: Create a new virtual environment using conda create -n myenv python=3.12.8. Then Activate the newly created environment: conda activate myenv. And as a last step install the required dependencies by running pip install -r requirements.txt and pip install -r requirements_dev.txt</code> </p>
+<p>Answer:</p>
 </blockquote>
+<p>We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file.
+To get a complete copy of our development environment, a new team member would need to follow these steps:
+Create a new virtual environment using: </p>
+<p><code>bash
+conda create -n myenv python=3.12.8`</code></p>
+<p>Then Activate the newly created environment: </p>
+<p><code>bash
+conda activate myenv</code></p>
+<p>And as a last step install the required dependencies by running</p>
+<p><code>bash
+pip install -r requirements.txt</code></p>
+<p>and </p>
+<p><code>bash
+pip install -r requirements_dev.txt</code></p>
 <h3>Question 5</h3>
 <blockquote>
 <p><strong>We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your</strong>
@@ -170,7 +183,8 @@ corporate and increase the quality of your code.</p>
 <em>In total we have implemented X tests. Primarily we are testing ... and ... as these the most critical parts of our</em>
 <em>application but also ... .</em></p>
 <p>Answer:
-<code>We have implemented a comprehensive set of tests using Pytest to ensure the reliability of our project. These tests cover various components, including data preprocessing, model functionality, and API endpoints. Specifically, we test data integrity, model initialization, forward pass, prediction, training, evaluation, and model saving/loading. Additionally, we use Ruff for linting and formatting, and pre-commit hooks to maintain code quality. Our GitHub Actions workflow runs these tests on multiple operating systems and Python versions, ensuring cross-platform compatibility and robustness.</code></p>
+<code>We have implemented a comprehensive set of tests using Pytest to ensure the reliability of our project. These tests cover various components, including data preprocessing, model functionality, and API endpoints. Specifically, we test data integrity, model initialization, forward pass, prediction, training, evaluation, and model saving/loading. Additionally, we use Ruff for linting and formatting, and pre-commit hooks to maintain code quality. Our GitHub Actions workflow runs these tests on multiple operating systems and Python versions, ensuring cross-platform compatibility and robustness.</code>
+c</p>
 </blockquote>
 <h3>Question 8</h3>
 <blockquote>
@@ -198,13 +212,9 @@ corporate and increase the quality of your code.</p>
 <blockquote>
 <p><strong>Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version</strong>
 <strong>control of your data. If no, explain a case where it would be beneficial to have version control of your data.</strong></p>
-<p>Recommended answer length: 100-200 words.</p>
-<p>Example:
-<em>We did make use of DVC in the following way: ... . In the end it helped us in ... for controlling ... part of our</em>
-<em>pipeline</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 10 fill here ---</p>
+<p><code>We used DVC to manage data versioning in our project. It helped us track changes to datasets and ensured consistency between data and models. By storing data in remote storage and tracking it in the repository, we saved space and maintained a clear history. DVC made collaboration easier and ensured our pipeline was reproducible and reliable.</code></p>
 <h3>Question 11</h3>
 <blockquote>
 <p><strong>Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,</strong>
@@ -226,7 +236,7 @@ especially the reproducibility of your experiments.</p>
 <h3>Question 12</h3>
 <blockquote>
 <p><strong>How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would</strong>
-<strong>run a experiment.</strong></p>
+<strong>run an experiment.</strong></p>
 <p>Recommended answer length: 50-100 words.</p>
 <p>Example:
 <em>We used a simple argparser, that worked in the following way: Python  my_script.py --lr 1e-3 --batch_size 25</em></p>
@@ -243,7 +253,7 @@ especially the reproducibility of your experiments.</p>
 <em>one would have to do ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 13 fill here ---</p>
+<p>--- We made sure our experiments can be repeated by using configuration files with Hydra. These files stored all important details like model settings, hyperparameters, and data paths. Every time we ran an experiment, the exact settings were saved so we could easily do it again later. We also used DVC to keep track of different versions of our data and model files. This way, we can go back to any version we need. To repeat an experiment, we just load the right configuration and data version, making everything clear and easy to reproduce. ---</p>
 <h3>Question 14</h3>
 <blockquote>
 <p><strong>Upload 1 to 3 screenshots that show the experiments that you have done in W&amp;B (or another experiment tracking</strong>
@@ -267,7 +277,21 @@ especially the reproducibility of your experiments.</p>
 <em>training docker image: <code>docker run trainer:latest lr=1e-3 batch_size=64</code>. Link to docker file: <weblink></em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 15 fill here ---</p>
+<p>--- For our project, we created multiple Docker images to manage different parts of the workflow effectively:</p>
+<ol>
+<li>
+<p>FastAPI Dockerfile: This image was used for inference and deployment of the FastAPI application. It included dependencies such as FastAPI and PyTorch. To run it locally, we used:
+docker run -p 8000:8000 fastapi-api:latest.</p>
+</li>
+<li>
+<p>Data Dockerfile: This image was designed for managing data preprocessing tasks. It ensured consistency in how data was processed across different environments.</p>
+</li>
+<li>
+<p>Train Dockerfile: This image was used for training the machine learning model. It contained all necessary libraries and tools for running the training scripts in an isolated environment.</p>
+</li>
+</ol>
+<p>Each Dockerfile was built and tested to ensure smooth functionality, and the images were deployed to Google Cloud Run for scalability and serverless operation. Using Docker allowed us to ensure consistency and reproducibility across all stages of the project.</p>
+<p>Here’s a link to one of our Dockerfiles: <strong><em>docker file link</em></strong>. ---</p>
 <h3>Question 16</h3>
 <blockquote>
 <p><strong>When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you</strong>
@@ -346,7 +370,7 @@ especially the reproducibility of your experiments.</p>
 <em>to the API to make it more ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 23 fill here ---</p>
+<p>--- We created an API for our sentiment analysis model using FastAPI. The API has a /predict/ endpoint that takes text input and returns the sentiment (Negative, Neutral, or Positive) along with probabilities. It also logs the predictions, including the text, predicted class, and timestamp, for future use. We added a /drift/ endpoint to check for data drift using Evidently. This compares the logged predictions with the training data and creates a drift report in HTML format. To monitor performance, we used Prometheus to track things like the number of requests, errors, and how long requests take. This setup makes our API easy to use and keeps the model reliable over time. ---</p>
 <h3>Question 24</h3>
 <blockquote>
 <p><strong>Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and</strong>
@@ -358,7 +382,9 @@ especially the reproducibility of your experiments.</p>
 <em><code>curl -X POST -F "file=@file.json"&lt;weburl&gt;</code></em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 24 fill here ---</p>
+<p>--- For deployment, we wrapped our model into a FastAPI application and tested it locally using uvicorn to ensure all endpoints, including /predict/ and /drift/, worked as expected. After testing, we containerized the application with Docker and deployed it to Google Cloud Run, a serverless platform that simplified the deployment process by managing infrastructure for us.</p>
+<p>The deployment steps involved building the Docker image, pushing it to Google Container Registry (GCR), and using gcloud commands to deploy the container to Cloud Run. Once deployed, Cloud Run provided us with a unique URL to invoke the endpoints.</p>
+<p>To test the endpoints, we used PowerShell commands like Invoke-RestMethod for both /predict/ and /drift/ endpoints. For example, we sent HTTP POST requests to the /predict/ endpoint to get sentiment predictions and GET requests to /drift/ to generate and check data drift reports. Cloud Run provided reliable scalability and a smooth deployment experience for our application. ---</p>
 <h3>Question 25</h3>
 <blockquote>
 <p><strong>Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for</strong>
@@ -388,14 +414,11 @@ especially the reproducibility of your experiments.</p>
 <h3>Question 27</h3>
 <blockquote>
 <p><strong>How many credits did you end up using during the project and what service was most expensive? In general what do</strong>
-<strong>you think about working in the cloud?</strong></p>
-<p>Recommended answer length: 100-200 words.</p>
-<p>Example:
-<em>Group member 1 used ..., Group member 2 used ..., in total ... credits was spend during development. The service</em>
-<em>costing the most was ... due to ... . Working in the cloud was ...</em></p>
+<strong>you think about working in the cloud?</strong>
+</p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 27 fill here ---</p>
+<p>---We used a total of $3.21 on Compute Engine, which was the most expensive service. Minor costs were incurred for Networking ($0.15) and Cloud Storage ($0.05), but these were offset by promotions or discounts. Working in the cloud allowed us to scale our project efficiently and focus on development without worrying about infrastructure. It was a cost-effective way to manage resources and deploy applications.---</p>
 <h3>Question 28</h3>
 <blockquote>
 <p><strong>Did you implement anything extra in your project that is not covered by other questions? Maybe you implemented</strong>
@@ -407,7 +430,7 @@ especially the reproducibility of your experiments.</p>
 <em>implemented using ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 28 fill here ---</p>
+<p>--- We focused on meeting the project requirements and did not implement any additional features beyond what was specified. Our efforts were concentrated on ensuring high-quality execution of the required tasks ---</p>
 <h3>Question 29</h3>
 <blockquote>
 <p><strong>Include a figure that describes the overall architecture of your system and what services that you make use of.</strong>
@@ -423,13 +446,11 @@ especially the reproducibility of your experiments.</p>
 <h3>Question 30</h3>
 <blockquote>
 <p><strong>Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these</strong>
-<strong>challenges?</strong></p>
-<p>Recommended answer length: 200-400 words.</p>
-<p>Example:
-<em>The biggest challenges in the project was using ... tool to do ... . The reason for this was ...</em></p>
+<strong>challenges?</strong>
+</p>
 <p>Answer:</p>
 </blockquote>
-<p>--- question 30 fill here ---</p>
+<p>---The biggest challenge in our project was setting up dependencies and resolving library conflicts, which delayed progress initially. We carefully updated the requirements.txt file, used virtual environments to isolate dependencies, and documented the setup process for efficiency. Learning new tools like DVC and Evidently for data versioning and drift detection was also time-consuming. We overcame these challenges by referring to documentation, collaborating as a team, and troubleshooting together. While the setup phase was time-intensive, it streamlined the rest of the project and ensured smoother progress.---</p>
 <h3>Question 31</h3>
 <blockquote>
 <p><strong>State the individual contributions of each team member. This is required information from DTU, because we need to</strong>

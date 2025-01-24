@@ -117,8 +117,7 @@ will check the repositories and the code to verify your answers.
 > **Enter the group number you signed up on <learn.inside.dtu.dk>**
 >
 > Answer:
-
-```Group 39```
+Group 39
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -128,7 +127,8 @@ will check the repositories and the code to verify your answers.
 > *sXXXXXX, sXXXXXX, sXXXXXX*
 >
 > Answer:
-```*s233564, s233177, s233185, s233162*```
+
+*s233564, s233177, s233185, s233162*
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -141,8 +141,8 @@ will check the repositories and the code to verify your answers.
 > *package to do ... and ... in our project*.
 >
 > Answer:
-```We decided to use the Hugging Face Transformers package, which wasn't covered in our course, to fulfill the project's requirements. This framework let us use pre-trained models for sentiment analysis, which sped up our development process significantly. By using Hugging Face, we quickly built a strong baseline and could then focus on fine-tuning and optimizing our models. This allowed us to concentrate on other course objectives without spending too much time on building models from scratch. The tools and resources provided by Hugging Face were crucial in helping us complete the project successfully, enhancing our model's accuracy and effectiveness.```
 
+We decided to use the Hugging Face Transformers package, which wasn't covered in our course, to fulfill the project's requirements. This framework let us use pre-trained models for sentiment analysis, which sped up our development process significantly. By using Hugging Face, we quickly built a strong baseline and could then focus on fine-tuning and optimizing our models. This allowed us to concentrate on other course objectives without spending too much time on building models from scratch. The tools and resources provided by Hugging Face were crucial in helping us complete the project successfully, enhancing our model's accuracy and effectiveness.
 
 ## Coding environment
 
@@ -161,7 +161,32 @@ will check the repositories and the code to verify your answers.
 > *complete copy of our development environment, one would have to run the following commands*
 >
 > Answer:
-```We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file. To get a complete copy of our development environment, a new team member would need to follow these steps: Create a new virtual environment using conda create -n myenv python=3.12.8. Then Activate the newly created environment: conda activate myenv. And as a last step install the required dependencies by running pip install -r requirements.txt and pip install -r requirements_dev.txt```
+
+We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file.
+To get a complete copy of our development environment, a new team member would need to follow these steps:
+Create a new virtual environment using:
+
+```bash
+conda create -n myenv python=3.12.8`
+```
+
+Then Activate the newly created environment:
+
+```bash
+conda activate myenv
+```
+
+And as a last step install the required dependencies by running
+
+```bash
+pip install -r requirements.txt
+```
+
+and
+
+```bash
+pip install -r requirements_dev.txt
+```
 
 ### Question 5
 
@@ -176,7 +201,8 @@ will check the repositories and the code to verify your answers.
 > *experiments.*
 >
 > Answer:
-```From the cookiecutter template, we filled out the configs, data, docs, models, notebooks, reports, src, tests, and wandb folders. We added a .dvc folder for data version control and an onnx_deployment folder for creating, testing, and deploying APIs for ONNX models. Additionally, we included a front_end folder and a subfolder in reports to work on the final report. The wandb folder was added for files related to Weights & Biases. We also used the .github folder for GitHub workflows and actions, and a credentials folder for storing sensitive information. Some other files were placed outside of the overall structure due to a wrongly set root of the project when we started. We did not use the dockerfiles folder due to some issues we encountered, so we decided to keep them where they worked. We also did not use the notebooks folder, although in retrospect, we realize that organizing our code there could have made it clearer. Overall, our structure could be much improved, but we only realized the importance of it closer to the end of the project.```
+
+From the cookiecutter template, we filled out the configs, data, docs, models, notebooks, reports, src, tests, and wandb folders. We added a .dvc folder for data version control and an onnx_deployment folder for creating, testing, and deploying APIs for ONNX models. Additionally, we included a front_end folder and a subfolder in reports to work on the final report. The wandb folder was added for files related to Weights & Biases. We also used the .github folder for GitHub workflows and actions, and a credentials folder for storing sensitive information. Some other files were placed outside of the overall structure due to a wrongly set root of the project when we started. We did not use the dockerfiles folder due to some issues we encountered, so we decided to keep them where they worked. We also did not use the notebooks folder, although in retrospect, we realize that organizing our code there could have made it clearer. Overall, our structure could be much improved, but we only realized the importance of it closer to the end of the project.
 
 ### Question 6
 
@@ -190,7 +216,8 @@ will check the repositories and the code to verify your answers.
 > *concepts are important in larger projects because ... . For example, typing ...*
 >
 > Answer:
-```We made sure our code was clear, easy to read, and well-organized. We tried to use meaningful names for files, functions, and variables to make the purpose of each part obvious. We included good comments to explain important parts of the code without overloading it. Additionally, we added terminal commands in the comments needed to run the code, so we could quickly execute it when needed. We handled errors carefully to keep the application stable and avoid unexpected crashes. We also used Ruff for linting to maintain code quality and consistency. This approach made it easier for us to cooperate and ensured the code was easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helped ensure that future updates or new team members could quickly adapt to the project.```
+
+We made sure our code was clear, easy to read, and well-organized. We tried to use meaningful names for files, functions, and variables to make the purpose of each part obvious. We included good comments to explain important parts of the code without overloading it. Additionally, we added terminal commands in the comments needed to run the code, so we could quickly execute it when needed. We handled errors carefully to keep the application stable and avoid unexpected crashes. We also used Ruff for linting to maintain code quality and consistency. This approach made it easier for us to cooperate and ensured the code was easier to understand, debug, and maintain, especially when working in a team or on larger projects. Keeping the structure clean and readable helped ensure that future updates or new team members could quickly adapt to the project.
 
 ## Version control
 
@@ -208,8 +235,9 @@ will check the repositories and the code to verify your answers.
 > *application but also ... .*
 >
 > Answer:
-```We have implemented a comprehensive set of tests using Pytest to ensure the reliability of our project. These tests cover various components, including data preprocessing, model functionality, and API endpoints. Specifically, we test data integrity, model initialization, forward pass, prediction, training, evaluation, and model saving/loading. Additionally, we use Ruff for linting and formatting, and pre-commit hooks to maintain code quality. Our GitHub Actions workflow runs these tests on multiple operating systems and Python versions, ensuring cross-platform compatibility and robustness.```
-c
+
+We have implemented a comprehensive set of tests using Pytest to ensure the reliability of our project. These tests cover various components, including data preprocessing, model functionality, and API endpoints. Specifically, we test data integrity, model initialization, forward pass, prediction, training, evaluation, and model saving/loading. Additionally, we use Ruff for linting and formatting, and pre-commit hooks to maintain code quality. Our GitHub Actions workflow runs these tests on multiple operating systems and Python versions, ensuring cross-platform compatibility and robustness.
+
 ### Question 8
 
 > **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
@@ -222,7 +250,8 @@ c
 > *code and even if we were then...*
 >
 > Answer:
-```The total code coverage of our code is 61%, which includes all our source code. Our pytests cover various parts of the project, including the API, data processing, and model functions. Running coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests shows that all tests passed, with some files having 100% coverage and others less. While coverage gives a lot of insights about the code, it is not a guarantee that the code would be bug-free. This is because it is just a measure of how many lines of code are run when your tests are executed. However, it helps in identifying untested parts of the codebase and ensures that the most critical paths are covered, but it does not eliminate the possibility of bugs entirely.```
+
+The total code coverage of our code is 61%, which includes all our source code. Our pytests cover various parts of the project, including the API, data processing, and model functions. Running ```coverage run --rcfile=MLOpsProject/.coveragerc -m pytest MLOpsProject/tests``` shows that all tests passed, with some files having 100% coverage and others less. While coverage gives a lot of insights about the code, it is not a guarantee that the code would be bug-free. This is because it is just a measure of how many lines of code are run when your tests are executed. However, it helps in identifying untested parts of the codebase and ensures that the most critical paths are covered, but it does not eliminate the possibility of bugs entirely.
 
 
 ### Question 9
@@ -237,7 +266,7 @@ c
 > *addition to the main branch. To merge code we ...*
 >
 > Answer:
-```We used different branches in our project, trying to keep it in a way that everybody would work on a separate branch to avoid conflicts. However, we did not use pull requests throughout the project. In retrospect, we see that using pull requests would have been valuable and could have saved us a lot of time, especially when we had to track who made changes that influenced a file. The reason we decided not to use pull requests was that we thought we would not interfere with each other's code as much, especially since we often worked on one computer. Additionally, our pull requests were often small, and we felt that having to approve each other's pull requests would prolong the work.```
+We used different branches in our project, trying to keep it in a way that everybody would work on a separate branch to avoid conflicts. However, we did not use pull requests throughout the project. In retrospect, we see that using pull requests would have been valuable and could have saved us a lot of time, especially when we had to track who made changes that influenced a file. The reason we decided not to use pull requests was that we thought we would not interfere with each other's code as much, especially since we often worked on one computer. Additionally, our pull requests were often small, and we felt that having to approve each other's pull requests would prolong the work.
 
 ### Question 10
 
@@ -246,7 +275,7 @@ c
 >
 > Answer:
 
----We used DVC to manage data versioning in our project. It helped us track changes to datasets and ensured consistency between data and models. By storing data in remote storage and tracking it in the repository, we saved space and maintained a clear history. DVC made collaboration easier and ensured our pipeline was reproducible and reliable.---
+We used DVC to manage data versioning in our project. It helped us track changes to datasets and ensured consistency between data and models. By storing data in remote storage and tracking it in the repository, we saved space and maintained a clear history. DVC made collaboration easier and ensured our pipeline was reproducible and reliable.
 
 ### Question 11
 
