@@ -2,3 +2,5 @@ credentials/*.json
 
 
 MLOpsProject/models/model.onnx
+
+wandb/run-20250124_120330-5jsi2mdk/

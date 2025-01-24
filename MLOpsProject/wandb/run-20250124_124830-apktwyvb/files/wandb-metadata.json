@@ -1,0 +1,50 @@
+{
+  "os": "macOS-10.16-x86_64-i386-64bit",
+  "python": "CPython 3.12.8",
+  "startedAt": "2025-01-24T11:48:31.228558Z",
+  "args": [
+    "train",
+    "./data/processed",
+    "--config-name",
+    "config.yaml"
+  ],
+  "program": "/Users/admin/studia/DTU/sem 3/ml ops/MLOpsProject/MLOpsProject/src/sentiment_analysis/train.py",
+  "codePath": "MLOpsProject/src/sentiment_analysis/train.py",
+  "git": {
+    "remote": "https://github.com/AfonsoCunha22/MLOpsProject.git",
+    "commit": "3ac501480d22d19af80feaa4f05fbeab59d85e78"
+  },
+  "email": "sm.kozlowska@student.uw.edu.pl",
+  "root": "/Users/admin/studia/DTU/sem 3/ml ops/MLOpsProject/MLOpsProject",
+  "host": "macbook-anibas.local",
+  "executable": "/Users/admin/anaconda3/envs/mlops_project/bin/python",
+  "codePathLocal": "src/sentiment_analysis/train.py",
+  "cpu_count": 8,
+  "cpu_count_logical": 8,
+  "disk": {
+    "/": {
+      "total": "494384795648",
+      "used": "379487019008"
+    },
+    "/System/Volumes/Data": {
+      "total": "494384795648",
+      "used": "379487019008"
+    }
+  },
+  "memory": {
+    "total": "8589934592"
+  },
+  "cpu": {
+    "count": 8,
+    "countLogical": 8
+  },
+  "apple": {
+    "name": "Unknown",
+    "ecpuCores": 4,
+    "pcpuCores": 4,
+    "gpuCores": 10,
+    "memoryGb": 8,
+    "swapTotalBytes": "5368709120",
+    "ramTotalBytes": "8589934592"
+  }
+}

@@ -354,7 +354,21 @@ We made sure our experiments can be repeated by using configuration files with H
 >
 > Answer:
 
---- question 14 fill here ---
+In our experiments, we tracked several key performance metrics using Weights & Biases (W&B) to monitor the progress and effectiveness of our sentiment analysis model. The primary metrics we focused on were batch loss, average loss, and test accuracy.
+
+Batch loss measures the error between the predicted outputs and the actual labels for each batch during the training phase. It is crucial to track this metric as it indicates whether the model is learning effectively on a micro level. Logging batch loss helps in identifying any immediate issues during training, such as sudden spikes in loss that might indicate problems with specific batches.
+
+<div align="center">
+    <img src="batch_loss.png" alt="Batch Loss" width="50%" />
+</div>
+
+Average loss, calculated at the end of each epoch, provides a macro view of the model's performance over the entire training dataset. This metric is essential for understanding the overall trend of the model's learning process. A decreasing average loss over epochs suggests that the model is improving its performance on the training data.
+
+<div align="center">
+    <img src="avg_loss.png" alt="Average Loss" width="50%" />
+</div>
+
+Test accuracy is another critical metric we tracked, which represents the ratio of correctly predicted samples to the total number of samples in the test dataset. This metric provides a straightforward measure of the model's performance on unseen data. High test accuracy indicates that the model is generalizing well and making correct predictions for a significant portion of the test data.
 
 ### Question 15
 
@@ -639,4 +653,25 @@ The biggest challenge in our project was setting up dependencies and resolving l
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
---- question 31 fill here ---
+
+**Individual Contributions:**
+
+- **Student s233177 (Afonso):** Co-implemented the model, created training code, set up DVC, setting up configuration files and Hydra, implementing profiling for code optimization, and managing continuous workflows triggered by data changes and model registry updates.
+
+- **Student s233185 (Sabina):** Responsible for data preprocessing, co-implementing the model with s233177, logged important events, configured Weights and Biases for training progress tracking, attempted hyperparameter sweeps, maintained continuous integration on GitHub, and resolved build failures.
+
+- **Students s233162 (Sany) and s233564 (Lydia):** Jointly handled the construction and building of Docker files, created a data storage solution in GCP Bucket linked with DVC, deployed the model in GCP, wrote API tests, conducted load testing, and created an ONNX model (not included in the repo due to size constraints).
+
+- **Student s233162 (Sany):** Developed unit tests for data, model, and training, calculated code coverage, and created a frontend for the API.
+
+- **Student s233564 (Lydia):** Developed a FastAPI for model inference, implemented checks for model robustness against data drift, and deployed a drift detection API in the cloud.
+
+- **Students s233177 (Afonso) and s233162 (Sany):** Instrumented the API with system metrics, created an alert system in GCP, and attempted to set up cloud monitoring for the instrumented application, though it was not finalized due to container errors.
+
+**Collaborative Efforts:**
+
+All members contributed to selecting the model and dataset, ensuring the `requirements.txt` file was up to date, adhering to best coding practices, and implementing command-line interfaces where relevant.
+
+**Use of Generative AI Tools:**
+
+We utilized ChatGPT to debug our code and resolve various issues. Additionally, GitHub Copilot and Cursor AI were used to assist in writing some portions of our code.
