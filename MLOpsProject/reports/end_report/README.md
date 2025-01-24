@@ -624,8 +624,14 @@ We focused on meeting the project requirements and did not implement any additio
 > *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
+Overall Diagram: [this figure](figures/project_overview.png)
 
---- question 29 fill here ---
+ Our main area of working is our local setup, where we utilize tools like HYDRA for configuration management and Docker for containerization. This ensures reproducible development environments and facilitates easy transition to production.
+ Furthermore, whenever code is committed to GitHub, it triggers a series of automated checks. Pre-commit hooks perform initial code quality checks before the code is even committed. Subsequently, GitHub Actions orchestrate a set of workflows that include data verification.
+
+ Afterwards, the Docker image is pushed to a container registry, on the GCP. This allows for efficient and consistent deployment across different environments. We used the cloud storage to focus mainly on data versioning and control so that we can be certain of data integrity, aiding in our development.
+
+ Finally, the system leverages Streamlit to create an interactive web application that allows users to interact with the deployed model. This application is then deployed to a suitable environment, ideally making the model accessible for real-world use.
 
 ### Question 30
 
