@@ -697,13 +697,13 @@ The biggest challenge in our project was setting up dependencies and resolving l
 
 - **Student s233185 (Sabina):** Responsible for data preprocessing, co-implementing the model with s233177, logged important events, configured Weights and Biases for training progress tracking, attempted hyperparameter sweeps, maintained continuous integration on GitHub, and resolved build failures.
 
-- **Students s233162 (Sany) and s233564 (Lydia):** Jointly handled the construction and building of Docker files, created a data storage solution in GCP Bucket linked with DVC, deployed the model in GCP, wrote API tests, conducted load testing, and created an ONNX model (not included in the repo due to size constraints).
+- **Students s233162 (Sandra) and s233564 (Lydia):** Jointly handled the construction and building of Docker files, created a data storage solution in GCP Bucket linked with DVC, deployed the model in GCP, wrote API tests, conducted load testing, and created an ONNX model (not included in the repo due to size constraints).
 
-- **Student s233162 (Sany):** Developed unit tests for data, model, and training, calculated code coverage, and created a frontend for the API.
+- **Student s233162 (Sandra):** Developed unit tests for data, model, and training, calculated code coverage, and created a frontend for the API.
 
 - **Student s233564 (Lydia):** Developed a FastAPI for model inference, implemented checks for model robustness against data drift, and deployed a drift detection API in the cloud.
 
-- **Students s233177 (Afonso) and s233162 (Sany):** Instrumented the API with system metrics, created an alert system in GCP, and attempted to set up cloud monitoring for the instrumented application, though it was not finalized due to container errors.
+- **Students s233177 (Afonso) and s233162 (Sandra):** Instrumented the API with system metrics, created an alert system in GCP, and attempted to set up cloud monitoring for the instrumented application, though it was not finalized due to container errors.
 
 **Collaborative Efforts:**
 
