@@ -142,7 +142,7 @@ Group 39
 >
 > Answer:
 
-We decided to use the Hugging Face Transformers package, which wasn't covered in our course, to fulfill the project's requirements. This framework let us use pre-trained models for sentiment analysis, which sped up our development process significantly. By using Hugging Face, we quickly built a strong baseline and could then focus on fine-tuning and optimizing our models. This allowed us to concentrate on other course objectives without spending too much time on building models from scratch. The tools and resources provided by Hugging Face were crucial in helping us complete the project successfully, enhancing our model's accuracy and effectiveness.
+We decided to use the Hugging Face Transformers package, which wasn't covered in our course, to fulfill the project's requirements. This framework let us use pre-trained models for sentiment analysis, which sped up our development process significantly. By using Hugging Face, we quickly built a strong baseline and could then focus on fine-tuning and optimizing our models. This allowed us to concentrate on other course objectives without spending too much time on building models from scratch. The tools and resources provided by Hugging Face were crucial in helping us complete and develop the project successfully, enhancing our model's accuracy and effectiveness.
 
 ## Coding environment
 
@@ -162,7 +162,7 @@ We decided to use the Hugging Face Transformers package, which wasn't covered in
 >
 > Answer:
 
-We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file.
+We used 'requirements.txt' and 'requirements_dev.txt' files to manage our project dependencies. Whenever we used a new package, we checked its version and included it in the appropriate file. This ensured that all everyone was working with the same environment.
 To get a complete copy of our development environment, a new team member would need to follow these steps:
 Create a new virtual environment using:
 
@@ -275,7 +275,7 @@ We used different branches in our project, trying to keep it in a way that every
 >
 > Answer:
 
-We used DVC to manage data versioning in our project. It helped us track changes to datasets and ensured consistency between data and models. By storing data in remote storage and tracking it in the repository, we saved space and maintained a clear history. DVC made collaboration easier and ensured our pipeline was reproducible and reliable.
+We used DVC to manage data versioning in our project. It helped us track changes to datasets and ensured consistency between data and models. By storing data in remote storage and tracking it in the repository, we saved space and maintained a clear history. DVC made collaboration easier and ensured our pipeline was reproducible and reliable. In order to better manage our space with DVC, we also decide to focus mainly on the processed data. This way, after having the data processed and changed, we got five .pt files that were used for our models and these were tracked by dvc
 
 ### Question 11
 
@@ -337,7 +337,7 @@ This approach enables flexible experimentation while maintaining consistency acr
 >
 > Answer:
 
-We made sure our experiments can be repeated by using configuration files with Hydra. These files stored all important details like model settings, hyperparameters, and data paths. Every time we ran an experiment, the exact settings were saved so we could easily do it again later. We also used DVC to keep track of different versions of our data and model files. This way, we can go back to any version we need. To repeat an experiment, we just load the right configuration and data version, making everything clear and easy to reproduce.
+We made sure our experiments can be repeated by using configuration files with Hydra. These files stored all important details like model settings, hyperparameters, and data paths. Every time we ran an experiment, the exact settings were saved so we could easily do it again later, this also allowed us, as a group to develop and discuss different settings. We also used DVC to keep track of different versions of our data and model files. This way, we can go back to any version we need. To repeat an experiment, we just load the right configuration and data version, making everything clear and easy to reproduce.
 
 ### Question 14
 
@@ -428,7 +428,7 @@ In addition, dealing with versions of different libraries specified in our requi
 >
 > Answer:
 
-For our project, we used a number of Google Cloud Platform (GCP) services strategically integrated into various tasks and workflows. Here's how we used these services:
+We used a number of Google Cloud Platform (GCP) services strategically integrated into various tasks and workflows. Here's how we used these services:
 
 - **Google Cloud Source Repositories**: We used this to create a Git repository that was fully integrated with other GCP services, ensuring all team members had access and version control was streamlined (M5).
 
@@ -436,11 +436,7 @@ For our project, we used a number of Google Cloud Platform (GCP) services strate
 
 - **Google Cloud Storage (GCS)**: We used GCS for data storage, which was linked to our data version control setups. It was critical for securely and efficiently storing large data sets, models, and training artifacts (M21).
 
-- **Vertex AI**: For training models directly in the cloud, with tried to implement Vertex AI which provided managed services for machine learning workflows that streamlined our model development and deployment processes (M21).
-
-- **Google Cloud capabilities**: Used as the backend for our FastAPI application, enabling lightweight, serverless computing that responds to requests on-demand (M23).
-
-- **Google Cloud Run**: An alternative to Cloud Functions for deploying containerized applications, providing flexibility and scalability for our API (M23).
+- **Google Cloud Run and capabilities**: Used as the backend for our FastAPI application, enabling lightweight, serverless computing that responds to requests on-demand (M23).
 
 - **Google Cloud Monitoring and Logging**: Integrated into our application to track system metrics and log events, enabling effective monitoring and alerting systems to ensure performance and reliability (M28).
 
@@ -623,7 +619,7 @@ However, the most intuitive and user-friendly solution was leveraging Google Clo
 >
 > Answer:
 
-We used a total of $3.21 on Compute Engine, which was the most expensive service. Minor costs were incurred for Networking ($0.15) and Cloud Storage ($0.05), but these were offset by promotions or discounts. Working in the cloud allowed us to scale our project efficiently and focus on development without worrying about infrastructure. It was a cost-effective way to manage resources and deploy applications.
+We used a total of $3.21 on Compute Engine, which was the most expensive service. Minor costs were incurred for Networking ($0.15) and Cloud Storage ($0.05), but these were offset by promotions or discounts. Working in the cloud allowed us to scale our project efficiently and focus on development without worrying about infrastructure. It was a cost-effective way to manage resources and deploy applications. Furthermore, working in the cloud also provided us with the oportunity to truly learn and feel first hand the true extent a Machine Learning project can go besides simple analysis, predictions or other model runs on our files. Also important to mention, we got to learn how important it is in a company or development environemnt.
 
 ### Question 28
 
@@ -655,7 +651,9 @@ We focused on meeting the project requirements and did not implement any additio
 > *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
-Overall Diagram: [this figure](figures/project_overview.png)
+
+ Overall Diagram: [this figure](figures/project_overview.png)
+ With this structure, which is shown above, we created a system that contains major tools that are important, even necessary, for development, in our case, machine learning development. This way, we tried to create a favorable balance that would try to achieve our intended outcome with this project.
 
  Our main area of working is our local setup, where we utilize tools like HYDRA for configuration management and Docker for containerization. This ensures reproducible development environments and facilitates easy transition to production.
  Furthermore, whenever code is committed to GitHub, it triggers a series of automated checks. Pre-commit hooks perform initial code quality checks before the code is even committed. Subsequently, GitHub Actions orchestrate a set of workflows that include data verification.
@@ -673,6 +671,8 @@ Overall Diagram: [this figure](figures/project_overview.png)
 > Answer:
 
 The biggest challenge in our project was setting up dependencies and resolving library conflicts, which delayed progress initially. We carefully updated the requirements.txt file, used virtual environments to isolate dependencies, and documented the setup process for efficiency. Learning new tools like DVC and Evidently for data versioning and drift detection was also time-consuming. We overcame these challenges by referring to documentation, collaborating as a team, and troubleshooting together. While the setup phase was time-intensive, it streamlined the rest of the project and ensured smoother progress.
+During the development of our project, we still encountered a few minor problems, usually connected to either miss comunications between our team members or situations that were out of our control, such as for example working on the same topic, trying to get the same outcome, however with different methods. Obviously this resulted on minor conflicts that was eventually resolved with no major problems, neither for us or for the projects outcome.
+Nevertheless, the later part of the project didn't come without it's own problems. Considering how much time and effort we put into this project, we truly feel intrigued about the unfortunate outcome of our cloud builds that unfortunately didn't run as good as we intended despite our efforts.
 
 ### Question 31
 
